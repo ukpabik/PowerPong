@@ -21,21 +21,24 @@ public class ADelegatingPongView implements DelegatingPongView{
 		
 		
 		//MAKE VIEWS FOR PLAYER ONE, TWO, AND THE BALL
-		ABallView ballView = new ABallView();
-		ARectangleView playerOneView = new PlayerOneView();
-		ARectangleView playerTwoView = new PlayerTwoView();
+		PointBallView ballView = new PointBallView();
+		PlayerOneView playerOneView = new PlayerOneView();
+		PlayerTwoView playerTwoView = new PlayerTwoView();
+		BackgroundView backView = new BackgroundView();
 		
 		//ADD VIEWS AS PAINTLISTENERS AND PROPERTY CHANGE LISTENERS
 		
 		painter.addPaintListener(playerOneView);
 		painter.addPaintListener(playerTwoView);
 		painter.addPaintListener(ballView);
+		painter.addPaintListener(backView);
 		
 		
 		
 		game.getPlayerOne().addPropertyChangeListener(playerOneView);
 		game.getPlayerTwo().addPropertyChangeListener(playerTwoView);
-		game.getBall().addPropertyChangeListener(ballView);
+		game.getPointBall().addPropertyChangeListener(ballView);
+		game.getBackground().addPropertyChangeListener(backView);
 		
 		
 		

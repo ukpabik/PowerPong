@@ -3,9 +3,9 @@ package shapes;
 import java.beans.PropertyChangeEvent;
 
 public class ACircle extends ABoundedShape implements Circle{
-
+	
+	public static final int DEFAULT_RADIUS = 20;
 	static final int 
-		DEFAULT_RADIUS = 50,
 		DEFAULT_X = 50,
 		DEFAULT_Y = 50
 	;
@@ -16,7 +16,8 @@ public class ACircle extends ABoundedShape implements Circle{
 		this(DEFAULT_RADIUS, DEFAULT_X, DEFAULT_Y);
 	}
 	public ACircle(int theRadius, int theX, int theY) {
-		this.radius = theRadius;
+		this.width = theRadius;
+		this.height = theRadius;
 		this.x = theX;
 		this.y = theY;
 	}

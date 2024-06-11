@@ -11,6 +11,10 @@ public interface GameDisplay {
 
 	public Rectangle getPlayerOne();
 
-	public Circle getBall();
+	public Circle getPointBall();
+
+	public Rectangle getBackground();
+
+	public void setBackgroundSize(int width, int height);
 
 }

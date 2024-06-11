@@ -26,7 +26,7 @@ public class PongFactory {
 	}
 	
 	
-	public static PongController pongControllerFactoryMethod() {
+	public static PongController pongControllerFactoryMethod(APongPainter painter) {
 		if (controller == null) {
 			controller = new APongController(pongPainterFactoryMethod());
 		}

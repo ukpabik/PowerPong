@@ -5,22 +5,22 @@ import java.beans.PropertyChangeEvent;
 
 import factory.PongFactory;
 import gui.GameDisplay;
+import shapes.Circle;
+import shapes.Rectangle;
 
-public class AShapeView implements ShapeView{
+public class AShapeView extends Views implements ShapeView{
 
-	APongPainter painter = PongFactory.pongPainterFactoryMethod();
-	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		painter.repaint();
-		
+	public void drawRectangle(Graphics2D graphics, Rectangle rect) {
+		graphics.drawRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+		System.out.println("Drawing: " + rect);
 	}
 	
 	@Override
-	public void paint(Graphics2D g) {
-		// TODO Auto-generated method stub
-		
+	public void drawBall(Graphics2D graphics, Circle circle) {
+		graphics.drawOval(circle.getX(), circle.getY(), circle.getWidth(), circle.getHeight());
+		System.out.println("Drawing: " + circle);
 	}
 
 

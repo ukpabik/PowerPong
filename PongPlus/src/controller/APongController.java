@@ -14,6 +14,7 @@ import view.APongPainter;
 public class APongController implements PongController{
 	public static final int MOVEMENT_LENGTH = 5;
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
+	
 	private Timer movementTimer;
 	boolean upPress = false;
     boolean downPress = false;
