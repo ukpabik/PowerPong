@@ -20,8 +20,6 @@ public class ACollisionChecker implements Collision{
 		int x6 = Math.min(x2, x4);
 		int y6 = Math.min(y2, y4);
 		
-		
-		//Check for overlap/intersection
 		if (x5 >= x6 || y5 >= y6) {
 			return false;
 		}

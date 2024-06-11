@@ -7,12 +7,13 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.Timer;
 
+import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
 import view.APongPainter;
 
 public class APongController implements PongController{
-	public static final int MOVEMENT_LENGTH = 5;
+	public static final int MOVEMENT_LENGTH = 3;
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
 	private Timer movementTimer;
@@ -23,6 +24,7 @@ public class APongController implements PongController{
 		sPress = false
 		
 	;
+	boolean rightPress = false;
 	
 	public APongController(APongPainter pongPainter) {
 		pongPainter.addKeyListener(this);
@@ -35,7 +37,8 @@ public class APongController implements PongController{
 		movementTimer = new Timer(1, new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				movePlayer();
+				movePlayerOne();
+				movePlayerTwo();
 			}
 		});
 		movementTimer.start();
@@ -100,6 +103,9 @@ public class APongController implements PongController{
 		case KeyEvent.VK_S:
 			sPress = true;
 			break;
+		case KeyEvent.VK_RIGHT:
+			rightPress = true;
+			break;
 		}
 	}
 
@@ -122,22 +128,47 @@ public class APongController implements PongController{
 		case KeyEvent.VK_S:
 			sPress = false;
 			break;
+		case KeyEvent.VK_RIGHT:
+			rightPress  = false;
+			break;
 		}
 	}
 	
-	private void movePlayer() {
+	private void movePlayerOne() {
+		int oldX = game.getPlayerOne().getX();
+		int oldY = game.getPlayerOne().getY();
 		if (upPress) {
+			
 			game.getPlayerOne().move(game.getPlayerOne().getX(), game.getPlayerOne().getY() - MOVEMENT_LENGTH);
 		}
 		if (downPress) {
 			game.getPlayerOne().move(game.getPlayerOne().getX(), game.getPlayerOne().getY() + MOVEMENT_LENGTH);
 		}
+		if (rightPress) {
+			game.getPlayerOne().move(game.getPlayerOne().getX() + MOVEMENT_LENGTH, game.getPlayerOne().getY());
+		}
+		if (ACollisionChecker.intersects(game.getPlayerOne(), game.getPlayerTwo())) {
+			game.getPlayerOne().move(oldX, oldY);
+		}
+		
+		
+		
+	}
+	private void movePlayerTwo() {
+		int oldX = game.getPlayerTwo().getX();
+		int oldY = game.getPlayerTwo().getY();
 		if (wPress) {
 			game.getPlayerTwo().move(game.getPlayerTwo().getX(), game.getPlayerTwo().getY() - MOVEMENT_LENGTH);
 		}
 		if (sPress) {
 			game.getPlayerTwo().move(game.getPlayerTwo().getX(), game.getPlayerTwo().getY() + MOVEMENT_LENGTH);
 		}
+		if (ACollisionChecker.intersects(game.getPlayerOne(), game.getPlayerTwo())) {
+			game.getPlayerTwo().move(oldX, oldY);
+		}
+		
+		
+		
 	}
 
 }
