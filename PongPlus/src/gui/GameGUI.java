@@ -24,8 +24,10 @@ public class GameGUI extends JFrame{
 		super("Pong Plus");
 		this.setSize(FRAME_X, FRAME_Y);
 		this.add(painter);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
+		
 		
 		
 		/*

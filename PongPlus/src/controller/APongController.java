@@ -14,12 +14,12 @@ import view.APongPainter;
 
 public class APongController implements PongController{
 	static final int 
-		MOVEMENT_LENGTH = 3,
-		COLLISION_DELAY = 1000
+		MOVEMENT_LENGTH = 8,
+		COLLISION_DELAY = 15
 	;
 	int 
-		ballXMovement = MOVEMENT_LENGTH,
-		ballYMovement = MOVEMENT_LENGTH
+		ballXMovement = 7,
+		ballYMovement = 7
 	;
 	private Timer movementTimer, collisionCheckTimer;
 	boolean 
@@ -49,6 +49,9 @@ public class APongController implements PongController{
 			}
 		});
 		movementTimer.start();
+		
+		
+		//ALLOWS TIME IN BETWEEN COLLISION CHECKS TO GIVE BOUNCE EFFECT
 		collisionCheckTimer = new Timer(COLLISION_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,20 +191,43 @@ public class APongController implements PongController{
 		int oldX = game.getPointBall().getX();
         int oldY = game.getPointBall().getY();
         
-        game.getPointBall().move(oldX + ballXMovement, oldY);
+        game.getPointBall().move(oldX + ballXMovement, oldY + ballYMovement);
 
+        
+        //ONLY CHANGE MOVEMENT IF YOU ARE ABLE TO CHECK COLLISION
         if (canCheckCollision) {
             if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerTwo())) {
-            	ballXMovement = -ballXMovement;
-                canCheckCollision = false;
-                collisionCheckTimer.restart(); // Restart the timer for the next collision check
-            } else if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerOne())) {
-            	ballXMovement = -ballXMovement;
-                canCheckCollision = false;
-                collisionCheckTimer.restart(); // Restart the timer for the next collision check
+            	negateXMovement();
+                
+                //CHECKS IF BALL HITS THE TOP OR BOTTOM OF THE PLAYER
+                if (game.getPointBall().getY() >= game.getPlayerTwo().getY() + game.getPlayerTwo().getHeight() / 2) {
+                	negateYMovement();
+                }
+            } 
+            else if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerOne())) {
+            	negateXMovement();
+            }
+            
+            //FOR TOP AND BOTTOM COLLISION 
+            else if (game.getPointBall().getY() <= 0) {
+            	negateYMovement();
+            }
+            else if (game.getPointBall().getY() >= game.getBotScreen()) {
+            	negateYMovement();
             }
         }
 		
+	}
+	
+	private void negateXMovement() {
+		ballXMovement = -ballXMovement;
+        canCheckCollision = false;
+        collisionCheckTimer.restart();
+	}
+	private void negateYMovement() {
+		ballYMovement  = -ballYMovement;
+    	canCheckCollision = false;
+        collisionCheckTimer.restart();
 	}
 
 }

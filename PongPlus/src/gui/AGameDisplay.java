@@ -12,6 +12,8 @@ public class AGameDisplay implements GameDisplay{
 	Rectangle playerOne, playerTwo, background;
 	Circle ball;
 	
+	public int topScreen, botScreen;
+	
 	
 	
 	public AGameDisplay() {
@@ -37,6 +39,11 @@ public class AGameDisplay implements GameDisplay{
 	@Override
 	public Rectangle getBackground() {
 		return background;
+	}
+	
+	@Override
+	public int getBotScreen() {
+		return botScreen;
 	}
 	
 	
@@ -71,6 +78,9 @@ public class AGameDisplay implements GameDisplay{
 		background.setWidth(backgroundWidth);
 		background.setX(0);
 		background.setY(0);
+		
+		topScreen = 0;
+		botScreen = backgroundHeight;
 		
 	}
 	

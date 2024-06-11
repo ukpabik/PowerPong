@@ -16,4 +16,6 @@ public interface GameDisplay {
 
 	public void setUpGame(int backgroundWidth, int backgroundHeight);
 
+	public int getBotScreen();
+
 }
