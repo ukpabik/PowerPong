@@ -5,7 +5,6 @@ import shapes.Rectangle;
 
 public interface GameDisplay {
 
-	public void setUpGame();
 
 	public Rectangle getPlayerTwo();
 
@@ -15,6 +14,6 @@ public interface GameDisplay {
 
 	public Rectangle getBackground();
 
-	public void setBackgroundSize(int width, int height);
+	public void setUpGame(int backgroundWidth, int backgroundHeight);
 
 }

@@ -19,7 +19,6 @@ public class AGameDisplay implements GameDisplay{
 		playerOne = new ARectangle();
 		playerTwo = new ARectangle();
 		background = new ARectangle();
-		setUpGame();
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class AGameDisplay implements GameDisplay{
 	
 	
 	@Override
-	public void setUpGame() {
+	public void setUpGame(int backgroundWidth, int backgroundHeight) {
 		
 		
 		/*
@@ -68,14 +67,11 @@ public class AGameDisplay implements GameDisplay{
 		ball.setX(playerOne.getX() + playerOne.getWidth() + 1);
 		ball.setY(middleCircleY);
 		
+		background.setHeight(backgroundHeight);
+		background.setWidth(backgroundWidth);
+		background.setX(0);
+		background.setY(0);
 		
-		
-	}
-	
-	@Override
-	public void setBackgroundSize(int width, int height) {
-		background.setHeight(height);
-		background.setWidth(width);
 	}
 	
 	

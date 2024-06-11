@@ -16,14 +16,22 @@ public class APongController implements PongController{
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
 	private Timer movementTimer;
-	boolean upPress = false;
-    boolean downPress = false;
+	boolean 
+		upPress = false, 
+		downPress = false,
+		wPress = false,
+		sPress = false
+		
+	;
 	
 	public APongController(APongPainter pongPainter) {
 		pongPainter.addKeyListener(this);
 		pongPainter.addMouseListener(this);
 		
-		//ALLOWS FOR SMOOTHER MOVEMENT IN HIGHER FRAMES
+		/*
+		 * ALLOWS FOR SMOOTHER MOVEMENT IN HIGHER FRAMES
+		 * THIS TIMER CHECKS FOR MOVEMENT EVERY MILLISECOND
+		 */
 		movementTimer = new Timer(1, new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -86,6 +94,12 @@ public class APongController implements PongController{
 		case KeyEvent.VK_DOWN: 
 			downPress = true;
 			break;
+		case KeyEvent.VK_W:
+			wPress = true;
+			break;
+		case KeyEvent.VK_S:
+			sPress = true;
+			break;
 		}
 	}
 
@@ -102,6 +116,12 @@ public class APongController implements PongController{
 		case KeyEvent.VK_DOWN: 
 			downPress = false;
 			break;
+		case KeyEvent.VK_W:
+			wPress = false;
+			break;
+		case KeyEvent.VK_S:
+			sPress = false;
+			break;
 		}
 	}
 	
@@ -111,6 +131,12 @@ public class APongController implements PongController{
 		}
 		if (downPress) {
 			game.getPlayerOne().move(game.getPlayerOne().getX(), game.getPlayerOne().getY() + MOVEMENT_LENGTH);
+		}
+		if (wPress) {
+			game.getPlayerTwo().move(game.getPlayerTwo().getX(), game.getPlayerTwo().getY() - MOVEMENT_LENGTH);
+		}
+		if (sPress) {
+			game.getPlayerTwo().move(game.getPlayerTwo().getX(), game.getPlayerTwo().getY() + MOVEMENT_LENGTH);
 		}
 	}
 

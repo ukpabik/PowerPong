@@ -1,8 +1,7 @@
 package gui;
 
-import java.awt.Color;
-
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import controller.PongController;
 import factory.PongFactory;
@@ -23,10 +22,20 @@ public class GameGUI extends JFrame{
 	
 	public GameGUI() {
 		super("Pong Plus");
-		
-		this.add(painter);
 		this.setSize(FRAME_X, FRAME_Y);
-		
+		this.add(painter);
+		this.setResizable(false);
 		this.setVisible(true);
+		
+		
+		/*
+		 * Creates the GUI before calculating the pane width and height
+		 * This ensures that these values are calculated correctly.
+		 */
+		SwingUtilities.invokeLater(() -> {
+            int contentPaneWidth = this.getContentPane().getWidth();
+            int contentPaneHeight = this.getContentPane().getHeight();
+            this.game.setUpGame(contentPaneWidth, contentPaneHeight);
+        });
 	}
 }
