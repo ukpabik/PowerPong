@@ -13,18 +13,24 @@ import gui.GameDisplay;
 import view.APongPainter;
 
 public class APongController implements PongController{
-	public static final int MOVEMENT_LENGTH = 3;
-	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
-	
-	private Timer movementTimer;
+	static final int 
+		MOVEMENT_LENGTH = 3,
+		COLLISION_DELAY = 1000
+	;
+	int 
+		ballXMovement = MOVEMENT_LENGTH,
+		ballYMovement = MOVEMENT_LENGTH
+	;
+	private Timer movementTimer, collisionCheckTimer;
 	boolean 
 		upPress = false, 
 		downPress = false,
 		wPress = false,
-		sPress = false
-		
+		sPress = false,
+		canCheckCollision = true,
+		rightPress = false
 	;
-	boolean rightPress = false;
+	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
 	public APongController(APongPainter pongPainter) {
 		pongPainter.addKeyListener(this);
@@ -39,9 +45,16 @@ public class APongController implements PongController{
 			public void actionPerformed(ActionEvent e) {
 				movePlayerOne();
 				movePlayerTwo();
+				moveBall();
 			}
 		});
 		movementTimer.start();
+		collisionCheckTimer = new Timer(COLLISION_DELAY, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canCheckCollision = true;
+            }
+        });
 		
 		
 	}
@@ -147,7 +160,7 @@ public class APongController implements PongController{
 		if (rightPress) {
 			game.getPlayerOne().move(game.getPlayerOne().getX() + MOVEMENT_LENGTH, game.getPlayerOne().getY());
 		}
-		if (ACollisionChecker.intersects(game.getPlayerOne(), game.getPlayerTwo())) {
+		if (ACollisionChecker.intersects(game.getPlayerOne(), game.getPointBall())) {
 			game.getPlayerOne().move(oldX, oldY);
 		}
 		
@@ -163,11 +176,31 @@ public class APongController implements PongController{
 		if (sPress) {
 			game.getPlayerTwo().move(game.getPlayerTwo().getX(), game.getPlayerTwo().getY() + MOVEMENT_LENGTH);
 		}
-		if (ACollisionChecker.intersects(game.getPlayerOne(), game.getPlayerTwo())) {
+		if (ACollisionChecker.intersects(game.getPlayerTwo(), game.getPointBall())) {
 			game.getPlayerTwo().move(oldX, oldY);
 		}
 		
 		
+		
+	}
+	
+	private void moveBall() {
+		int oldX = game.getPointBall().getX();
+        int oldY = game.getPointBall().getY();
+        
+        game.getPointBall().move(oldX + ballXMovement, oldY);
+
+        if (canCheckCollision) {
+            if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerTwo())) {
+            	ballXMovement = -ballXMovement;
+                canCheckCollision = false;
+                collisionCheckTimer.restart(); // Restart the timer for the next collision check
+            } else if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerOne())) {
+            	ballXMovement = -ballXMovement;
+                canCheckCollision = false;
+                collisionCheckTimer.restart(); // Restart the timer for the next collision check
+            }
+        }
 		
 	}
 
