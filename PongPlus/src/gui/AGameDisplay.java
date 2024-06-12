@@ -46,6 +46,10 @@ public class AGameDisplay implements GameDisplay{
 		return botScreen;
 	}
 	
+	@Override
+	public int getTopScreen() {
+		return topScreen;
+	}
 	
 	@Override
 	public void setUpGame(int backgroundWidth, int backgroundHeight) {

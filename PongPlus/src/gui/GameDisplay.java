@@ -18,4 +18,6 @@ public interface GameDisplay {
 
 	public int getBotScreen();
 
+	public int getTopScreen();
+
 }

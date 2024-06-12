@@ -27,8 +27,7 @@ public class APongController implements PongController{
 		downPress = false,
 		wPress = false,
 		sPress = false,
-		canCheckCollision = true,
-		rightPress = false
+		canCheckCollision = true
 	;
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
@@ -119,9 +118,6 @@ public class APongController implements PongController{
 		case KeyEvent.VK_S:
 			sPress = true;
 			break;
-		case KeyEvent.VK_RIGHT:
-			rightPress = true;
-			break;
 		}
 	}
 
@@ -144,13 +140,11 @@ public class APongController implements PongController{
 		case KeyEvent.VK_S:
 			sPress = false;
 			break;
-		case KeyEvent.VK_RIGHT:
-			rightPress  = false;
-			break;
 		}
 	}
 	
-	private void movePlayerOne() {
+	@Override
+	public void movePlayerOne() {
 		int oldX = game.getPlayerOne().getX();
 		int oldY = game.getPlayerOne().getY();
 		if (upPress) {
@@ -160,9 +154,6 @@ public class APongController implements PongController{
 		if (downPress) {
 			game.getPlayerOne().move(game.getPlayerOne().getX(), game.getPlayerOne().getY() + MOVEMENT_LENGTH);
 		}
-		if (rightPress) {
-			game.getPlayerOne().move(game.getPlayerOne().getX() + MOVEMENT_LENGTH, game.getPlayerOne().getY());
-		}
 		if (ACollisionChecker.intersects(game.getPlayerOne(), game.getPointBall())) {
 			game.getPlayerOne().move(oldX, oldY);
 		}
@@ -170,7 +161,10 @@ public class APongController implements PongController{
 		
 		
 	}
-	private void movePlayerTwo() {
+	
+	
+	@Override
+	public void movePlayerTwo() {
 		int oldX = game.getPlayerTwo().getX();
 		int oldY = game.getPlayerTwo().getY();
 		if (wPress) {
@@ -187,7 +181,8 @@ public class APongController implements PongController{
 		
 	}
 	
-	private void moveBall() {
+	@Override
+	public void moveBall() {
 		int oldX = game.getPointBall().getX();
         int oldY = game.getPointBall().getY();
         
@@ -206,10 +201,16 @@ public class APongController implements PongController{
             } 
             else if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerOne())) {
             	negateXMovement();
+            	
+            	
+            	//CHECKS IF BALL HITS THE TOP OR BOTTOM OF THE PLAYER
+                if (game.getPointBall().getY() >= game.getPlayerOne().getY() + game.getPlayerOne().getHeight() / 2) {
+                	negateYMovement();
+                }
             }
             
             //FOR TOP AND BOTTOM COLLISION 
-            else if (game.getPointBall().getY() <= 0) {
+            else if (game.getPointBall().getY() <= game.getTopScreen()) {
             	negateYMovement();
             }
             else if (game.getPointBall().getY() >= game.getBotScreen()) {

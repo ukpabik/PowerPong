@@ -3,6 +3,9 @@ package collision;
 import shapes.BoundedShape;
 
 public class ACollisionChecker implements Collision{
+	
+	
+	
 	public static boolean intersects(BoundedShape shape1, BoundedShape shape2) {
 		int x1 = shape1.getX();
 		int x2 = shape1.getX() + shape1.getWidth();
