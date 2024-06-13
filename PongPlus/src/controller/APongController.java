@@ -52,7 +52,7 @@ public class APongController implements PongController{
 			public void actionPerformed(ActionEvent e) {
 				movePlayer(game.getPlayerOne());
 				movePlayer(game.getPlayerTwo());
-				moveBall();
+				moveBall(game.getPointBall());
 			}
 		});
 		movementTimer.start();
@@ -180,7 +180,7 @@ public class APongController implements PongController{
 	
 	
 	@Override
-	public void moveBall() {
+	public void moveBall(BoundedShape ball) {
 		
 		//LOGIC FOR MOVING BALL
 		
@@ -192,37 +192,50 @@ public class APongController implements PongController{
         //ONLY MOVE BALL IF THE GAME HAS STARTED
         
         if (spacePress) {
-        	game.getPointBall().move(oldX + ballXMovement, oldY + ballYMovement);
+        	ball.move(oldX + ballXMovement, oldY + ballYMovement);
 
             
             //ONLY CHANGE MOVEMENT IF YOU ARE ABLE TO CHECK COLLISION
             if (canCheckCollision) {
-                if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerTwo())) {
+                if (ACollisionChecker.intersects(ball, game.getPlayerTwo())) {
                 	negateXMovement();
                     
                     //CHECKS IF BALL HITS THE TOP OR BOTTOM OF THE PLAYER
-                    if (game.getPointBall().getY() >= game.getPlayerTwo().getY() + game.getPlayerTwo().getHeight() / 2) {
+                    if (ball.getY() >= game.getPlayerTwo().getY() + game.getPlayerTwo().getHeight() / 2) {
                     	negateYMovement();
                     }
                 } 
-                else if (ACollisionChecker.intersects(game.getPointBall(), game.getPlayerOne())) {
+                else if (ACollisionChecker.intersects(ball, game.getPlayerOne())) {
                 	negateXMovement();
                 	
                 	
                 	//CHECKS IF BALL HITS THE TOP OR BOTTOM OF THE PLAYER
-                    if (game.getPointBall().getY() >= game.getPlayerOne().getY() + game.getPlayerOne().getHeight() / 2) {
+                    if (ball.getY() >= game.getPlayerOne().getY() + game.getPlayerOne().getHeight() / 2) {
                     	negateYMovement();
                     }
                 }
                 
                 //FOR TOP AND BOTTOM COLLISION 
-                else if (game.getPointBall().getY() <= game.getTopScreen()) {
+                else if (ball.getY() <= game.getTopScreen()) {
                 	negateYMovement();
                 }
-                else if (game.getPointBall().getY() >= game.getBotScreen()) {
+                else if (ball.getY() >= game.getBotScreen()) {
                 	negateYMovement();
                 }
             }
+            
+            
+            //IF BALL GOES ONTO PLAYER TWO'S SIDE
+            if (ball.getX() >= game.getRightScreen()) {
+            	game.scored(game.getPlayerOne());
+            	spacePress = false;
+    		}
+    		
+            //IF BALL GOES ONTO PLAYER ONE'S SIDE
+    		else if (ball.getX() <= game.getLeftScreen()) {
+    			game.scored(game.getPlayerTwo());
+    			spacePress = false;
+    		}
         }
 		
 	}
@@ -249,6 +262,15 @@ public class APongController implements PongController{
 	        }
 	    }
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*

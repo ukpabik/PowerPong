@@ -23,4 +23,10 @@ public interface GameDisplay {
 
 	public void setPlayerAndBall();
 
+	public int getRightScreen();
+
+	public int getLeftScreen();
+
+	public void scored(Player player);
+
 }

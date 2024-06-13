@@ -2,21 +2,18 @@ package gui;
 
 import shapes.Player;
 
-public class Points implements PointSystem{
+public class Points implements PointSystem {
 	static Player lastScoringPlayer;
 	
-	@Override
-	public void addPoints(Player p) {
+	public static void addPoints(Player p) {
 		p.setPoints(p.getPoints() + 1);
 	}
 	
-	@Override
-	public void removePoints(Player p) {
+	public static void removePoints(Player p) {
 		p.setPoints(p.getPoints() - 1);
 	}
 	
-	@Override
-	public void resetPoints(GameDisplay game) {
+	public static void resetPoints(GameDisplay game) {
 		game.getPlayerOne().setPoints(0);
 		game.getPlayerTwo().setPoints(0);
 	}

@@ -9,12 +9,14 @@ import shapes.Player;
 import shapes.Rectangle;
 
 public class AGameDisplay implements GameDisplay{
+	static final int PLAYER_TWO_OFFSET = 2;
+	
 	
 	Rectangle background;
 	Player playerOne, playerTwo;
 	Circle ball;
 	
-	public int topScreen, botScreen;
+	public int topScreen, botScreen, leftScreen, rightScreen;
 	
 	
 	
@@ -54,8 +56,21 @@ public class AGameDisplay implements GameDisplay{
 	}
 	
 	@Override
+	public int getRightScreen() {
+		return rightScreen;
+	}
+	
+	@Override
+	public int getLeftScreen() {
+		return leftScreen;
+	}
+	
+	@Override
 	public void setUpGame(int backgroundWidth, int backgroundHeight) {
 		
+		
+		//SETS THE BALL TO START ON PLAYER ONE
+		Points.setLastScoringPlayer(playerOne);
 		
 		/*
 		 * SETTING UP THE VALUES FOR THE RECTANGLES
@@ -70,9 +85,11 @@ public class AGameDisplay implements GameDisplay{
 		background.setY(0);
 		
 		
-		//STORING VALUES FOR THE TOP AND BOTTOM OF SCREEN FOR COLLISION
+		//STORING VALUES FOR THE SIDES OF THE SCREEN FOR COLLISION
 		topScreen = 0;
 		botScreen = backgroundHeight;
+		leftScreen = 0;
+		rightScreen = backgroundWidth;
 		
 	}
 	
@@ -94,11 +111,27 @@ public class AGameDisplay implements GameDisplay{
 		 * SETTING UP THE VALUES FOR THE BALL
 		 */
 		
+		if (Points.getLastScoringPlayer().equals(playerOne)) {
+			ball.setX(Points.getLastScoringPlayer().getX() + Points.getLastScoringPlayer().getWidth());
+		}
+		else {
+			ball.setX(Points.getLastScoringPlayer().getX() - Points.getLastScoringPlayer().getWidth() - PLAYER_TWO_OFFSET);
+		}
 		
-		//TODO: CHANGE PLAYERONE TO THE LAST SCORING PLAYER
-		ball.setX(playerOne.getX() + playerOne.getWidth() + 1);
 		ball.setY(middleCircleY);
 	}
+	
+	
+	
+	@Override
+	public void scored(Player player) {
+		Points.addPoints(player);
+		Points.setLastScoringPlayer(player);
+		setPlayerAndBall();
+	}
+	
+	
+	
 	
 	
 	

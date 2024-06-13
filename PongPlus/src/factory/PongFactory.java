@@ -5,6 +5,7 @@ import controller.APongController;
 import controller.PongController;
 import gui.AGameDisplay;
 import gui.GameDisplay;
+import gui.Points;
 import view.ADelegatingPongView;
 import view.APongPainter;
 import view.DelegatingPongView;
