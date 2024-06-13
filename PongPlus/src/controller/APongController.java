@@ -10,6 +10,7 @@ import javax.swing.Timer;
 import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
+import gui.Points;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
@@ -234,15 +235,16 @@ public class APongController implements PongController{
 	
 	@Override
 	public void movePlayerAndBall(Player player, BoundedShape ball, boolean moveUp, boolean moveDown) {
+		
 	    if (moveUp) {
 	        player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
-	        if (!spacePress) {
+	        if (!spacePress && player.equals(Points.getLastScoringPlayer())) {
 	            ball.move(ball.getX(), ball.getY() - MOVEMENT_LENGTH);
 	        }
 	    }
 	    if (moveDown) {
 	        player.move(player.getX(), player.getY() + MOVEMENT_LENGTH);
-	        if (!spacePress) {
+	        if (!spacePress && player.equals(Points.getLastScoringPlayer())) {
 	        	ball.move(ball.getX(), ball.getY() + MOVEMENT_LENGTH);
 	        }
 	    }

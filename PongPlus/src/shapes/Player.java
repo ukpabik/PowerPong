@@ -4,6 +4,6 @@ public interface Player extends Rectangle{
 
 	public int getPoints();
 
-	public void increasePoints();
+	public void setPoints(int points);
 
 }

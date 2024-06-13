@@ -18,9 +18,10 @@ public class APlayer extends ARectangle implements Player{
 	}
 	
 	@Override
-	public void increasePoints() {
-		points++;
+	public void setPoints(int newPoints) {
+		this.points = newPoints;
 	}
+	
 	
 	
 }

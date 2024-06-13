@@ -61,6 +61,23 @@ public class AGameDisplay implements GameDisplay{
 		 * SETTING UP THE VALUES FOR THE RECTANGLES
 		 */
 		
+		setPlayerAndBall();
+		
+		//SETTING BACKGROUND TO THE CONTENTPANE SIZE
+		background.setHeight(backgroundHeight);
+		background.setWidth(backgroundWidth);
+		background.setX(0);
+		background.setY(0);
+		
+		
+		//STORING VALUES FOR THE TOP AND BOTTOM OF SCREEN FOR COLLISION
+		topScreen = 0;
+		botScreen = backgroundHeight;
+		
+	}
+	
+	@Override
+	public void setPlayerAndBall() {
 		//Offsets the x values based off of the width of both players
 		int widthOffset = playerTwo.getWidth() + playerOne.getWidth();
 		int playerTwoX = GameGUI.FRAME_X - playerOne.getX() - widthOffset;
@@ -77,20 +94,10 @@ public class AGameDisplay implements GameDisplay{
 		 * SETTING UP THE VALUES FOR THE BALL
 		 */
 		
+		
+		//TODO: CHANGE PLAYERONE TO THE LAST SCORING PLAYER
 		ball.setX(playerOne.getX() + playerOne.getWidth() + 1);
 		ball.setY(middleCircleY);
-		
-		//SETTING BACKGROUND TO THE CONTENTPANE SIZE
-		background.setHeight(backgroundHeight);
-		background.setWidth(backgroundWidth);
-		background.setX(0);
-		background.setY(0);
-		
-		
-		//STORING VALUES FOR THE TOP AND BOTTOM OF SCREEN FOR COLLISION
-		topScreen = 0;
-		botScreen = backgroundHeight;
-		
 	}
 	
 	
