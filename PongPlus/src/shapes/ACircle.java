@@ -1,6 +1,5 @@
 package shapes;
 
-import java.beans.PropertyChangeEvent;
 
 public class ACircle extends ABoundedShape implements Circle{
 	
@@ -29,7 +28,6 @@ public class ACircle extends ABoundedShape implements Circle{
 	
 	@Override
 	public void setRadius(int newRadius) {
-		double oldRadius = this.radius;
 		this.radius = newRadius;
 		setHeight(newRadius);
 		setWidth(newRadius);

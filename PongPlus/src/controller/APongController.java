@@ -10,11 +10,9 @@ import javax.swing.Timer;
 import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
-import gui.Points;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
-import view.PongPainter;
 
 public class APongController implements PongController{
 	static final int 
@@ -29,22 +27,26 @@ public class APongController implements PongController{
 		ballXMovement = MAX_BALL_MOVEMENT,
 		ballYMovement = MAX_BALL_MOVEMENT
 	;
-	private Timer collisionCheckTimer;
 	boolean 
 		upPress = false, 
 		downPress = false,
 		wPress = false,
 		sPress = false,
 		canCheckCollision = true,
-		spacePress = false,
 		running = false
 	;
 	Thread gameThread;
-	long lastCollisionTime = 0;
+	
+	
+	private Timer collisionCheckTimer;
+	private int justScoredCounter, ballCounter;
+	private boolean justScored, gameStarted = false;
+	
 	
 	 
 	APongPainter painter = PongFactory.pongPainterFactoryMethod();
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
+
 	
 	
 	public APongController(APongPainter pongPainter) {
@@ -74,6 +76,28 @@ public class APongController implements PongController{
 	public void run() {
 		while (running) {
 			long startTime = System.nanoTime();
+			
+			
+			
+			/*
+			 * DELAY THE BALL FROM MOVING UNTIL THE GAME HAS BEGUN
+			 * OR A SECOND AFTER THE PLAYER SCORES
+			 */
+			if (!gameStarted) {
+				ballCounter++;
+				if (ballCounter >= (1000 / UPDATE_INTERVAL)) {
+					ballCounter = 0;
+					gameStarted = true;
+				}
+			}
+			else if (justScored) {
+				justScoredCounter++;
+				if (justScoredCounter >= (1000 / UPDATE_INTERVAL)) {
+					justScoredCounter = 0;
+					justScored = false;
+				}
+			}
+			
 			movePlayer(game.getPlayerOne());
             movePlayer(game.getPlayerTwo());
             moveBall(game.getPointBall());
@@ -150,9 +174,6 @@ public class APongController implements PongController{
 			sPress = true;
 			break;
 			
-		case KeyEvent.VK_SPACE:
-			spacePress = true;
-			break;
 		}
 	}
 
@@ -209,7 +230,7 @@ public class APongController implements PongController{
         
         //ONLY MOVE BALL IF THE GAME HAS STARTED
         
-        if (spacePress) {
+        if (running && gameStarted && !justScored) {
         	ball.move(oldX + ballXMovement, oldY + ballYMovement);
 
             
@@ -255,14 +276,14 @@ public class APongController implements PongController{
             //IF BALL GOES ONTO PLAYER TWO'S SIDE
             if (ball.getX() >= game.getRightScreen()) {
             	game.scored(game.getPlayerOne());
-            	spacePress = false;
+            	justScored = true;
             	
     		}
     		
             //IF BALL GOES ONTO PLAYER ONE'S SIDE
     		else if (ball.getX() <= game.getLeftScreen()) {
     			game.scored(game.getPlayerTwo());
-    			spacePress = false;
+    			justScored = true;
     		}
         }
 		

@@ -1,6 +1,5 @@
 package shapes;
 
-import java.beans.PropertyChangeListener;
 
 public class ALocatable extends ASetCoordinates implements Locatable{
 	

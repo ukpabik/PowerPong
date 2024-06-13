@@ -9,6 +9,7 @@ import java.util.List;
 
 import listeners.PaintListener;
 
+@SuppressWarnings("serial")
 public class APongPainter extends Component implements PongPainter{
 	protected List<PaintListener> paintListeners = new ArrayList<>();
 	

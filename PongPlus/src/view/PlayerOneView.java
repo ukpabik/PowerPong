@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Graphics2D;
 
-import gui.AGameDisplay;
 
 public class PlayerOneView extends AShapeView{
 	@Override

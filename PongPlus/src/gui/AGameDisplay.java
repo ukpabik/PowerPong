@@ -71,13 +71,17 @@ public class AGameDisplay implements GameDisplay{
 	
 	@Override
 	public void setUpGame(int backgroundWidth, int backgroundHeight) {
-		
+		//STORING VALUES FOR THE SIDES OF THE SCREEN FOR COLLISION
+		topScreen = 0;
+		botScreen = backgroundHeight;
+		leftScreen = 0;
+		rightScreen = backgroundWidth;
 		
 		//SETS THE BALL TO START ON PLAYER ONE
 		Points.setLastScoringPlayer(playerOne);
 		
 		/*
-		 * SETTING UP THE VALUES FOR THE RECTANGLES
+		 * SETTING UP THE VALUES FOR THE PLAYERS AND BALL
 		 */
 		
 		setPlayerAndBall();
@@ -89,11 +93,7 @@ public class AGameDisplay implements GameDisplay{
 		background.setY(0);
 		
 		
-		//STORING VALUES FOR THE SIDES OF THE SCREEN FOR COLLISION
-		topScreen = 0;
-		botScreen = backgroundHeight;
-		leftScreen = 0;
-		rightScreen = backgroundWidth;
+		
 		
 	}
 	
@@ -114,15 +114,10 @@ public class AGameDisplay implements GameDisplay{
 		/*
 		 * SETTING UP THE VALUES FOR THE BALL
 		 */
+		ball.setX(leftScreen + rightScreen / 2);
 		
-		if (Points.getLastScoringPlayer().equals(playerOne)) {
-			ball.setX(Points.getLastScoringPlayer().getX() + Points.getLastScoringPlayer().getWidth());
-		}
-		else {
-			ball.setX(Points.getLastScoringPlayer().getX() - Points.getLastScoringPlayer().getWidth() - PLAYER_TWO_OFFSET);
-		}
-		
-		ball.setY(middleCircleY);
+		ball.setY(topScreen);
+		System.out.println(rightScreen);
 	}
 	
 	

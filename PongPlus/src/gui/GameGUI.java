@@ -8,6 +8,7 @@ import factory.PongFactory;
 import view.APongPainter;
 import view.DelegatingPongView;
 
+@SuppressWarnings("serial")
 public class GameGUI extends JFrame{
 	public static final int 
 		FRAME_X = 1000,

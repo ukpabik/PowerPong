@@ -3,7 +3,6 @@ package shapes;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import gui.GameDisplay;
 
 public class ABoundedShape extends ALocatable implements BoundedShape{
 	
