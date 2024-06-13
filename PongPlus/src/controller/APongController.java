@@ -18,11 +18,12 @@ import view.PongPainter;
 
 public class APongController implements PongController{
 	static final int 
-		MOVEMENT_LENGTH = 3,
+		MOVEMENT_LENGTH = 5,
 		COLLISION_DELAY = 15,
-		MAX_BALL_MOVEMENT = 3,
-		MIN_BALL_MOVEMENT = 1,
-		UPDATE_INTERVAL = 4
+		MAX_BALL_MOVEMENT = 4,
+		MIN_BALL_MOVEMENT = 2,
+		UPDATE_INTERVAL = 4,
+		THREAD_DIVISOR = 1000000
 	;
 	static int 
 		ballXMovement = MAX_BALL_MOVEMENT,
@@ -49,20 +50,6 @@ public class APongController implements PongController{
 	public APongController(APongPainter pongPainter) {
 		pongPainter.addKeyListener(this);
 		pongPainter.addMouseListener(this);
-		
-//		/*
-//		 * ALLOWS FOR SMOOTHER MOVEMENT IN HIGHER FRAMES
-//		 * THIS TIMER CHECKS FOR MOVEMENT EVERY MILLISECOND
-//		 */
-//		movementTimer = new Timer(UPDATE_INTERVAL, new ActionListener() { 
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				movePlayer(game.getPlayerOne());
-//				movePlayer(game.getPlayerTwo());
-//				moveBall(game.getPointBall());
-//			}
-//		});
-//		movementTimer.start();
 		
 		
 		//ALLOWS TIME IN BETWEEN COLLISION CHECKS TO GIVE BOUNCE EFFECT
@@ -197,20 +184,16 @@ public class APongController implements PongController{
 		 * STORE OLD X AND Y VALUES TO KEEP OBJECTS FROM GOING INSIDE
 		 * EACH OTHER.
 		 */
-		int oldX = player.getX();
-		int oldY = player.getY();
-		
 		
 		if (player.equals(game.getPlayerOne())) {
-			movePlayerAndBall(player, game.getPointBall(), upPress, downPress);
+			moveSpecificPlayer(player, upPress, downPress);
 		}
 		else if (player.equals(game.getPlayerTwo())) {
-			movePlayerAndBall(player, game.getPointBall(), wPress, sPress);
+			moveSpecificPlayer(player, wPress, sPress);
 		}
 		
-		if (ACollisionChecker.intersects(player, game.getPointBall())) {
-			player.move(oldX, oldY);
-		}
+		
+		
 	}
 	
 	
@@ -263,7 +246,7 @@ public class APongController implements PongController{
                 else if (ball.getY() <= game.getTopScreen()) {
                 	changeYSign(1);
                 }
-                else if (ball.getY() >= game.getBotScreen()) {
+                else if (ball.getY() + ball.getHeight() >= game.getBotScreen()) {
                 	changeYSign(-1);
                 }
             }
@@ -288,24 +271,32 @@ public class APongController implements PongController{
 	
 	
 	/*
-	 * METHOD THAT HELPS WITH MOVING BALL AND PLAYER TOGETHER
+	 * METHOD THAT COMBINES MOVEMENT OF PLAYER ONE AND TWO INTO ONE METHOD
 	 */
 	
 	@Override
-	public void movePlayerAndBall(Player player, BoundedShape ball, boolean moveUp, boolean moveDown) {
+	public void moveSpecificPlayer(Player player, boolean moveUp, boolean moveDown) {
+		int oldX = player.getX();
+		int oldY = player.getY();
 		
 	    if (moveUp) {
 	        player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
-	        if (!spacePress && player.equals(Points.getLastScoringPlayer())) {
-	            ball.move(ball.getX(), ball.getY() - MOVEMENT_LENGTH);
-	        }
 	    }
 	    if (moveDown) {
 	        player.move(player.getX(), player.getY() + MOVEMENT_LENGTH);
-	        if (!spacePress && player.equals(Points.getLastScoringPlayer())) {
-	        	ball.move(ball.getX(), ball.getY() + MOVEMENT_LENGTH);
-	        }
 	    }
+	    
+	    //HANDLES IF PLAYER REACHES TOP OR BOTTOM OF SCREEN
+	    if (player.getY() <= game.getTopScreen()) {
+			player.move(oldX, oldY);
+		}
+	    if (player.getY() + player.getHeight() >= game.getBotScreen()) {
+	    	player.move(oldX, oldY);
+	    }
+	    
+	    if (ACollisionChecker.intersects(player, game.getPointBall())) {
+			player.move(oldX, oldY);
+		}
 	}
 	
 	
