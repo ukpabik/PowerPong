@@ -10,6 +10,7 @@ import javax.swing.Timer;
 import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
+import shapes.BoundedShape;
 import view.APongPainter;
 
 public class APongController implements PongController{
@@ -43,8 +44,8 @@ public class APongController implements PongController{
 		movementTimer = new Timer(1, new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				movePlayerOne();
-				movePlayerTwo();
+				movePlayer(game.getPlayerOne());
+				movePlayer(game.getPlayerTwo());
 				moveBall();
 			}
 		});
@@ -149,60 +150,41 @@ public class APongController implements PongController{
 	}
 	
 	@Override
-	public void movePlayerOne() {
-		
-		
-		
-		// LOGIC FOR MOVING PLAYER ONE
-		
+	public void movePlayer(BoundedShape player) {
 		
 		/*
 		 * STORE OLD X AND Y VALUES TO KEEP OBJECTS FROM GOING INSIDE
 		 * EACH OTHER.
 		 */
-		int oldX = game.getPlayerOne().getX();
-		int oldY = game.getPlayerOne().getY();
-		if (upPress) {
-			
-			game.getPlayerOne().move(game.getPlayerOne().getX(), game.getPlayerOne().getY() - MOVEMENT_LENGTH);
+		int oldX = player.getX();
+		int oldY = player.getY();
+		
+		
+		if (player.equals(game.getPlayerOne())) {
+			if (upPress) {
+				
+				player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
+			}
+			if (downPress) {
+				player.move(player.getX(), player.getY() + MOVEMENT_LENGTH);
+			}
 		}
-		if (downPress) {
-			game.getPlayerOne().move(game.getPlayerOne().getX(), game.getPlayerOne().getY() + MOVEMENT_LENGTH);
-		}
-		if (ACollisionChecker.intersects(game.getPlayerOne(), game.getPointBall())) {
-			game.getPlayerOne().move(oldX, oldY);
+		else if (player.equals(game.getPlayerTwo())) {
+			if (wPress) {
+				
+				player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
+			}
+			if (sPress) {
+				player.move(player.getX(), player.getY() + MOVEMENT_LENGTH);
+			}	
 		}
 		
 		
-		
+		if (ACollisionChecker.intersects(player, game.getPointBall())) {
+			player.move(oldX, oldY);
+		}
 	}
 	
-	
-	@Override
-	public void movePlayerTwo() {
-		
-		// LOGIC FOR MOVING PLAYER TWO
-		
-		
-		/*
-		 * STORE OLD X AND Y VALUES TO KEEP OBJECTS FROM GOING INSIDE
-		 * EACH OTHER.
-		 */
-		int oldX = game.getPlayerTwo().getX();
-		int oldY = game.getPlayerTwo().getY();
-		if (wPress) {
-			game.getPlayerTwo().move(game.getPlayerTwo().getX(), game.getPlayerTwo().getY() - MOVEMENT_LENGTH);
-		}
-		if (sPress) {
-			game.getPlayerTwo().move(game.getPlayerTwo().getX(), game.getPlayerTwo().getY() + MOVEMENT_LENGTH);
-		}
-		if (ACollisionChecker.intersects(game.getPlayerTwo(), game.getPointBall())) {
-			game.getPlayerTwo().move(oldX, oldY);
-		}
-		
-		
-		
-	}
 	
 	@Override
 	public void moveBall() {
