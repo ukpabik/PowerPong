@@ -1,5 +1,7 @@
 package shapes;
 
+import java.beans.PropertyChangeEvent;
+
 public class APlayer extends ARectangle implements Player{
 
 	
@@ -19,7 +21,9 @@ public class APlayer extends ARectangle implements Player{
 	
 	@Override
 	public void setPoints(int newPoints) {
+		int oldPoints = this.points;
 		this.points = newPoints;
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "points", oldPoints, newPoints));
 	}
 	
 	

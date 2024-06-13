@@ -8,9 +8,13 @@ import shapes.ARectangle;
 import shapes.Circle;
 import shapes.Player;
 import shapes.Rectangle;
-
+ 
 public class AGameDisplay implements GameDisplay{
-	static final int PLAYER_TWO_OFFSET = 3;
+	
+	public static final int PLAYER_TWO_OFFSET = 3;
+			
+			
+			
 	
 	Rectangle background;
 	Player playerOne, playerTwo;

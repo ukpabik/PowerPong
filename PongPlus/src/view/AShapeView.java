@@ -1,17 +1,22 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.beans.PropertyChangeEvent;
 
-import factory.PongFactory;
-import gui.GameDisplay;
 import shapes.Circle;
+import shapes.Player;
 import shapes.Rectangle;
 
 public class AShapeView extends Views implements ShapeView{
-
+	
+	public static final int 
+		PLACEMENT_VALUE = 5,
+		PLAYER_TWO_X_OFFSET = 35
+	;
+	
+	static final Color transparent = new Color(255, 255, 255, 128);
+	static final Font pointFont = new Font("Calibri", Font.BOLD, 128);
 	
 	@Override
 	public void drawRectangle(Graphics2D graphics, Rectangle rect) {
@@ -35,6 +40,20 @@ public class AShapeView extends Views implements ShapeView{
 	     
 	    graphics.fillRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 		
+	}
+	
+	@Override
+	public void drawPoints(Graphics2D graphics, Player p) {
+		graphics.setFont(pointFont);
+		graphics.setColor(transparent);
+		if (p.equals(game.getPlayerOne())){
+			graphics.drawString("" + p.getPoints(), game.getLeftScreen() + game.getRightScreen() / PLACEMENT_VALUE, 
+					game.getTopScreen() + game.getBotScreen() / PLACEMENT_VALUE);
+		}
+		else if (p.equals(game.getPlayerTwo())) {
+			graphics.drawString("" + p.getPoints(), game.getRightScreen() - game.getRightScreen() / PLACEMENT_VALUE - PLAYER_TWO_X_OFFSET, 
+					game.getTopScreen() + game.getBotScreen() / PLACEMENT_VALUE);
+		}
 	}
 
 
