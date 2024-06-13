@@ -161,24 +161,11 @@ public class APongController implements PongController{
 		
 		
 		if (player.equals(game.getPlayerOne())) {
-			if (upPress) {
-				
-				player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
-			}
-			if (downPress) {
-				player.move(player.getX(), player.getY() + MOVEMENT_LENGTH);
-			}
+			movePlayerAndBall(player, game.getPointBall(), upPress, downPress);
 		}
 		else if (player.equals(game.getPlayerTwo())) {
-			if (wPress) {
-				
-				player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
-			}
-			if (sPress) {
-				player.move(player.getX(), player.getY() + MOVEMENT_LENGTH);
-			}	
+			movePlayerAndBall(player, game.getPointBall(), wPress, sPress);
 		}
-		
 		
 		if (ACollisionChecker.intersects(player, game.getPointBall())) {
 			player.move(oldX, oldY);
@@ -232,6 +219,28 @@ public class APongController implements PongController{
             }
         }
 		
+	}
+	
+	
+	
+	/*
+	 * METHOD THAT HELPS WITH MOVING BALL AND PLAYER TOGETHER
+	 */
+	
+	@Override
+	public void movePlayerAndBall(BoundedShape player, BoundedShape ball, boolean moveUp, boolean moveDown) {
+	    if (moveUp) {
+	        player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
+	        if (!spacePress) {
+	            ball.move(ball.getX(), ball.getY() - MOVEMENT_LENGTH);
+	        }
+	    }
+	    if (moveDown) {
+	        player.move(player.getX(), player.getY() + MOVEMENT_LENGTH);
+	        if (!spacePress) {
+	        	ball.move(ball.getX(), ball.getY() + MOVEMENT_LENGTH);
+	        }
+	    }
 	}
 	
 	
