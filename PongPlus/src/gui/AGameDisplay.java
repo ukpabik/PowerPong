@@ -78,11 +78,14 @@ public class AGameDisplay implements GameDisplay{
 		ball.setX(playerOne.getX() + playerOne.getWidth() + 1);
 		ball.setY(middleCircleY);
 		
+		//SETTING BACKGROUND TO THE CONTENTPANE SIZE
 		background.setHeight(backgroundHeight);
 		background.setWidth(backgroundWidth);
 		background.setX(0);
 		background.setY(0);
 		
+		
+		//STORING VALUES FOR THE TOP AND BOTTOM OF SCREEN FOR COLLISION
 		topScreen = 0;
 		botScreen = backgroundHeight;
 		
