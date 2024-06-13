@@ -11,6 +11,7 @@ import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
 import shapes.BoundedShape;
+import shapes.Player;
 import view.APongPainter;
 
 public class APongController implements PongController{
@@ -31,7 +32,11 @@ public class APongController implements PongController{
 		canCheckCollision = true,
 		spacePress = false
 	;
+	
+	 
+	
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
+	
 	
 	public APongController(APongPainter pongPainter) {
 		pongPainter.addKeyListener(this);
@@ -150,7 +155,7 @@ public class APongController implements PongController{
 	}
 	
 	@Override
-	public void movePlayer(BoundedShape player) {
+	public void movePlayer(Player player) {
 		
 		/*
 		 * STORE OLD X AND Y VALUES TO KEEP OBJECTS FROM GOING INSIDE
@@ -228,7 +233,7 @@ public class APongController implements PongController{
 	 */
 	
 	@Override
-	public void movePlayerAndBall(BoundedShape player, BoundedShape ball, boolean moveUp, boolean moveDown) {
+	public void movePlayerAndBall(Player player, BoundedShape ball, boolean moveUp, boolean moveDown) {
 	    if (moveUp) {
 	        player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
 	        if (!spacePress) {

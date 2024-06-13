@@ -1,14 +1,15 @@
 package gui;
 
 import shapes.Circle;
+import shapes.Player;
 import shapes.Rectangle;
 
 public interface GameDisplay {
 
 
-	public Rectangle getPlayerTwo();
+	public Player getPlayerTwo();
 
-	public Rectangle getPlayerOne();
+	public Player getPlayerOne();
 
 	public Circle getPointBall();
 

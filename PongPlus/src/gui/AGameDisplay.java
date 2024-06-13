@@ -2,14 +2,16 @@ package gui;
 
 
 import shapes.ACircle;
+import shapes.APlayer;
 import shapes.ARectangle;
 import shapes.Circle;
+import shapes.Player;
 import shapes.Rectangle;
 
 public class AGameDisplay implements GameDisplay{
 	
-	
-	Rectangle playerOne, playerTwo, background;
+	Rectangle background;
+	Player playerOne, playerTwo;
 	Circle ball;
 	
 	public int topScreen, botScreen;
@@ -18,17 +20,17 @@ public class AGameDisplay implements GameDisplay{
 	
 	public AGameDisplay() {
 		ball = new ACircle();
-		playerOne = new ARectangle();
-		playerTwo = new ARectangle();
+		playerOne = new APlayer();
+		playerTwo = new APlayer();
 		background = new ARectangle();
 	}
 
 	@Override
-	public Rectangle getPlayerOne() {
+	public Player getPlayerOne() {
 		return playerOne;
 	}
 	@Override
-	public Rectangle getPlayerTwo() {
+	public Player getPlayerTwo() {
 		return playerTwo;
 	}
 	@Override
