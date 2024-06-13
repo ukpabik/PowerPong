@@ -10,8 +10,8 @@ import view.DelegatingPongView;
 
 public class GameGUI extends JFrame{
 	public static final int 
-		FRAME_X = 800,
-		FRAME_Y = 800
+		FRAME_X = 1000,
+		FRAME_Y = 1000
 	;
 	
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();

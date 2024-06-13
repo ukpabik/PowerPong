@@ -4,7 +4,7 @@ import java.beans.PropertyChangeEvent;
 
 public class ACircle extends ABoundedShape implements Circle{
 	
-	public static final int DEFAULT_RADIUS = 20;
+	public static final int DEFAULT_RADIUS = 10;
 	static final int 
 		DEFAULT_X = 50,
 		DEFAULT_Y = 50

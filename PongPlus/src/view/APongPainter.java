@@ -22,6 +22,7 @@ public class APongPainter extends Component implements PongPainter{
         super.paint(g);
 
         Graphics2D g2 = (Graphics2D) g;
+        
         for (PaintListener p : paintListeners) {
 
             p.paint(g2);

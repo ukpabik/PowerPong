@@ -7,7 +7,7 @@ public class BackgroundView extends AShapeView{
 
 	@Override
 	public void paint(Graphics2D g) {
-		this.drawRectangle(g, game.getBackground());
+		this.drawBackground(g, game.getBackground());
 	}
 	
 }

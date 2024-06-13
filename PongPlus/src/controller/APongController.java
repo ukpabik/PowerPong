@@ -17,10 +17,10 @@ import view.APongPainter;
 
 public class APongController implements PongController{
 	static final int 
-		MOVEMENT_LENGTH = 8,
+		MOVEMENT_LENGTH = 12,
 		COLLISION_DELAY = 15,
-		MAX_BALL_MOVEMENT = 7,
-		MIN_BALL_MOVEMENT = 3
+		MAX_BALL_MOVEMENT = 10,
+		MIN_BALL_MOVEMENT = 6
 	;
 	static int 
 		ballXMovement = MAX_BALL_MOVEMENT,

@@ -27,11 +27,10 @@ public class ADelegatingPongView implements DelegatingPongView{
 		BackgroundView backView = new BackgroundView();
 		
 		//ADD VIEWS AS PAINTLISTENERS AND PROPERTY CHANGE LISTENERS
-		
+		painter.addPaintListener(backView);
 		painter.addPaintListener(playerOneView);
 		painter.addPaintListener(playerTwoView);
 		painter.addPaintListener(ballView);
-		painter.addPaintListener(backView);
 		
 		
 		
