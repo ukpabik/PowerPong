@@ -18,11 +18,13 @@ import view.APongPainter;
 public class APongController implements PongController{
 	static final int 
 		MOVEMENT_LENGTH = 8,
-		COLLISION_DELAY = 15
+		COLLISION_DELAY = 15,
+		MAX_BALL_MOVEMENT = 7,
+		MIN_BALL_MOVEMENT = 3
 	;
 	int 
-		ballXMovement = 7,
-		ballYMovement = 7
+		ballXMovement = MAX_BALL_MOVEMENT,
+		ballYMovement = MAX_BALL_MOVEMENT
 	;
 	private Timer movementTimer, collisionCheckTimer;
 	boolean 
@@ -111,7 +113,6 @@ public class APongController implements PongController{
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		
-		System.out.println(keyCode);
 		switch(keyCode) {
 		case KeyEvent.VK_UP: 
 			upPress = true;
@@ -137,7 +138,6 @@ public class APongController implements PongController{
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		
-		System.out.println(keyCode);
 		switch(keyCode) {
 		case KeyEvent.VK_UP: 
 			upPress = false;
@@ -198,16 +198,19 @@ public class APongController implements PongController{
             //ONLY CHANGE MOVEMENT IF YOU ARE ABLE TO CHECK COLLISION
             if (canCheckCollision) {
                 if (ACollisionChecker.intersects(ball, game.getPlayerTwo())) {
-                	negateXMovement();
-                    
+                	changeMovement();
+                	changeXSign(-1);
+                	
+                	
+                	
                     //CHECKS IF BALL HITS THE TOP OR BOTTOM OF THE PLAYER
                     if (ball.getY() >= game.getPlayerTwo().getY() + game.getPlayerTwo().getHeight() / 2) {
                     	negateYMovement();
                     }
                 } 
                 else if (ACollisionChecker.intersects(ball, game.getPlayerOne())) {
-                	negateXMovement();
-                	
+                	changeMovement();
+                	changeXSign(1);
                 	
                 	//CHECKS IF BALL HITS THE TOP OR BOTTOM OF THE PLAYER
                     if (ball.getY() >= game.getPlayerOne().getY() + game.getPlayerOne().getHeight() / 2) {
@@ -229,6 +232,7 @@ public class APongController implements PongController{
             if (ball.getX() >= game.getRightScreen()) {
             	game.scored(game.getPlayerOne());
             	spacePress = false;
+            	
     		}
     		
             //IF BALL GOES ONTO PLAYER ONE'S SIDE
@@ -277,8 +281,13 @@ public class APongController implements PongController{
 	 * HELPER METHODS FOR STARTING COLLISION TIMER WHEN BALL COLLIDES
 	 */
 	
-	private void negateXMovement() {
-		ballXMovement = -ballXMovement;
+	private void changeXSign(int sign) {
+		if (sign == 1) {
+			ballXMovement = Math.abs(ballXMovement);
+		}
+		else if (sign == -1) {
+			ballXMovement = -ballXMovement;
+		}
         canCheckCollision = false;
         collisionCheckTimer.restart();
 	}
@@ -286,6 +295,18 @@ public class APongController implements PongController{
 		ballYMovement  = -ballYMovement;
     	canCheckCollision = false;
         collisionCheckTimer.restart();
+	}
+	
+	/*
+	 * THIS METHOD PROVIDES RANDOM CHANGES IN X AND Y SPEED 
+	 * FOR MORE VARIABILITY IN GAMEPLAY
+	 */
+	
+	private void changeMovement() {
+		int newMovement = (int) (Math.random() * (MAX_BALL_MOVEMENT - MIN_BALL_MOVEMENT) + MIN_BALL_MOVEMENT);
+		ballXMovement = newMovement;
+		ballYMovement = newMovement;
+		System.out.println(ballYMovement);
 	}
 
 }
