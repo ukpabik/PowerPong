@@ -8,7 +8,7 @@ public class ARectangle extends ABoundedShape implements Rectangle{
 	public static final int 
 		RECT_DEFAULT_X = 100, 
 		RECT_DEFAULT_Y = 100, 
-		DEFAULT_HEIGHT = 40, 
+		DEFAULT_HEIGHT = 50, 
 		DEFAULT_WIDTH = 8
 	;
 
