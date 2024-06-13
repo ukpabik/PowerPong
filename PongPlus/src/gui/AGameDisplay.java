@@ -1,6 +1,7 @@
 package gui;
 
 
+import controller.APongController;
 import shapes.ACircle;
 import shapes.APlayer;
 import shapes.ARectangle;
@@ -9,8 +10,7 @@ import shapes.Player;
 import shapes.Rectangle;
 
 public class AGameDisplay implements GameDisplay{
-	static final int PLAYER_TWO_OFFSET = 2;
-	
+	static final int PLAYER_TWO_OFFSET = 3;
 	
 	Rectangle background;
 	Player playerOne, playerTwo;
@@ -128,6 +128,8 @@ public class AGameDisplay implements GameDisplay{
 		Points.addPoints(player);
 		Points.setLastScoringPlayer(player);
 		setPlayerAndBall();
+		APongController.changeMovement();
+		
 	}
 	
 	

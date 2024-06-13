@@ -22,7 +22,7 @@ public class APongController implements PongController{
 		MAX_BALL_MOVEMENT = 7,
 		MIN_BALL_MOVEMENT = 3
 	;
-	int 
+	static int 
 		ballXMovement = MAX_BALL_MOVEMENT,
 		ballYMovement = MAX_BALL_MOVEMENT
 	;
@@ -302,7 +302,7 @@ public class APongController implements PongController{
 	 * FOR MORE VARIABILITY IN GAMEPLAY
 	 */
 	
-	private void changeMovement() {
+	public static void changeMovement() {
 		int newMovement = (int) (Math.random() * (MAX_BALL_MOVEMENT - MIN_BALL_MOVEMENT) + MIN_BALL_MOVEMENT);
 		ballXMovement = newMovement;
 		ballYMovement = newMovement;

@@ -13,5 +13,6 @@ public interface PongController extends MouseListener, KeyListener{
 	public void movePlayerAndBall(Player player, BoundedShape ball, boolean moveUp, boolean moveDown);
 
 	public void moveBall(BoundedShape ball);
+
 	
 }
