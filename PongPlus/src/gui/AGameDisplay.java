@@ -117,7 +117,6 @@ public class AGameDisplay implements GameDisplay{
 		ball.setX(leftScreen + rightScreen / 2);
 		
 		ball.setY(topScreen);
-		System.out.println(rightScreen);
 	}
 	
 	
