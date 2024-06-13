@@ -38,6 +38,7 @@ public class GameGUI extends JFrame{
             int contentPaneWidth = this.getContentPane().getWidth();
             int contentPaneHeight = this.getContentPane().getHeight();
             this.game.setUpGame(contentPaneWidth, contentPaneHeight);
+            controller.startGame();
         });
 	}
 }

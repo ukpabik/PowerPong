@@ -14,30 +14,35 @@ import gui.Points;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
+import view.PongPainter;
 
 public class APongController implements PongController{
 	static final int 
-		MOVEMENT_LENGTH = 12,
+		MOVEMENT_LENGTH = 3,
 		COLLISION_DELAY = 15,
-		MAX_BALL_MOVEMENT = 10,
-		MIN_BALL_MOVEMENT = 6
+		MAX_BALL_MOVEMENT = 3,
+		MIN_BALL_MOVEMENT = 1,
+		UPDATE_INTERVAL = 4
 	;
 	static int 
 		ballXMovement = MAX_BALL_MOVEMENT,
 		ballYMovement = MAX_BALL_MOVEMENT
 	;
-	private Timer movementTimer, collisionCheckTimer;
+	private Timer collisionCheckTimer;
 	boolean 
 		upPress = false, 
 		downPress = false,
 		wPress = false,
 		sPress = false,
 		canCheckCollision = true,
-		spacePress = false
+		spacePress = false,
+		running = false
 	;
+	Thread gameThread;
+	long lastCollisionTime = 0;
 	
 	 
-	
+	APongPainter painter = PongFactory.pongPainterFactoryMethod();
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
 	
@@ -45,19 +50,19 @@ public class APongController implements PongController{
 		pongPainter.addKeyListener(this);
 		pongPainter.addMouseListener(this);
 		
-		/*
-		 * ALLOWS FOR SMOOTHER MOVEMENT IN HIGHER FRAMES
-		 * THIS TIMER CHECKS FOR MOVEMENT EVERY MILLISECOND
-		 */
-		movementTimer = new Timer(1, new ActionListener() { 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				movePlayer(game.getPlayerOne());
-				movePlayer(game.getPlayerTwo());
-				moveBall(game.getPointBall());
-			}
-		});
-		movementTimer.start();
+//		/*
+//		 * ALLOWS FOR SMOOTHER MOVEMENT IN HIGHER FRAMES
+//		 * THIS TIMER CHECKS FOR MOVEMENT EVERY MILLISECOND
+//		 */
+//		movementTimer = new Timer(UPDATE_INTERVAL, new ActionListener() { 
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				movePlayer(game.getPlayerOne());
+//				movePlayer(game.getPlayerTwo());
+//				moveBall(game.getPointBall());
+//			}
+//		});
+//		movementTimer.start();
 		
 		
 		//ALLOWS TIME IN BETWEEN COLLISION CHECKS TO GIVE BOUNCE EFFECT
@@ -69,6 +74,36 @@ public class APongController implements PongController{
         });
 		
 		
+	}
+	
+	@Override
+	public void startGame() {
+		running = true;
+		gameThread = new Thread(this);
+		gameThread.start();
+	}
+	
+	@Override
+	public void run() {
+		while (running) {
+			long startTime = System.nanoTime();
+			movePlayer(game.getPlayerOne());
+            movePlayer(game.getPlayerTwo());
+            moveBall(game.getPointBall());
+            
+            painter.repaint();
+            
+            long elapsedTime = System.nanoTime() - startTime;
+            long sleepTime = UPDATE_INTERVAL - (elapsedTime / 1000000);
+            if (sleepTime > 0) {
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+			
+		}
 	}
 	
 	
@@ -319,5 +354,9 @@ public class APongController implements PongController{
 		ballYMovement = newMovement;
 		System.out.println(ballYMovement);
 	}
+
+
+
+	
 
 }
