@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -18,15 +19,25 @@ public class APongController implements PongController{
 	static final int 
 		MOVEMENT_LENGTH = 5,
 		COLLISION_DELAY = 15,
-		MAX_BALL_MOVEMENT = 4,
-		MIN_BALL_MOVEMENT = 2,
+		MAX_X_BALL_MOVEMENT = 5,
+		MIN_X_BALL_MOVEMENT = 2,
+		MAX_Y_BALL_MOVEMENT = 5,
+		MIN_Y_BALL_MOVEMENT = 2,
 		UPDATE_INTERVAL = 4,
 		THREAD_DIVISOR = 1000000
 	;
+	
+	
+	
+	//BALL MOVEMENT
 	static int 
-		ballXMovement = MAX_BALL_MOVEMENT,
-		ballYMovement = MAX_BALL_MOVEMENT
+		ballXMovement = MAX_X_BALL_MOVEMENT,
+		ballYMovement = MAX_Y_BALL_MOVEMENT,
+		randomizeXBound = MIN_Y_BALL_MOVEMENT,
+		randomizeYBound = MAX_Y_BALL_MOVEMENT + 1
 	;
+	
+	//INPUT VARIABLES
 	boolean 
 		upPress = false, 
 		downPress = false,
@@ -35,15 +46,21 @@ public class APongController implements PongController{
 		canCheckCollision = true,
 		running = false
 	;
+	
+	 
+	//TIMER AND GAME STATE VARIABLES
 	Thread gameThread;
-	
-	
 	private Timer collisionCheckTimer;
+	
+	
+	
+	
+	
 	private int justScoredCounter, ballCounter;
 	private boolean justScored, gameStarted = false;
 	
 	
-	 
+	public Random randomizer = new Random();
 	APongPainter painter = PongFactory.pongPainterFactoryMethod();
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 
@@ -88,6 +105,7 @@ public class APongController implements PongController{
 				if (ballCounter >= (1000 / UPDATE_INTERVAL)) {
 					ballCounter = 0;
 					gameStarted = true;
+					randomizeMovement();
 				}
 			}
 			else if (justScored) {
@@ -95,6 +113,7 @@ public class APongController implements PongController{
 				if (justScoredCounter >= (1000 / UPDATE_INTERVAL)) {
 					justScoredCounter = 0;
 					justScored = false;
+					randomizeMovement();
 				}
 			}
 			
@@ -356,15 +375,24 @@ public class APongController implements PongController{
 	}
 	
 	/*
+	 * MOVEMENT METHODS:
 	 * THIS METHOD PROVIDES RANDOM CHANGES IN X AND Y SPEED 
 	 * FOR MORE VARIABILITY IN GAMEPLAY
 	 */
 	
 	public static void changeMovement() {
-		int newMovement = (int) (Math.random() * (MAX_BALL_MOVEMENT - MIN_BALL_MOVEMENT) + MIN_BALL_MOVEMENT);
-		ballXMovement = newMovement;
-		ballYMovement = newMovement;
-		System.out.println(ballYMovement);
+		int newXMovement = (int) (Math.random() * (MAX_X_BALL_MOVEMENT - MIN_X_BALL_MOVEMENT) + MIN_X_BALL_MOVEMENT);
+		int newYMovement = (int) (Math.random() * (MAX_Y_BALL_MOVEMENT - MIN_Y_BALL_MOVEMENT) + MIN_Y_BALL_MOVEMENT);
+		ballXMovement = newXMovement;
+		ballYMovement = newYMovement;
+		System.out.println("X MOVEMENT = " + ballXMovement);
+		System.out.println("Y MOVEMENT = " + ballYMovement);
+	}
+	
+	//RANDOMIZES THE Y MOVEMENT VALUE FOR MORE RANDOMIZED GAMEPLAY
+	@Override
+	public void randomizeMovement() {
+		ballYMovement = randomizer.nextInt(randomizeXBound, randomizeYBound);
 	}
 
 
