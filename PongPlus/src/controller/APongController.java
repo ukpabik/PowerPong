@@ -19,9 +19,9 @@ public class APongController implements PongController{
 	static final int 
 		MOVEMENT_LENGTH = 5,
 		COLLISION_DELAY = 15,
-		MAX_X_BALL_MOVEMENT = 5,
+		MAX_X_BALL_MOVEMENT = 6,
 		MIN_X_BALL_MOVEMENT = 2,
-		MAX_Y_BALL_MOVEMENT = 5,
+		MAX_Y_BALL_MOVEMENT = 4,
 		MIN_Y_BALL_MOVEMENT = 2,
 		UPDATE_INTERVAL = 4,
 		THREAD_DIVISOR = 1000000
@@ -100,22 +100,7 @@ public class APongController implements PongController{
 			 * DELAY THE BALL FROM MOVING UNTIL THE GAME HAS BEGUN
 			 * OR A SECOND AFTER THE PLAYER SCORES
 			 */
-			if (!gameStarted) {
-				ballCounter++;
-				if (ballCounter >= (1000 / UPDATE_INTERVAL)) {
-					ballCounter = 0;
-					gameStarted = true;
-					randomizeMovement();
-				}
-			}
-			else if (justScored) {
-				justScoredCounter++;
-				if (justScoredCounter >= (1000 / UPDATE_INTERVAL)) {
-					justScoredCounter = 0;
-					justScored = false;
-					randomizeMovement();
-				}
-			}
+			roundBallTimer();
 			
 			movePlayer(game.getPlayerOne());
             movePlayer(game.getPlayerTwo());
@@ -390,9 +375,28 @@ public class APongController implements PongController{
 	}
 	
 	//RANDOMIZES THE Y MOVEMENT VALUE FOR MORE RANDOMIZED GAMEPLAY
-	@Override
-	public void randomizeMovement() {
+	private void randomizeMovement() {
 		ballYMovement = randomizer.nextInt(randomizeXBound, randomizeYBound);
+	}
+	
+	//THREAD HELPER METHOD FOR TIMERS BETWEEN ROUNDS
+	private void roundBallTimer() {
+		if (!gameStarted) {
+			ballCounter++;
+			if (ballCounter >= (1000 / UPDATE_INTERVAL)) {
+				ballCounter = 0;
+				gameStarted = true;
+				randomizeMovement();
+			}
+		}
+		else if (justScored) {
+			justScoredCounter++;
+			if (justScoredCounter >= (1000 / UPDATE_INTERVAL)) {
+				justScoredCounter = 0;
+				justScored = false;
+				randomizeMovement();
+			}
+		}
 	}
 
 
