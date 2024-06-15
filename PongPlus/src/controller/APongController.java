@@ -11,6 +11,7 @@ import javax.swing.Timer;
 import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
+import gui.GameState;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
@@ -64,6 +65,10 @@ public class APongController implements PongController{
 	APongPainter painter = PongFactory.pongPainterFactoryMethod();
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 
+
+
+	
+
 	
 	
 	public APongController(APongPainter pongPainter) {
@@ -87,36 +92,40 @@ public class APongController implements PongController{
 		running = true;
 		gameThread = new Thread(this);
 		gameThread.start();
+		game.setCurrentState(GameState.PLAYING);
 	}
 	
 	@Override
 	public void run() {
 		while (running) {
-			long startTime = System.nanoTime();
+			if (game.getCurrentState() == GameState.PLAYING) {
+				long startTime = System.nanoTime();
+				
+				
+				
+				/*
+				 * DELAY THE BALL FROM MOVING UNTIL THE GAME HAS BEGUN
+				 * OR A SECOND AFTER THE PLAYER SCORES
+				 */
+				roundBallTimer();
+				
+				movePlayer(game.getPlayerOne());
+	            movePlayer(game.getPlayerTwo());
+	            moveBall(game.getPointBall());
+	            
+	            painter.repaint();
+	            
+	            long elapsedTime = System.nanoTime() - startTime;
+	            long sleepTime = UPDATE_INTERVAL - (elapsedTime / 1000000);
+	            if (sleepTime > 0) {
+	                try {
+	                    Thread.sleep(sleepTime);
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+			}
 			
-			
-			
-			/*
-			 * DELAY THE BALL FROM MOVING UNTIL THE GAME HAS BEGUN
-			 * OR A SECOND AFTER THE PLAYER SCORES
-			 */
-			roundBallTimer();
-			
-			movePlayer(game.getPlayerOne());
-            movePlayer(game.getPlayerTwo());
-            moveBall(game.getPointBall());
-            
-            painter.repaint();
-            
-            long elapsedTime = System.nanoTime() - startTime;
-            long sleepTime = UPDATE_INTERVAL - (elapsedTime / 1000000);
-            if (sleepTime > 0) {
-                try {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
 			
 		}
 	}
@@ -177,6 +186,9 @@ public class APongController implements PongController{
 		case KeyEvent.VK_S:
 			sPress = true;
 			break;
+		case KeyEvent.VK_P:
+			pauseGame();
+			break;
 			
 		}
 	}
@@ -199,6 +211,10 @@ public class APongController implements PongController{
 		case KeyEvent.VK_S:
 			sPress = false;
 			break;
+		case KeyEvent.VK_P:
+			resumeGame();
+			break;
+			
 		}
 	}
 	
@@ -406,6 +422,12 @@ public class APongController implements PongController{
 	}
 	
 	
+	
+	
+	/*
+	 * HELPER METHOD THAT RETURNS -1 or 1, HAS A 50% CHANCE
+	 * THIS HELPS WITH CHANGING THE X DIRECTION OF THE BALL EVERY ROUND
+	 */
 	private int negativeOrPositive() {
 		boolean isPositive = randomizer.nextBoolean();
 		
@@ -417,6 +439,21 @@ public class APongController implements PongController{
 		}
 	}
 	
+	
+	
+	@Override
+	public void pauseGame() {
+        if (game.getCurrentState() == GameState.PLAYING) {
+        	game.setCurrentState(GameState.PAUSED);
+        }
+    }
+
+	@Override
+    public void resumeGame() {
+        if (game.getCurrentState() == GameState.PAUSED) {
+        	game.setCurrentState(GameState.PLAYING);
+        }
+    }
 
 
 

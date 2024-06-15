@@ -5,6 +5,12 @@ import gui.GameDisplay;
 
 public class ADelegatingPongView implements DelegatingPongView{
 
+	public static PointBallView ballView = new PointBallView();
+	public static PlayerOneView playerOneView = new PlayerOneView();
+	public static PlayerTwoView playerTwoView = new PlayerTwoView();
+	public static BackgroundView backView = new BackgroundView();
+	
+	
 	public ADelegatingPongView() {
 		APongPainter painter = PongFactory.pongPainterFactoryMethod();
 		GameDisplay game = PongFactory.gameDisplayFactoryMethod();

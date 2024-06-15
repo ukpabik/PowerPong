@@ -7,11 +7,15 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import factory.PongFactory;
+import gui.GameDisplay;
+import gui.GameState;
 import listeners.PaintListener;
 
 @SuppressWarnings("serial")
 public class APongPainter extends Component implements PongPainter{
 	protected List<PaintListener> paintListeners = new ArrayList<>();
+	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
 	
 	public APongPainter() {
@@ -24,9 +28,17 @@ public class APongPainter extends Component implements PongPainter{
 
         Graphics2D g2 = (Graphics2D) g;
         
-        for (PaintListener p : paintListeners) {
+        GameState currentState = game.getCurrentState();
+        switch(currentState) {
+        case MAIN_MENU:
+        	ADelegatingPongView.backView.paint(g2);
+        	break;
+        case PLAYING:
+        	 for (PaintListener p : paintListeners) {
 
-            p.paint(g2);
+                 p.paint(g2);
+             }
+        	 break;
         }
     }
 	

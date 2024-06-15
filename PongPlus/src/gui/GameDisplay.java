@@ -29,4 +29,8 @@ public interface GameDisplay {
 
 	public void scored(Player player);
 
+	public GameState getCurrentState();
+
+	public void setCurrentState(GameState newState);
+
 }

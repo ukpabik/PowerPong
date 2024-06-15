@@ -15,7 +15,7 @@ public class AGameDisplay implements GameDisplay{
 			
 			
 			
-	
+	GameState state;
 	Rectangle background;
 	Player playerOne, playerTwo;
 	Circle ball;
@@ -29,8 +29,20 @@ public class AGameDisplay implements GameDisplay{
 		playerOne = new APlayer();
 		playerTwo = new APlayer();
 		background = new ARectangle();
+		state = GameState.MAIN_MENU;
 	}
+	
+	
+	@Override
+	public GameState getCurrentState() {
+        return state;
+    }
 
+	@Override
+    public void setCurrentState(GameState newState) {
+        state = newState;
+    }
+	
 	@Override
 	public Player getPlayerOne() {
 		return playerOne;
@@ -91,7 +103,6 @@ public class AGameDisplay implements GameDisplay{
 		background.setWidth(backgroundWidth);
 		background.setX(0);
 		background.setY(0);
-		
 		
 		
 		

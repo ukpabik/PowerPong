@@ -16,6 +16,10 @@ public interface PongController extends MouseListener, KeyListener, Runnable{
 
 	public void moveSpecificPlayer(Player player, boolean moveUp, boolean moveDown);
 
+	public void pauseGame();
+
+	public void resumeGame();
+
 
 
 	
