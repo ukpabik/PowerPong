@@ -14,9 +14,10 @@ public class AShapeView extends Views implements ShapeView{
 		PLACEMENT_VALUE = 5,
 		PLAYER_TWO_X_OFFSET = 35
 	;
+	static final Color transparent = new Color(255, 0, 0, 0);
 	
-	static final Color transparent = new Color(255, 255, 255, 128);
-	static final Font pointFont = new Font("Calibri", Font.BOLD, 128);
+	static final Color SEMI_TRANSPARENT = new Color(255, 255, 255, 128);
+	static final Font POINT_FONT = new Font("Calibri", Font.BOLD, 128);
 	
 	@Override
 	public void drawRectangle(Graphics2D graphics, Rectangle rect) {
@@ -30,7 +31,6 @@ public class AShapeView extends Views implements ShapeView{
 	public void drawBall(Graphics2D graphics, Circle circle) {
 		
 		graphics.setColor(Color.WHITE);
-		
 		graphics.fillOval(circle.getX(), circle.getY(), circle.getWidth(), circle.getHeight());
 		
 	}
@@ -44,8 +44,8 @@ public class AShapeView extends Views implements ShapeView{
 	
 	@Override
 	public void drawPoints(Graphics2D graphics, Player p) {
-		graphics.setFont(pointFont);
-		graphics.setColor(transparent);
+		graphics.setFont(POINT_FONT);
+		graphics.setColor(SEMI_TRANSPARENT);
 		if (p.equals(game.getPlayerOne())){
 			graphics.drawString("" + p.getPoints(), game.getLeftScreen() + game.getRightScreen() / PLACEMENT_VALUE, 
 					game.getTopScreen() + game.getBotScreen() / PLACEMENT_VALUE);

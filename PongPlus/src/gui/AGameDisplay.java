@@ -127,7 +127,7 @@ public class AGameDisplay implements GameDisplay{
 		Points.setLastScoringPlayer(player);
 		setPlayerAndBall();
 		APongController.changeMovement();
-		
+		ball.setVisible(false);
 	}
 	
 	

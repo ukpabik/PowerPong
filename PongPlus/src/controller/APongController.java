@@ -227,8 +227,8 @@ public class APongController implements PongController{
 		
 		//LOGIC FOR MOVING BALL
 		
-		int oldX = game.getPointBall().getX();
-        int oldY = game.getPointBall().getY();
+		int oldX = ball.getX();
+        int oldY = ball.getY();
         
         
         
@@ -387,6 +387,7 @@ public class APongController implements PongController{
 				ballCounter = 0;
 				gameStarted = true;
 				randomizeMovement();
+				game.getPointBall().setVisible(true);
 			}
 		}
 		else if (justScored) {
@@ -395,6 +396,7 @@ public class APongController implements PongController{
 				justScoredCounter = 0;
 				justScored = false;
 				randomizeMovement();
+				game.getPointBall().setVisible(true);
 			}
 		}
 	}

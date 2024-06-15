@@ -5,7 +5,7 @@ import java.beans.PropertyChangeEvent;
 public class APlayer extends ARectangle implements Player{
 
 	
-	int points;
+	protected int points;
 	
 	
 	

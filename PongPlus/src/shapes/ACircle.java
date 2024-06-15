@@ -9,6 +9,7 @@ public class ACircle extends ABoundedShape implements Circle{
 		DEFAULT_Y = 50
 	;
 	protected int radius;
+	protected boolean visible;
 	
 	
 	public ACircle() {
@@ -36,6 +37,16 @@ public class ACircle extends ABoundedShape implements Circle{
 	@Override
 	public int getRadius() {
 		return this.radius;
+	}
+	
+	@Override
+	public boolean isVisible() {
+		return visible;
+	}
+	
+	@Override
+	public void setVisible(boolean visibility) {
+		this.visible = visibility;
 	}
 	
 	
