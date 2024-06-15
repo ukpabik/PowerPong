@@ -385,6 +385,7 @@ public class APongController implements PongController{
 			ballCounter++;
 			if (ballCounter >= (1000 / UPDATE_INTERVAL)) {
 				ballCounter = 0;
+				ballXMovement *= negativeOrPositive();
 				gameStarted = true;
 				randomizeMovement();
 				game.getPointBall().setVisible(true);
@@ -394,12 +395,28 @@ public class APongController implements PongController{
 			justScoredCounter++;
 			if (justScoredCounter >= (1000 / UPDATE_INTERVAL)) {
 				justScoredCounter = 0;
+				
+				ballXMovement *= negativeOrPositive();
+				
 				justScored = false;
 				randomizeMovement();
 				game.getPointBall().setVisible(true);
 			}
 		}
 	}
+	
+	
+	private int negativeOrPositive() {
+		boolean isPositive = randomizer.nextBoolean();
+		
+		if (isPositive) {
+			return 1;
+		}
+		else {
+			return -1;
+		}
+	}
+	
 
 
 
