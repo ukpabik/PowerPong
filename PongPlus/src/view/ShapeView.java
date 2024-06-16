@@ -12,8 +12,6 @@ public interface ShapeView extends View{
 	public void drawRectangle(Graphics2D graphics, Rectangle rect);
 
 	public void drawBall(Graphics2D graphics, Circle circle);
-
-	public void drawBackground(Graphics2D graphics, Rectangle rect);
-
+	
 	public void drawPoints(Graphics2D graphics, Player p);
 }

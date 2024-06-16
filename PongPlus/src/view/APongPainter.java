@@ -18,6 +18,9 @@ public class APongPainter extends Component implements PongPainter{
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
 	
+	int contentPaneWidth, contentPaneHeight;
+	
+	
 	public APongPainter() {
 		setFocusable(true);
 	}
@@ -31,7 +34,7 @@ public class APongPainter extends Component implements PongPainter{
         GameState currentState = game.getCurrentState();
         switch(currentState) {
         case MAIN_MENU:
-        	ADelegatingPongView.backView.paint(g2);
+        	AShapeView.drawMainMenu(g2, contentPaneWidth, contentPaneHeight);
         	break;
         case PLAYING:
         	 for (PaintListener p : paintListeners) {
@@ -39,9 +42,20 @@ public class APongPainter extends Component implements PongPainter{
                  p.paint(g2);
              }
         	 break;
+		case GAME_OVER:
+			break;
+		case PAUSED:
+			break;
+		default:
+			break;
         }
     }
 	
+	@Override
+	public void setContentPaneDimensions(int width, int height) {
+        this.contentPaneWidth = width;
+        this.contentPaneHeight = height;
+    }
 	
 	
 	

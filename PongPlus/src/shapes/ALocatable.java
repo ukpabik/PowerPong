@@ -1,7 +1,7 @@
 package shapes;
 
 
-public class ALocatable extends ASetCoordinates implements Locatable{
+public abstract class ALocatable extends ASetCoordinates implements Locatable{
 	
 	
 	@Override

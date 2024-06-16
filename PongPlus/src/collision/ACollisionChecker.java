@@ -2,7 +2,7 @@ package collision;
 
 import shapes.BoundedShape;
 
-public class ACollisionChecker implements Collision{
+public abstract class ACollisionChecker implements Collision{
 	
 	
 	

@@ -2,7 +2,7 @@ package gui;
 
 import shapes.Player;
 
-public class Points implements PointSystem {
+public abstract class Points implements PointSystem {
 	static Player lastScoringPlayer;
 	
 	public static void addPoints(Player p) {

@@ -6,7 +6,7 @@ import java.beans.PropertyChangeEvent;
 import factory.PongFactory;
 import gui.GameDisplay;
 
-public class Views implements View{
+public abstract class Views implements View{
 	APongPainter painter = PongFactory.pongPainterFactoryMethod();
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	

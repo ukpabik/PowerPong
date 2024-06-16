@@ -9,7 +9,7 @@ import view.ADelegatingPongView;
 import view.APongPainter;
 import view.DelegatingPongView;
 
-public class PongFactory {
+public abstract class PongFactory {
 	static PongController controller;
 	static APongPainter painter;
 	static GameDisplay game;

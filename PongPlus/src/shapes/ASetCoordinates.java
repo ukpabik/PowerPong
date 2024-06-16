@@ -7,7 +7,7 @@ import java.util.List;
 import listeners.Listener;
 import listeners.PropertyListener;
 
-public class ASetCoordinates extends PropertyListener implements SetCoordinates{
+public abstract class ASetCoordinates extends PropertyListener implements SetCoordinates{
 	
 	protected Listener propertySupport = new PropertyListener();
 	protected int x, y;

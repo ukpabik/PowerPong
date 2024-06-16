@@ -4,7 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 
-public class ABoundedShape extends ALocatable implements BoundedShape{
+public abstract class ABoundedShape extends ALocatable implements BoundedShape{
 	
 	protected int width, height;
 	

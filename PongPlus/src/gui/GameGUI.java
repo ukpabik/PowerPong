@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -28,6 +30,7 @@ public class GameGUI extends JFrame{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
+		this.getContentPane().setBackground(Color.BLACK);
 		
 		
 		
@@ -38,6 +41,7 @@ public class GameGUI extends JFrame{
 		SwingUtilities.invokeLater(() -> {
             int contentPaneWidth = this.getContentPane().getWidth();
             int contentPaneHeight = this.getContentPane().getHeight();
+            painter.setContentPaneDimensions(contentPaneWidth, contentPaneHeight);
             this.game.setUpGame(contentPaneWidth, contentPaneHeight);
             controller.startGame();
         });

@@ -92,7 +92,7 @@ public class APongController implements PongController{
 		running = true;
 		gameThread = new Thread(this);
 		gameThread.start();
-		game.setCurrentState(GameState.PLAYING);
+//		game.setCurrentState(GameState.PLAYING);
 	}
 	
 	@Override

@@ -8,7 +8,6 @@ public class ADelegatingPongView implements DelegatingPongView{
 	public static PointBallView ballView = new PointBallView();
 	public static PlayerOneView playerOneView = new PlayerOneView();
 	public static PlayerTwoView playerTwoView = new PlayerTwoView();
-	public static BackgroundView backView = new BackgroundView();
 	
 	
 	public ADelegatingPongView() {
@@ -30,10 +29,8 @@ public class ADelegatingPongView implements DelegatingPongView{
 		PointBallView ballView = new PointBallView();
 		PlayerOneView playerOneView = new PlayerOneView();
 		PlayerTwoView playerTwoView = new PlayerTwoView();
-		BackgroundView backView = new BackgroundView();
 		
 		//ADD VIEWS AS PAINTLISTENERS AND PROPERTY CHANGE LISTENERS
-		painter.addPaintListener(backView);
 		painter.addPaintListener(playerOneView);
 		painter.addPaintListener(playerTwoView);
 		painter.addPaintListener(ballView);
@@ -43,7 +40,6 @@ public class ADelegatingPongView implements DelegatingPongView{
 		game.getPlayerOne().addPropertyChangeListener(playerOneView);
 		game.getPlayerTwo().addPropertyChangeListener(playerTwoView);
 		game.getPointBall().addPropertyChangeListener(ballView);
-		game.getBackground().addPropertyChangeListener(backView);
 		
 		
 		
