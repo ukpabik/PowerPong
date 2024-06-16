@@ -454,6 +454,7 @@ public class APongController implements PongController{
 	public void pauseGame() {
         if (game.getCurrentState() == GameState.PLAYING) {
         	game.setCurrentState(GameState.PAUSED);
+        	running = false;
         }
     }
 
@@ -461,6 +462,9 @@ public class APongController implements PongController{
     public void resumeGame() {
         if (game.getCurrentState() == GameState.PAUSED) {
         	game.setCurrentState(GameState.PLAYING);
+        	running = true;
+        	gameThread = new Thread(this);
+        	gameThread.start();
         }
     }
 
