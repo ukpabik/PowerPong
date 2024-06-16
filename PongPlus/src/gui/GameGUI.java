@@ -8,8 +8,8 @@ import javax.swing.SwingUtilities;
 import controller.PongController;
 import factory.PongFactory;
 import view.APongPainter;
+import view.AShapeView;
 import view.DelegatingPongView;
-import view.MainMenuView;
 
 @SuppressWarnings("serial")
 public class GameGUI extends JFrame{
@@ -22,6 +22,7 @@ public class GameGUI extends JFrame{
 	APongPainter painter = PongFactory.pongPainterFactoryMethod();
 	PongController controller = PongFactory.pongControllerFactoryMethod(painter);
 	DelegatingPongView pView = PongFactory.delegatingPainterViewFactoryMethod();
+	
 	
 	
 	public GameGUI() {
@@ -42,7 +43,7 @@ public class GameGUI extends JFrame{
 		SwingUtilities.invokeLater(() -> {
             int contentPaneWidth = this.getContentPane().getWidth();
             int contentPaneHeight = this.getContentPane().getHeight();
-            MainMenuView.setContentPaneDimensions(contentPaneWidth, contentPaneHeight);
+            AShapeView.setContentPaneDimensions(contentPaneWidth, contentPaneHeight);
             this.game.setUpGame(contentPaneWidth, contentPaneHeight);
         });
 	}

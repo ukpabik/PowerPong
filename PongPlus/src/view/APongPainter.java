@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -41,13 +43,16 @@ public class APongPainter extends Component implements PongPainter{
             	}
             	break;
             case PLAYING:
-            	if (!(p instanceof MainMenuView)) {
+            	if (!(p instanceof MainMenuView) && !(p instanceof PausedView)) {
             		p.paint(g2);
             	}
             	break;
     		case GAME_OVER:
     			break;
     		case PAUSED:
+    			if (!(p instanceof MainMenuView)) {
+                    p.paint(g2);
+                }
     			break;
     		default:
     			break;

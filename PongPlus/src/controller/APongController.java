@@ -455,6 +455,7 @@ public class APongController implements PongController{
         if (game.getCurrentState() == GameState.PLAYING) {
         	game.setCurrentState(GameState.PAUSED);
         	running = false;
+        	painter.repaint();
         }
     }
 

@@ -4,31 +4,27 @@ package gui;
 import controller.APongController;
 import shapes.ACircle;
 import shapes.APlayer;
-import shapes.ARectangle;
 import shapes.Circle;
 import shapes.Player;
-import shapes.Rectangle;
  
 public class AGameDisplay implements GameDisplay{
 	
 	public static final int PLAYER_TWO_OFFSET = 3;
 			
 			
-			
 	GameState state;
-	Rectangle background;
 	Player playerOne, playerTwo;
 	Circle ball;
 	
 	public int topScreen, botScreen, leftScreen, rightScreen;
 	
+
 	
 	
 	public AGameDisplay() {
 		ball = new ACircle();
 		playerOne = new APlayer();
 		playerTwo = new APlayer();
-		background = new ARectangle();
 		state = GameState.MAIN_MENU;
 	}
 	
@@ -41,6 +37,7 @@ public class AGameDisplay implements GameDisplay{
 	@Override
     public void setCurrentState(GameState newState) {
         state = newState;
+        
     }
 	
 	@Override
@@ -55,12 +52,7 @@ public class AGameDisplay implements GameDisplay{
 	public Circle getPointBall() {
 		return ball;
 	}
-	
-	@Override
-	public Rectangle getBackground() {
-		return background;
-	}
-	
+
 	@Override
 	public int getBotScreen() {
 		return botScreen;
@@ -98,14 +90,7 @@ public class AGameDisplay implements GameDisplay{
 		
 		setPlayerAndBall();
 		
-		//SETTING BACKGROUND TO THE CONTENTPANE SIZE
-		background.setHeight(backgroundHeight);
-		background.setWidth(backgroundWidth);
-		background.setX(0);
-		background.setY(0);
-		
-		
-		
+
 	}
 	
 	@Override
@@ -114,7 +99,6 @@ public class AGameDisplay implements GameDisplay{
 		int widthOffset = playerTwo.getWidth() + playerOne.getWidth();
 		int playerTwoX = GameGUI.FRAME_X - playerOne.getX() - widthOffset;
 		int middleRectY = (GameGUI.FRAME_Y / 2) - playerOne.getHeight();
-		int middleCircleY = (GameGUI.FRAME_Y / 2) - playerOne.getHeight() / 2 - ACircle.DEFAULT_RADIUS / 2;
 		
 		//Sets both of the players to the middle of the screen
 		playerTwo.setX(playerTwoX);

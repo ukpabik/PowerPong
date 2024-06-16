@@ -2,7 +2,6 @@ package gui;
 
 import shapes.Circle;
 import shapes.Player;
-import shapes.Rectangle;
 
 public interface GameDisplay {
 
@@ -12,8 +11,6 @@ public interface GameDisplay {
 	public Player getPlayerOne();
 
 	public Circle getPointBall();
-
-	public Rectangle getBackground();
 
 	public void setUpGame(int backgroundWidth, int backgroundHeight);
 

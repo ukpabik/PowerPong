@@ -2,7 +2,7 @@ package shapes;
 
 
 
-public class ARectangle extends ABoundedShape implements Rectangle{
+public abstract class ARectangle extends ABoundedShape implements Rectangle{
 	
 	
 	public static final int 
