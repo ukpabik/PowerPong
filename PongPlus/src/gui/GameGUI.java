@@ -9,6 +9,7 @@ import controller.PongController;
 import factory.PongFactory;
 import view.APongPainter;
 import view.DelegatingPongView;
+import view.MainMenuView;
 
 @SuppressWarnings("serial")
 public class GameGUI extends JFrame{
@@ -41,9 +42,8 @@ public class GameGUI extends JFrame{
 		SwingUtilities.invokeLater(() -> {
             int contentPaneWidth = this.getContentPane().getWidth();
             int contentPaneHeight = this.getContentPane().getHeight();
-            painter.setContentPaneDimensions(contentPaneWidth, contentPaneHeight);
+            MainMenuView.setContentPaneDimensions(contentPaneWidth, contentPaneHeight);
             this.game.setUpGame(contentPaneWidth, contentPaneHeight);
-            controller.startGame();
         });
 	}
 }

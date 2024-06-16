@@ -92,7 +92,7 @@ public class APongController implements PongController{
 		running = true;
 		gameThread = new Thread(this);
 		gameThread.start();
-//		game.setCurrentState(GameState.PLAYING);
+		game.setCurrentState(GameState.PLAYING);
 	}
 	
 	@Override
@@ -187,7 +187,19 @@ public class APongController implements PongController{
 			sPress = true;
 			break;
 		case KeyEvent.VK_P:
-			pauseGame();
+			if (game.getCurrentState() == GameState.PLAYING) {
+                pauseGame();
+                System.out.println("Pause");
+            } 
+			else if (game.getCurrentState() == GameState.PAUSED) {
+                resumeGame();
+                System.out.println("Unpause");
+            }
+            break;
+		case KeyEvent.VK_SPACE:
+			if (game.getCurrentState() != GameState.PLAYING) {
+				startGame();
+			}
 			break;
 			
 		}
@@ -210,9 +222,6 @@ public class APongController implements PongController{
 			break;
 		case KeyEvent.VK_S:
 			sPress = false;
-			break;
-		case KeyEvent.VK_P:
-			resumeGame();
 			break;
 			
 		}

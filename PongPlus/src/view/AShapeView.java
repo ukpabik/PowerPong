@@ -74,7 +74,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 		}
 	}
 	
-	public static void drawMainMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
+	public void drawMainMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
 		boolean firstIteration = true;
 		
 		

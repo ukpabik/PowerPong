@@ -17,7 +17,6 @@ public class APongPainter extends Component implements PongPainter{
 	protected List<PaintListener> paintListeners = new ArrayList<>();
 	GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	
-	
 	int contentPaneWidth, contentPaneHeight;
 	
 	
@@ -32,23 +31,29 @@ public class APongPainter extends Component implements PongPainter{
         Graphics2D g2 = (Graphics2D) g;
         
         GameState currentState = game.getCurrentState();
-        switch(currentState) {
-        case MAIN_MENU:
-        	AShapeView.drawMainMenu(g2, contentPaneWidth, contentPaneHeight);
-        	break;
-        case PLAYING:
-        	 for (PaintListener p : paintListeners) {
+        
+        for (PaintListener p : paintListeners) {
 
-                 p.paint(g2);
-             }
-        	 break;
-		case GAME_OVER:
-			break;
-		case PAUSED:
-			break;
-		default:
-			break;
+        	switch(currentState) {
+            case MAIN_MENU:
+            	if (p instanceof MainMenuView) {
+            		p.paint(g2);
+            	}
+            	break;
+            case PLAYING:
+            	if (!(p instanceof MainMenuView)) {
+            		p.paint(g2);
+            	}
+            	break;
+    		case GAME_OVER:
+    			break;
+    		case PAUSED:
+    			break;
+    		default:
+    			break;
+            }
         }
+        
     }
 	
 	@Override
