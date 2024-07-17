@@ -24,6 +24,8 @@ public interface PongController extends MouseListener, KeyListener, Runnable{
 
 	public void changeSelection(int change);
 
+	public void moveCPU(Player player);
+
 
 
 	

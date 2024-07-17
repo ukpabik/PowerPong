@@ -19,7 +19,7 @@ import view.AShapeView;
 
 public class APongController implements PongController{
 	static final int 
-		MOVEMENT_LENGTH = 5,
+		
 		COLLISION_DELAY = 15,
 		MAX_X_BALL_MOVEMENT = 6,
 		MIN_X_BALL_MOVEMENT = 2,
@@ -36,7 +36,10 @@ public class APongController implements PongController{
 		ballXMovement = MAX_X_BALL_MOVEMENT,
 		ballYMovement = MAX_Y_BALL_MOVEMENT,
 		randomizeXBound = MIN_Y_BALL_MOVEMENT,
-		randomizeYBound = MAX_Y_BALL_MOVEMENT + 1
+		randomizeYBound = MAX_Y_BALL_MOVEMENT + 1,
+		CPU_MOVEMENT_LENGTH = 2,
+		MOVEMENT_LENGTH = 5
+		
 	;
 
 
@@ -116,7 +119,12 @@ public class APongController implements PongController{
 				roundBallTimer();
 				
 				movePlayer(game.getPlayerOne());
-	            movePlayer(game.getPlayerTwo());
+				if (cpu == true) {
+					moveCPU(game.getPlayerTwo()); 
+				}
+				else {
+					movePlayer(game.getPlayerTwo());
+				}
 	            moveBall(game.getPointBall());
 	            
 	            painter.repaint();
@@ -236,11 +244,6 @@ public class APongController implements PongController{
 	@Override
 	public void movePlayer(Player player) {
 		
-		/*
-		 * STORE OLD X AND Y VALUES TO KEEP OBJECTS FROM GOING INSIDE
-		 * EACH OTHER.
-		 */
-		
 		if (player.equals(game.getPlayerOne())) {
 			moveSpecificPlayer(player, upPress, downPress);
 		}
@@ -332,8 +335,15 @@ public class APongController implements PongController{
 	
 	@Override
 	public void moveSpecificPlayer(Player player, boolean moveUp, boolean moveDown) {
+
+		/*
+		 * STORE OLD X AND Y VALUES TO KEEP OBJECTS FROM GOING INSIDE
+		 * EACH OTHER.
+		 */
+		
 		int oldX = player.getX();
 		int oldY = player.getY();
+		
 		
 	    if (moveUp) {
 	        player.move(player.getX(), player.getY() - MOVEMENT_LENGTH);
@@ -354,8 +364,24 @@ public class APongController implements PongController{
 			player.move(oldX, oldY);
 		}
 	}
+
 	
+	//METHOD THAT ALLOWS FOR PLAYER VS CPU
 	
+	@Override
+	public void moveCPU(Player player) {
+		if (gameStarted && !justScored) {
+			int movement = game.getPointBall().getY();
+			
+			if (player.getY() > movement) {
+				player.move(player.getX(), player.getY() - CPU_MOVEMENT_LENGTH);
+			}
+			else if (player.getY() < movement) {
+				player.move(player.getX(), player.getY() + CPU_MOVEMENT_LENGTH);
+			}
+		}
+		
+	}
 	
 	
 	
@@ -485,9 +511,8 @@ public class APongController implements PongController{
 				startGame();
 				break;
 			case 1:
-				System.out.println(cpu);
 				cpu = true;
-				System.out.println(cpu);
+				startGame();
 				break;
 			case 2:
 				game.setCurrentState(GameState.OPTIONS);
