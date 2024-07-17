@@ -30,6 +30,8 @@ public interface PongController extends MouseListener, KeyListener, Runnable{
 
 	public void pauseMenuSelect();
 
+	public void optionsMenuSelect();
+
 
 
 	

@@ -43,14 +43,14 @@ public class APongPainter extends Component implements PongPainter{
             	}
             	break;
             case PLAYING:
-            	if (!(p instanceof MainMenuView) && !(p instanceof PausedView)) {
+            	if (!(p instanceof MainMenuView) && !(p instanceof PausedView) && !(p instanceof OptionsView)) {
             		p.paint(g2);
             	}
             	break;
     		case GAME_OVER:
     			break;
     		case PAUSED:
-    			if (!(p instanceof MainMenuView)) {
+    			if (!(p instanceof MainMenuView) && !(p instanceof OptionsView)) {
                     p.paint(g2);
                 }
     			break;

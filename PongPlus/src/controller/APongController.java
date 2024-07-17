@@ -511,6 +511,9 @@ public class APongController implements PongController{
 		else if (game.getCurrentState() == GameState.PAUSED) {
 			pauseMenuSelect();
 		}
+		else if (game.getCurrentState() == GameState.OPTIONS) {
+			optionsMenuSelect();
+		}
 		currentSelection = 0;
 	}
 	
@@ -555,6 +558,19 @@ public class APongController implements PongController{
 		}
 	}
 	
+	//SELECTION FOR OPTIONS MENU
+	@Override
+	public void optionsMenuSelect() {
+		switch(currentSelection) {
+		case 0:
+			break;
+		case 1:
+			game.setCurrentState(GameState.PAUSED);
+			painter.repaint();
+			break;
+			
+		}
+	}
 	
 	// METHOD FOR SHOWING SELECTION IN MAIN MENU
 	
