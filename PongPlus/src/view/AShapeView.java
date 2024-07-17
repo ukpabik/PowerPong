@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import controller.APongController;
 import shapes.Circle;
 import shapes.Player;
 import shapes.Rectangle;
@@ -34,7 +35,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	public static final Font 
 		POINT_FONT = new Font("Calibri", Font.BOLD, 64),
 		MAIN_MENU_FONT = new Font("Arial", Font.BOLD, 128),
-		SELECTABLE_FONT = new Font("Arial", Font.ITALIC, 32);
+		SELECTABLE_FONT = new Font("Arial", Font.ITALIC, 32)
 		
 	
 	;
@@ -108,6 +109,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    
 	    
 	    for(String s : MAIN_MENU_STRINGS) {
+	    	
 	    	if (firstIteration) {
 	    		x = (contentPaneWidth - fm.stringWidth(s)) / TITLE_PLACEMENT_X;
 		    	y = contentPaneHeight - y;
@@ -118,8 +120,11 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    		y = y + TEXT_SPACE;
 	    	    g.drawString(s, x, y);
 	    	}
+	    	if (s == MAIN_MENU_STRINGS.get(APongController.currentSelection)) {
+	    		g.drawString(s, x - 2, y);
+	    	}
 	    }
-	    
+	    System.out.println("DREW MAIN MENU");
 	}
 
 	public void drawPauseScreen(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {

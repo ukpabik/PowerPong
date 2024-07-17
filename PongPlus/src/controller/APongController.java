@@ -37,6 +37,10 @@ public class APongController implements PongController{
 		randomizeXBound = MIN_Y_BALL_MOVEMENT,
 		randomizeYBound = MAX_Y_BALL_MOVEMENT + 1
 	;
+
+
+	//MENU SELECTION
+	public static int currentSelection = 0;
 	
 	//INPUT VARIABLES
 	boolean 
@@ -175,10 +179,12 @@ public class APongController implements PongController{
 		switch(keyCode) {
 		case KeyEvent.VK_UP: 
 			upPress = true;
+			changeSelection(1);
 			break;
 		
 		case KeyEvent.VK_DOWN: 
 			downPress = true;
+			changeSelection(-1);
 			break;
 		case KeyEvent.VK_W:
 			wPress = true;
@@ -469,6 +475,35 @@ public class APongController implements PongController{
         }
     }
 
+	
+	// METHOD FOR SHOWING SELECTION IN MAIN MENU
+	@Override
+	public void select() {
+		if (game.getCurrentState() == GameState.MAIN_MENU) {
+			
+		}
+	}
+	
+	@Override
+	public void changeSelection(int change) {
+		int max = GameState.values().length - 1;
+		if (game.getCurrentState() == GameState.MAIN_MENU) {
+			if (change == -1) {
+				currentSelection++;
+				if (currentSelection > max) {
+					currentSelection = 0;
+				}
+			}
+			else if (change == 1) {
+				currentSelection--;
+				if (currentSelection < 0) {
+					currentSelection = max;
+				}
+			}
+		}
+		painter.repaint();
+	}
+	
 
 
 	

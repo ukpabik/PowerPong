@@ -20,6 +20,10 @@ public interface PongController extends MouseListener, KeyListener, Runnable{
 
 	public void resumeGame();
 
+	public void select();
+
+	public void changeSelection(int change);
+
 
 
 	
