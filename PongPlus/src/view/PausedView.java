@@ -6,7 +6,7 @@ public class PausedView extends AShapeView{
 	
 	@Override
 	public void paint(Graphics2D g) {
-		this.drawPauseScreen(g, contentWidth, contentHeight);
+		this.drawPauseMenu(g, contentWidth, contentHeight);
 	}
 	
 	

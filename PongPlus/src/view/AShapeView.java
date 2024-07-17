@@ -85,7 +85,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 		}
 	}
 	
-	public void drawMainMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
+	public void drawMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight, List<String> strings, String title) {
 		firstIteration = true;
 		
 		
@@ -97,18 +97,18 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    FontMetrics fm = g.getFontMetrics(MAIN_MENU_FONT);
 	    
 	   
-	    int x = (contentPaneWidth - fm.stringWidth(MAIN_TITLE)) / TITLE_PLACEMENT_X;
+	    int x = (contentPaneWidth - fm.stringWidth(title)) / TITLE_PLACEMENT_X;
 	    int y = ((contentPaneHeight - fm.getHeight()) / TITLE_PLACEMENT_Y);
 	    
 	    
-	    g.drawString(MAIN_TITLE, x, y);
+	    g.drawString(title, x, y);
 	    
 	    
 	    g.setFont(SELECTABLE_FONT);
 	    fm = g.getFontMetrics(SELECTABLE_FONT);
 	    
 	    
-	    for(String s : MAIN_MENU_STRINGS) {
+	    for(String s : strings) {
 	    	
 	    	if (firstIteration) {
 	    		x = (contentPaneWidth - fm.stringWidth(s)) / TITLE_PLACEMENT_X;
@@ -120,73 +120,25 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    		y = y + TEXT_SPACE;
 	    	    g.drawString(s, x, y);
 	    	}
-	    	if (s == MAIN_MENU_STRINGS.get(APongController.currentSelection)) {
+	    	if (s == strings.get(APongController.currentSelection)) {
 	    		g.drawString(s, x - 2, y);
 	    	}
 	    }
-	    System.out.println("DREW MAIN MENU");
 	}
 
-	public void drawPauseScreen(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
+	public void drawPauseMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
 		
 		drawTransparentScreen(g, contentPaneWidth, contentPaneHeight);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		firstIteration = true;
-		
-		g.setFont(MAIN_MENU_FONT);
-	    g.setColor(Color.WHITE);
-	    
-	    
-	    //FONTMETRICS HELPS WITH GETTING THE TEXT TO BE IN THE MIDDLE OF SCREEN
-	    FontMetrics fm = g.getFontMetrics(MAIN_MENU_FONT);
-	    
-	   
-	    int x = (contentPaneWidth - fm.stringWidth(PAUSE_TITLE)) / TITLE_PLACEMENT_X;
-	    int y = ((contentPaneHeight - fm.getHeight()) / TITLE_PLACEMENT_Y);
-	    
-	    
-	    g.drawString(PAUSE_TITLE, x, y);
-	    
-	    
-	    g.setFont(SELECTABLE_FONT);
-	    fm = g.getFontMetrics(SELECTABLE_FONT);
-	    
-	    
-	    for(String s : PAUSE_MENU_STRINGS) {
-	    	if (firstIteration) {
-	    		x = (contentPaneWidth - fm.stringWidth(s)) / TITLE_PLACEMENT_X;
-		    	y = contentPaneHeight - y;
-		    	g.drawString(s, x, y);
-		    	firstIteration = false;
-	    	}
-	    	else {
-	    		y = y + TEXT_SPACE;
-	    	    g.drawString(s, x, y);
-	    	}
-	    	if (s == PAUSE_MENU_STRINGS.get(APongController.currentSelection)) {
-	    		g.drawString(s, x - 2, y);
-	    	}
-	    }
+		drawMenu(g, contentPaneWidth, contentPaneHeight, PAUSE_MENU_STRINGS, PAUSE_TITLE);
 	    
 	    
 	}
+	
+	public void drawOptionsMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
+		
+	}
+	
+	
 	
 	public void drawTransparentScreen(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
 		g.setColor(SEMI_TRANSPARENT);

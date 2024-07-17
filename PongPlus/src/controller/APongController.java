@@ -535,6 +535,8 @@ public class APongController implements PongController{
 		}
 	}
 	
+	//SELECTION FOR PAUSE MENU
+	
 	@Override
 	public void pauseMenuSelect() {
 		switch(currentSelection) {
