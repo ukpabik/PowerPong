@@ -180,7 +180,11 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    		y = y + TEXT_SPACE;
 	    	    g.drawString(s, x, y);
 	    	}
+	    	if (s == PAUSE_MENU_STRINGS.get(APongController.currentSelection)) {
+	    		g.drawString(s, x - 2, y);
+	    	}
 	    }
+	    
 	    
 	}
 	

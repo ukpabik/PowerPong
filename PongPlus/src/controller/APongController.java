@@ -502,26 +502,51 @@ public class APongController implements PongController{
     }
 
 	
-	// METHOD FOR SHOWING SELECTION IN MAIN MENU
+	// METHOD FOR SHOWING SELECTION IN VARIOUS MENUS
 	@Override
 	public void select() {
 		if (game.getCurrentState() == GameState.MAIN_MENU) {
-			switch(currentSelection) {
-			case 0:
-				startGame();
-				break;
-			case 1:
-				cpu = true;
-				startGame();
-				break;
-			case 2:
-				game.setCurrentState(GameState.OPTIONS);
-				break;
-			case 3:
-				System.exit(0);
-				break;
-				
-			}
+			mainMenuSelect();
+		}
+		else if (game.getCurrentState() == GameState.PAUSED) {
+			pauseMenuSelect();
+		}
+	}
+	
+	//SELECTION FOR MAIN MENU
+	
+	@Override
+	public void mainMenuSelect() {
+		switch(currentSelection) {
+		case 0:
+			startGame();
+			break;
+		case 1:
+			cpu = true;
+			startGame();
+			break;
+		case 2:
+			game.setCurrentState(GameState.OPTIONS);
+			break;
+		case 3:
+			System.exit(0);
+			break;
+			
+		}
+	}
+	
+	@Override
+	public void pauseMenuSelect() {
+		switch(currentSelection) {
+		case 0:
+			startGame();
+			break;
+		case 1:
+			game.setCurrentState(GameState.OPTIONS);
+			break;
+		case 2:
+			System.exit(0);
+			break;
 		}
 	}
 	
@@ -530,8 +555,21 @@ public class APongController implements PongController{
 	
 	@Override
 	public void changeSelection(int change) {
-		int max = AShapeView.MAIN_MENU_STRINGS.size() - 1;
-		if (game.getCurrentState() == GameState.MAIN_MENU) {
+		
+		if (game.getCurrentState() != GameState.PLAYING) {
+			GameState g = game.getCurrentState();
+			int max = 0;
+			switch(g) {
+			case MAIN_MENU:
+				max = AShapeView.MAIN_MENU_STRINGS.size() - 1;
+				break;
+			case PAUSED:
+				max = AShapeView.PAUSE_MENU_STRINGS.size() - 1;
+				break;
+			default:
+				break;
+				
+			}
 			if (change == -1) {
 				currentSelection++;
 				if (currentSelection > max) {
@@ -544,8 +582,9 @@ public class APongController implements PongController{
 					currentSelection = max;
 				}
 			}
+			painter.repaint();
 		}
-		painter.repaint();
+		
 	}
 	
 
