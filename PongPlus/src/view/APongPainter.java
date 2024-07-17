@@ -54,6 +54,11 @@ public class APongPainter extends Component implements PongPainter{
                     p.paint(g2);
                 }
     			break;
+    		case OPTIONS:
+    			if (p instanceof OptionsView) {
+    				p.paint(g2);
+    			}
+    			break;
     		default:
     			break;
             }

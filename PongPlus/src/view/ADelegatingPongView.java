@@ -31,6 +31,7 @@ public class ADelegatingPongView implements DelegatingPongView{
 		PlayerTwoView playerTwoView = new PlayerTwoView();
 		MainMenuView mainView = new MainMenuView();
 		PausedView pauseView = new PausedView();
+		OptionsView optionsView = new OptionsView();
 		
 		//ADD VIEWS AS PAINTLISTENERS AND PROPERTY CHANGE LISTENERS
 		painter.addPaintListener(playerOneView);
@@ -38,6 +39,7 @@ public class ADelegatingPongView implements DelegatingPongView{
 		painter.addPaintListener(ballView);
 		painter.addPaintListener(mainView);
 		painter.addPaintListener(pauseView);
+		painter.addPaintListener(optionsView);
 		
 		
 		

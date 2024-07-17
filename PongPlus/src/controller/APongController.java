@@ -511,6 +511,7 @@ public class APongController implements PongController{
 		else if (game.getCurrentState() == GameState.PAUSED) {
 			pauseMenuSelect();
 		}
+		currentSelection = 0;
 	}
 	
 	//SELECTION FOR MAIN MENU
@@ -527,6 +528,7 @@ public class APongController implements PongController{
 			break;
 		case 2:
 			game.setCurrentState(GameState.OPTIONS);
+			painter.repaint();
 			break;
 		case 3:
 			System.exit(0);
@@ -545,6 +547,7 @@ public class APongController implements PongController{
 			break;
 		case 1:
 			game.setCurrentState(GameState.OPTIONS);
+			painter.repaint();
 			break;
 		case 2:
 			System.exit(0);
@@ -567,6 +570,9 @@ public class APongController implements PongController{
 				break;
 			case PAUSED:
 				max = AShapeView.PAUSE_MENU_STRINGS.size() - 1;
+				break;
+			case OPTIONS:
+				max = AShapeView.OPTIONS_MENU_STRINGS.size() - 1;
 				break;
 			default:
 				break;

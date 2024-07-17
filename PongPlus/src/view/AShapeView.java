@@ -21,7 +21,13 @@ public abstract class AShapeView extends Views implements ShapeView{
 		PLAYER_TWO_X_OFFSET = 35,
 		TEXT_SPACE = 50, 
 		TITLE_PLACEMENT_X = 2,
-		TITLE_PLACEMENT_Y = 4
+		TITLE_PLACEMENT_Y = 4,
+		OPTIONS_PLACEMENT_Y = 8,
+		OPTIONS_RECT_OFFSET = 100, 
+		SCREEN_OFFSET = 10,
+		CONTENT_OFFSET = 20,
+		ARC_SIZE = 10,
+		TEXT_OFFSET = 50
 	;
 	
 	
@@ -35,7 +41,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 	public static final Font 
 		POINT_FONT = new Font("Calibri", Font.BOLD, 64),
 		MAIN_MENU_FONT = new Font("Arial", Font.BOLD, 128),
-		SELECTABLE_FONT = new Font("Arial", Font.ITALIC, 32)
+		SELECTABLE_FONT = new Font("Arial", Font.ITALIC, 32),
+		OPTIONS_FONT = new Font("Arial", Font.BOLD, 64)
 		
 	
 	;
@@ -49,6 +56,10 @@ public abstract class AShapeView extends Views implements ShapeView{
 	//PAUSE MENU SELECTABLES
 	public static final List<String> PAUSE_MENU_STRINGS = new ArrayList<>(Arrays.asList("RESUME", "OPTIONS", "QUIT GAME"));
 	static final String PAUSE_TITLE = "PAUSED";
+	
+	//OPTIONS MENU SELECTABLES
+	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "BACK"));
+	static final String OPTIONS_TITLE = "OPTIONS";
 	
 	//FOR SETTING PLACEMENT OF MENU ITEMS
 	static boolean firstIteration = false;
@@ -135,7 +146,56 @@ public abstract class AShapeView extends Views implements ShapeView{
 	}
 	
 	public void drawOptionsMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
-		
+		firstIteration = true;
+		g.setFont(OPTIONS_FONT);
+	    g.setColor(Color.WHITE);
+	    
+	    
+	    //FONTMETRICS HELPS WITH GETTING THE TEXT TO BE IN THE MIDDLE OF SCREEN
+	    FontMetrics fm = g.getFontMetrics(OPTIONS_FONT);
+	    
+	   
+	    int x = (contentPaneWidth - fm.stringWidth(OPTIONS_TITLE)) / TITLE_PLACEMENT_X;
+	    int y = ((contentPaneHeight - fm.getHeight()) / OPTIONS_PLACEMENT_Y);
+	    
+	    g.drawString(OPTIONS_TITLE, x, y);
+	    
+	    //PLACEMENT OF THE STRINGS ON THE OPTIONS MENU
+	    
+	    int leftHeight = y * OPTIONS_MENU_STRINGS.size();
+	    int leftWidth = contentPaneWidth / 2 - OPTIONS_RECT_OFFSET;
+	    int leftX = SCREEN_OFFSET;
+	    int leftY = y + OPTIONS_RECT_OFFSET;
+	    g.drawRoundRect(leftX, leftY, leftWidth, leftHeight, ARC_SIZE, ARC_SIZE);
+	    
+	    
+	    //MAKES SURE THE RECTANGLE DOESNT GO OFFSCREEN
+	    int rightHeight = contentPaneHeight - y - OPTIONS_RECT_OFFSET - SCREEN_OFFSET;
+	    int rightWidth = contentPaneWidth - leftWidth - CONTENT_OFFSET - SCREEN_OFFSET;
+	    int rightX = leftWidth + CONTENT_OFFSET;
+	    int rightY = y + OPTIONS_RECT_OFFSET;
+	    g.drawRoundRect(rightX, rightY, rightWidth, rightHeight, ARC_SIZE, ARC_SIZE);
+	    
+	    
+	    g.setFont(SELECTABLE_FONT);
+	    fm = g.getFontMetrics(SELECTABLE_FONT);
+	    //DRAWING TEXT IN LEFT BOX FOR SELECTABLES
+	    for(String s : OPTIONS_MENU_STRINGS) {
+	    	
+	    	if (firstIteration) {
+	    		x = (leftWidth - fm.stringWidth(s)) / TITLE_PLACEMENT_X;
+		    	y = leftY + TEXT_OFFSET;
+		    	g.drawString(s, x, y);
+		    	firstIteration = false;
+	    	}
+	    	else {
+	    		y = y + TEXT_SPACE;
+	    	    g.drawString(s, x, y);
+	    	}
+	    	if (s == OPTIONS_MENU_STRINGS.get(APongController.currentSelection)) {
+	    		g.drawString(s, x - 2, y);
+	    	}
+	    }
 	}
 	
 	
