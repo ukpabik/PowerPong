@@ -43,11 +43,11 @@ public abstract class AShapeView extends Views implements ShapeView{
 	
 	
 	//MAIN MENU SELECTABLES
-	static final List<String> MAIN_MENU_STRINGS = new ArrayList<>(Arrays.asList("VS PLAYER", "VS CPU", "OPTIONS", "QUIT GAME"));
+	public static final List<String> MAIN_MENU_STRINGS = new ArrayList<>(Arrays.asList("VS PLAYER", "VS CPU", "OPTIONS", "QUIT GAME"));
 	static final String MAIN_TITLE = "PONG PLUS";
 	
 	//PAUSE MENU SELECTABLES
-	static final List<String> PAUSE_MENU_STRINGS = new ArrayList<>(Arrays.asList("RESUME", "OPTIONS", "QUIT GAME"));
+	public static final List<String> PAUSE_MENU_STRINGS = new ArrayList<>(Arrays.asList("RESUME", "OPTIONS", "QUIT GAME"));
 	static final String PAUSE_TITLE = "PAUSED";
 	
 	//FOR SETTING PLACEMENT OF MENU ITEMS

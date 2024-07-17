@@ -15,6 +15,7 @@ import gui.GameState;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
+import view.AShapeView;
 
 public class APongController implements PongController{
 	static final int 
@@ -49,7 +50,8 @@ public class APongController implements PongController{
 		wPress = false,
 		sPress = false,
 		canCheckCollision = true,
-		running = false
+		running = false,
+		cpu = false
 	;
 	
 	 
@@ -203,9 +205,7 @@ public class APongController implements PongController{
             }
             break;
 		case KeyEvent.VK_SPACE:
-			if (game.getCurrentState() != GameState.PLAYING) {
-				startGame();
-			}
+			select();
 			break;
 			
 		}
@@ -480,13 +480,32 @@ public class APongController implements PongController{
 	@Override
 	public void select() {
 		if (game.getCurrentState() == GameState.MAIN_MENU) {
-			
+			switch(currentSelection) {
+			case 0:
+				startGame();
+				break;
+			case 1:
+				System.out.println(cpu);
+				cpu = true;
+				System.out.println(cpu);
+				break;
+			case 2:
+				game.setCurrentState(GameState.OPTIONS);
+				break;
+			case 3:
+				System.exit(0);
+				break;
+				
+			}
 		}
 	}
 	
+	
+	// METHOD FOR SHOWING SELECTION IN MAIN MENU
+	
 	@Override
 	public void changeSelection(int change) {
-		int max = GameState.values().length - 1;
+		int max = AShapeView.MAIN_MENU_STRINGS.size() - 1;
 		if (game.getCurrentState() == GameState.MAIN_MENU) {
 			if (change == -1) {
 				currentSelection++;
