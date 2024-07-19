@@ -34,7 +34,6 @@ public interface PongController extends MouseListener, KeyListener, Runnable{
 
 	public void resetGame();
 
-	public void guiScale(int scaleFactor);
 
 
 

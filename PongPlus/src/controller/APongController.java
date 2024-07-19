@@ -45,8 +45,7 @@ public class APongController implements PongController{
 		randomizeXBound = MIN_Y_BALL_MOVEMENT,
 		randomizeYBound = MAX_Y_BALL_MOVEMENT + 1,
 		CPU_MOVEMENT_LENGTH = MAX_CPU_MOVEMENT_LENGTH,
-		MOVEMENT_LENGTH = MAX_MOVEMENT_LENGTH,
-		guiScale = 1
+		MOVEMENT_LENGTH = MAX_MOVEMENT_LENGTH
 		
 	;
 
@@ -199,6 +198,23 @@ public class APongController implements PongController{
 		int keyCode = e.getKeyCode();
 		
 		switch(keyCode) {
+		
+		//SCALING
+		case KeyEvent.VK_LEFT:
+			if (game.getCurrentState() == GameState.OPTIONS && currentSelection == 1) {
+				AShapeView.changeGUISize(-1);
+				game.guiScale(AShapeView.guiScale);
+			}
+			break;
+			
+		case KeyEvent.VK_RIGHT:
+			if (game.getCurrentState() == GameState.OPTIONS && currentSelection == 1) {
+				AShapeView.changeGUISize(1);
+				game.guiScale(AShapeView.guiScale);
+			}
+			break;
+			
+		//MOVEMENT
 		case KeyEvent.VK_UP: 
 			upPress = true;
 			changeSelection(1);
@@ -214,6 +230,8 @@ public class APongController implements PongController{
 		case KeyEvent.VK_S:
 			sPress = true;
 			break;
+			
+		//ACTIONS
 		case KeyEvent.VK_P:
 			if (game.getCurrentState() == GameState.PLAYING) {
                 pauseGame();
@@ -227,8 +245,9 @@ public class APongController implements PongController{
 		case KeyEvent.VK_SPACE:
 			select();
 			break;
-			
+		
 		}
+		
 	}
 
 	@Override
@@ -669,14 +688,6 @@ public class APongController implements PongController{
 		game.getPointBall().setVisible(false);
 	}
 	
-	//USED TO CHANGE GUI SIZE
-
-	@Override
-	public void guiScale(int scaleFactor) {
-		game.getPlayerOne().scale(scaleFactor);
-		game.getPlayerTwo().scale(scaleFactor);
-		game.getPointBall().scale(scaleFactor);
-	}
 	
 
 }

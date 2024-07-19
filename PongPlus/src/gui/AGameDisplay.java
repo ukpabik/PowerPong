@@ -21,6 +21,10 @@ public class AGameDisplay implements GameDisplay{
 	
 	int topScreen, botScreen, leftScreen, rightScreen;
 	
+	
+	//USED FOR SCALING GUI
+	int playerOriginalWidth, playerOriginalHeight, ballOriginalWidth, ballOriginalHeight;
+	
 
 	
 	
@@ -93,7 +97,10 @@ public class AGameDisplay implements GameDisplay{
 		
 		setPlayerAndBall();
 		Points.resetPoints(this);
-		
+		playerOriginalWidth = playerOne.getWidth();
+		playerOriginalHeight = playerOne.getHeight();
+		ballOriginalWidth = ball.getWidth();
+		ballOriginalHeight = ball.getHeight();
 
 	}
 	
@@ -140,14 +147,28 @@ public class AGameDisplay implements GameDisplay{
 	}
 	
 	
-	//CHANGING PLAYER TWO POSITION AFTER RESIZE
-	private void updatePlayerPositions() {
+	//CHANGING PLAYERS POSITION AFTER RESIZE
+	@Override
+	public void updatePlayerPositions() {
 		
 		playerOne.setX(rightScreen / PLAYER_SCREEN_POSITION_DIVISOR);
 		
 		int widthOffset = playerTwo.getWidth() + playerOne.getWidth();
 		int playerTwoX = rightScreen - playerOne.getX() - widthOffset;
 		playerTwo.setX(playerTwoX);
+	}
+	
+	
+	//METHOD FOR CHANGING THE GUI SCALE OF THE GAME
+	@Override
+	public void guiScale(double scaleFactor) {
+		playerOne.setWidth((int)(playerOriginalWidth * scaleFactor));
+		playerOne.setHeight((int)(playerOriginalHeight * scaleFactor));
+		playerTwo.setWidth((int)(playerOriginalWidth * scaleFactor));
+		playerTwo.setHeight((int)(playerOriginalHeight * scaleFactor));
+		
+		ball.setWidth((int)(ballOriginalWidth * scaleFactor));
+		ball.setHeight((int)(ballOriginalHeight * scaleFactor));
 	}
 	
 	

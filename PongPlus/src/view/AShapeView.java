@@ -29,7 +29,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		ARC_SIZE = 10,
 		TEXT_OFFSET = 50,
 		GUI_RECT_HEIGHT = 50,
-		MAX_GUI_SCALE = 5
+		MAX_GUI_SCALE = 5,
+		NUMBER_PLACEMENT = 100
 	;
 	
 	
@@ -48,7 +49,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		MAIN_MENU_FONT = new Font("Arial", Font.BOLD, 128),
 		SELECTABLE_FONT = new Font("Arial", Font.ITALIC, 32),
 		OPTIONS_FONT = new Font("Arial", Font.BOLD, 64),
-		CONTROLS_FONT = new Font("Arial", Font.BOLD, 24)
+		CONTROLS_FONT = new Font("Arial", Font.BOLD, 24),
+		NUMBERS_FONT = new Font("Comic Sans", Font.BOLD, 36)
 		
 	
 	;
@@ -253,15 +255,19 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    	
 	    	
 	    	//DRAWING THE GUI RECTANGLE
-	    	int guiRectWidth = (rightWidth - CONTENT_OFFSET * 2) / MAX_GUI_SCALE;
+	    	int currentRectWidth = (rightWidth - CONTENT_OFFSET * 2) / MAX_GUI_SCALE;
+	    	int maxRectWidth = (rightWidth - CONTENT_OFFSET * 2);
 	    	int guiRectX = rightX + CONTENT_OFFSET;
 	    	int guiRectY = rightY + OPTIONS_RECT_OFFSET;
 	    	g.setColor(Color.WHITE);
-	    	g.drawRoundRect(guiRectX, guiRectY, guiRectWidth * MAX_GUI_SCALE, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
-	    	g.fillRoundRect(guiRectX, guiRectY, guiRectWidth * guiScale, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
+	    	g.drawRoundRect(guiRectX, guiRectY, maxRectWidth, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
+	    	g.fillRoundRect(guiRectX, guiRectY, currentRectWidth * guiScale, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
 	    	
-	    	//DRAWING THE MIN AND MAXES
-	    	
+	    	//DRAWING THE CURRENT GUI SCALE UNDER THE BAR
+	    	g.setFont(NUMBERS_FONT);
+	    	int guiRectMiddleX = guiRectX + (maxRectWidth / 2);
+	    	g.drawString("" + guiScale, guiRectMiddleX, guiRectY + NUMBER_PLACEMENT);
+	    	g.drawString("" + guiScale, guiRectMiddleX - 2, guiRectY + NUMBER_PLACEMENT);
 	    	
 	    	break;
 	    }
@@ -284,6 +290,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 
 	//STATIC METHOD FOR CHANGING GUI SIZE
 	public static void changeGUISize(int size) {
+		
 		guiScale += size;
 		if (guiScale < 1) {
 			guiScale = 1;

@@ -32,4 +32,8 @@ public interface GameDisplay {
 
 	public void resizeGame(int backgroundWidth, int backgroundHeight);
 
+	public void updatePlayerPositions();
+
+	public void guiScale(double scaleFactor);
+
 }
