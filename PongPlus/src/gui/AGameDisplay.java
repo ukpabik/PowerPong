@@ -123,9 +123,7 @@ public class AGameDisplay implements GameDisplay{
 		/*
 		 * SETTING UP THE VALUES FOR THE BALL
 		 */
-		ball.setX(leftScreen + rightScreen / 2);
-		
-		ball.setY(topScreen);
+		setBall();
 	}
 	
 	
@@ -134,7 +132,7 @@ public class AGameDisplay implements GameDisplay{
 	public void scored(Player player) {
 		Points.addPoints(player);
 		Points.setLastScoringPlayer(player);
-		setPlayerAndBall();
+		setBall();
 		APongController.changeMovement();
 		ball.setVisible(false);
 	}
@@ -169,6 +167,15 @@ public class AGameDisplay implements GameDisplay{
 		
 		ball.setWidth((int)(ballOriginalWidth * scaleFactor));
 		ball.setHeight((int)(ballOriginalHeight * scaleFactor));
+	}
+	
+	
+	//SETTING BALL POSITION
+	@Override
+	public void setBall() {
+		ball.setX(leftScreen + rightScreen / 2);
+		
+		ball.setY(topScreen);	
 	}
 	
 	

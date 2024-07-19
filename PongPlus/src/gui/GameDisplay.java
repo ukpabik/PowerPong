@@ -36,4 +36,6 @@ public interface GameDisplay {
 
 	public void guiScale(double scaleFactor);
 
+	public void setBall();
+
 }

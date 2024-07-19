@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import controller.APongController;
 import shapes.Circle;
@@ -30,7 +35,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		TEXT_OFFSET = 50,
 		GUI_RECT_HEIGHT = 50,
 		MAX_GUI_SCALE = 3,
-		NUMBER_PLACEMENT = 100
+		NUMBER_PLACEMENT = 100,
+		IMAGE_OFFSET = 50
 	;
 	
 	
@@ -54,6 +60,9 @@ public abstract class AShapeView extends Views implements ShapeView{
 		
 	
 	;
+	
+	
+	Image exampleShot;
 	
 	
 	
@@ -122,7 +131,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	   
 	    int x = (contentPaneWidth - fm.stringWidth(title)) / TITLE_PLACEMENT_X;
 	    int y = ((contentPaneHeight - fm.getHeight()) / TITLE_PLACEMENT_Y);
-	    
+	    int imageY = y;
 	    
 	    g.drawString(title, x, y);
 	    
@@ -138,7 +147,9 @@ public abstract class AShapeView extends Views implements ShapeView{
 		    	y = contentPaneHeight - y;
 		    	g.drawString(s, x, y);
 		    	firstIteration = false;
+		    	
 	    	}
+	    	
 	    	else {
 	    		y = y + TEXT_SPACE;
 	    	    g.drawString(s, x, y);
@@ -147,12 +158,30 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    		g.drawString(s, x - 2, y);
 	    	}
 	    }
+	    
+	    if (title.equals(MAIN_TITLE)) {
+	    	try {
+				exampleShot = ImageIO.read(getClass().getResourceAsStream("/images/ExampleShot.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	g.drawImage(exampleShot, IMAGE_OFFSET, imageY + IMAGE_OFFSET, contentPaneHeight / 4, contentPaneWidth / 4, null);
+	    }
+	    
 	}
 
 	public void drawPauseMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
 		
 		drawTransparentScreen(g, contentPaneWidth, contentPaneHeight);
 		drawMenu(g, contentPaneWidth, contentPaneHeight, PAUSE_MENU_STRINGS, PAUSE_TITLE);
+	    
+	    
+	}
+	
+	public void drawMainMenu(Graphics2D g, int contentPaneWidth, int contentPaneHeight) {
+		
+		drawMenu(g, contentPaneWidth, contentPaneHeight, MAIN_MENU_STRINGS, MAIN_TITLE);
 	    
 	    
 	}

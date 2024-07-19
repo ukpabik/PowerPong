@@ -10,14 +10,14 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class SoundEffects {
+public abstract class SoundEffects {
 	public static void playSound(String fileName) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		/**
 		 * FINDING THE FILE USING RESOURCE AS STREAM INSTEAD OF CLASS PATH WITH FILES
 		 * RESOURCE BASED ACCESS WORKS BETTER
 		 */
 		
-		InputStream audio = SoundEffects.class.getResourceAsStream("/soundeffects/" + fileName);
+		InputStream audio = SoundEffects.class.getResourceAsStream("/media/" + fileName);
 		if (audio == null) {
 			throw new IOException("Sound file not found: " + fileName);
 		}
