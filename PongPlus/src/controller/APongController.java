@@ -201,6 +201,7 @@ public class APongController implements PongController{
 			if (game.getCurrentState() == GameState.OPTIONS && currentSelection == 1) {
 				AShapeView.changeGUISize(-1);
 				game.guiScale(AShapeView.guiScale);
+				selectSound();
 			}
 			break;
 			
@@ -208,6 +209,7 @@ public class APongController implements PongController{
 			if (game.getCurrentState() == GameState.OPTIONS && currentSelection == 1) {
 				AShapeView.changeGUISize(1);
 				game.guiScale(AShapeView.guiScale);
+				selectSound();
 			}
 			break;
 			
@@ -503,9 +505,21 @@ public class APongController implements PongController{
 		}
 	}
 	
+	
+	//SOUND EFFECT METHOD
 	public void ballHit() {
 		try {
 			SoundEffects.playSound("Ball-Hit.wav");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//SOUND EFFECT METHOD
+	public void selectSound() {
+		try {
+			SoundEffects.playSound("Select-Sound.wav");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -667,12 +681,7 @@ public class APongController implements PongController{
 					currentSelection = max;
 				}
 			}
-			try {
-				SoundEffects.playSound("Select-Sound.wav");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			selectSound();
 			painter.repaint();
 		}
 		
