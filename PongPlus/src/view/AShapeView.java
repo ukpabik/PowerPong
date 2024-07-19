@@ -42,7 +42,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		POINT_FONT = new Font("Calibri", Font.BOLD, 64),
 		MAIN_MENU_FONT = new Font("Arial", Font.BOLD, 128),
 		SELECTABLE_FONT = new Font("Arial", Font.ITALIC, 32),
-		OPTIONS_FONT = new Font("Arial", Font.BOLD, 64)
+		OPTIONS_FONT = new Font("Arial", Font.BOLD, 64),
+		CONTROLS_FONT = new Font("Arial", Font.BOLD, 24)
 		
 	
 	;
@@ -54,12 +55,15 @@ public abstract class AShapeView extends Views implements ShapeView{
 	static final String MAIN_TITLE = "PONG PLUS";
 	
 	//PAUSE MENU SELECTABLES
-	public static final List<String> PAUSE_MENU_STRINGS = new ArrayList<>(Arrays.asList("RESUME", "OPTIONS", "QUIT GAME"));
+	public static final List<String> PAUSE_MENU_STRINGS = new ArrayList<>(Arrays.asList("RESUME", "OPTIONS", "MAIN MENU"));
 	static final String PAUSE_TITLE = "PAUSED";
 	
 	//OPTIONS MENU SELECTABLES
 	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "BACK"));
+	public static final List<String> CONTROLS_STRINGS = new ArrayList<>(Arrays.asList("A / Left Arrow", "D / Right Arrow", 
+			"W / Up Arrow", "S / Down Arrow", "Spacebar", "Move Left", "Move Right", "Move Up", "Move Down", "Select"));
 	static final String OPTIONS_TITLE = "OPTIONS";
+	
 	
 	//FOR SETTING PLACEMENT OF MENU ITEMS
 	static boolean firstIteration = false;
@@ -195,6 +199,46 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    	if (s == OPTIONS_MENU_STRINGS.get(APongController.currentSelection)) {
 	    		g.drawString(s, x - 2, y);
 	    	}
+	    }
+	    
+	    
+	    //DRAWING TEXT IN RIGHT BOX
+	    switch(APongController.currentSelection) {
+	    
+	    case 0:
+	    	g.setFont(CONTROLS_FONT);
+		    fm = g.getFontMetrics(CONTROLS_FONT);
+	    	//LOGIC FOR DRAWING CONTROLS
+	    	firstIteration = true;
+	    	int middleIndex = CONTROLS_STRINGS.size() / 2;
+	    	
+	    	for(String s : CONTROLS_STRINGS) {
+		    	
+		    	if (firstIteration) {
+		    		x = rightX + TEXT_OFFSET;
+			    	y = rightY + TEXT_OFFSET;
+			    	g.drawString(s, x, y);
+			    	firstIteration = false;
+		    	}
+		    	
+		    	else {
+		    		int current = CONTROLS_STRINGS.indexOf(s);
+		    		if (current != 0 && current == middleIndex) {
+			    		x = rightX + rightWidth / 2;
+			    		y = rightY + TEXT_OFFSET;
+			    	}
+		    		else {
+		    			y = y + TEXT_SPACE;
+		    		}
+		    	    g.drawString(s, x, y);
+		    	}
+		
+		    	
+		    	
+		    }
+	    	break;
+	    case 1:
+	    	break;
 	    }
 	}
 	

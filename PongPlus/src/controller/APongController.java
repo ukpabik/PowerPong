@@ -12,6 +12,7 @@ import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
 import gui.GameState;
+import gui.Points;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
@@ -25,20 +26,22 @@ public class APongController implements PongController{
 		MIN_X_BALL_MOVEMENT = 2,
 		MAX_Y_BALL_MOVEMENT = 4,
 		MIN_Y_BALL_MOVEMENT = 2,
+		MAX_MOVEMENT_LENGTH = 5,
+		MAX_CPU_MOVEMENT_LENGTH = 2,
 		UPDATE_INTERVAL = 4,
 		THREAD_DIVISOR = 1000000
 	;
 	
 	
 	
-	//BALL MOVEMENT
+	//BALL AND PLAYER MOVEMENT
 	static int 
 		ballXMovement = MAX_X_BALL_MOVEMENT,
 		ballYMovement = MAX_Y_BALL_MOVEMENT,
 		randomizeXBound = MIN_Y_BALL_MOVEMENT,
 		randomizeYBound = MAX_Y_BALL_MOVEMENT + 1,
-		CPU_MOVEMENT_LENGTH = 2,
-		MOVEMENT_LENGTH = 5
+		CPU_MOVEMENT_LENGTH = MAX_CPU_MOVEMENT_LENGTH,
+		MOVEMENT_LENGTH = MAX_MOVEMENT_LENGTH
 		
 	;
 
@@ -67,7 +70,7 @@ public class APongController implements PongController{
 	
 	
 	private int justScoredCounter, ballCounter;
-	private boolean justScored, gameStarted = false;
+	private boolean justScored, roundStarted, gameStarted = false;
 	
 	
 	public Random randomizer = new Random();
@@ -98,7 +101,11 @@ public class APongController implements PongController{
 	
 	@Override
 	public void startGame() {
+		if (game.getCurrentState() == GameState.MAIN_MENU) {
+			resetGame();
+		}
 		running = true;
+		gameStarted = true;
 		gameThread = new Thread(this);
 		gameThread.start();
 		game.setCurrentState(GameState.PLAYING);
@@ -268,7 +275,7 @@ public class APongController implements PongController{
         
         //ONLY MOVE BALL IF THE GAME HAS STARTED
         
-        if (running && gameStarted && !justScored) {
+        if (running && roundStarted && !justScored) {
         	ball.move(oldX + ballXMovement, oldY + ballYMovement);
 
             
@@ -370,7 +377,7 @@ public class APongController implements PongController{
 	
 	@Override
 	public void moveCPU(Player player) {
-		if (gameStarted && !justScored) {
+		if (roundStarted && !justScored) {
 			int movement = game.getPointBall().getY();
 			
 			if (player.getY() > movement) {
@@ -438,12 +445,12 @@ public class APongController implements PongController{
 	
 	//THREAD HELPER METHOD FOR TIMERS BETWEEN ROUNDS
 	private void roundBallTimer() {
-		if (!gameStarted) {
+		if (!roundStarted) {
 			ballCounter++;
 			if (ballCounter >= (1000 / UPDATE_INTERVAL)) {
 				ballCounter = 0;
 				ballXMovement *= negativeOrPositive();
-				gameStarted = true;
+				roundStarted = true;
 				randomizeMovement();
 				game.getPointBall().setVisible(true);
 			}
@@ -531,13 +538,13 @@ public class APongController implements PongController{
 			break;
 		case 2:
 			game.setCurrentState(GameState.OPTIONS);
-			painter.repaint();
 			break;
 		case 3:
 			System.exit(0);
 			break;
 			
 		}
+		painter.repaint();
 	}
 	
 	//SELECTION FOR PAUSE MENU
@@ -546,16 +553,17 @@ public class APongController implements PongController{
 	public void pauseMenuSelect() {
 		switch(currentSelection) {
 		case 0:
-			startGame();
+			resumeGame();
 			break;
 		case 1:
 			game.setCurrentState(GameState.OPTIONS);
-			painter.repaint();
 			break;
 		case 2:
-			System.exit(0);
+			game.setCurrentState(GameState.MAIN_MENU);
+			resetGame();
 			break;
 		}
+		painter.repaint();
 	}
 	
 	//SELECTION FOR OPTIONS MENU
@@ -565,11 +573,17 @@ public class APongController implements PongController{
 		case 0:
 			break;
 		case 1:
-			game.setCurrentState(GameState.PAUSED);
-			painter.repaint();
+			if (gameStarted) {
+				game.setCurrentState(GameState.PAUSED);
+			}
+			else {
+				game.setCurrentState(GameState.MAIN_MENU);
+			}
+			
 			break;
 			
 		}
+		painter.repaint();
 	}
 	
 	// METHOD FOR SHOWING SELECTION IN MAIN MENU
@@ -611,6 +625,20 @@ public class APongController implements PongController{
 		
 	}
 	
+	//METHOD FOR RESETTING ALL VALUES
+	
+	@Override
+	public void resetGame() {
+		ballXMovement = MAX_X_BALL_MOVEMENT;
+		ballYMovement = MAX_Y_BALL_MOVEMENT;
+		MOVEMENT_LENGTH = MAX_MOVEMENT_LENGTH;
+		CPU_MOVEMENT_LENGTH = MAX_CPU_MOVEMENT_LENGTH;
+		Points.resetPoints(game);
+		game.setPlayerAndBall();
+		roundStarted = false;
+		gameStarted = false;
+		game.getPointBall().setVisible(false);
+	}
 
 
 	

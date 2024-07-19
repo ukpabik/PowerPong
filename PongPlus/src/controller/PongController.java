@@ -32,6 +32,8 @@ public interface PongController extends MouseListener, KeyListener, Runnable{
 
 	public void optionsMenuSelect();
 
+	public void resetGame();
+
 
 
 	

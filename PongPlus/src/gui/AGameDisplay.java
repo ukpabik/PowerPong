@@ -89,6 +89,7 @@ public class AGameDisplay implements GameDisplay{
 		 */
 		
 		setPlayerAndBall();
+		Points.resetPoints(this);
 		
 
 	}
