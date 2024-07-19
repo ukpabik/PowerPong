@@ -29,7 +29,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 		ARC_SIZE = 10,
 		TEXT_OFFSET = 50,
 		GUI_RECT_HEIGHT = 50,
-		MAX_GUI_SCALE = 5,
+		MAX_GUI_SCALE = 3,
 		NUMBER_PLACEMENT = 100
 	;
 	

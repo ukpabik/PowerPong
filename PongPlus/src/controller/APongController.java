@@ -4,11 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.Random;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Timer;
 
 import audio.SoundEffects;
@@ -408,6 +405,8 @@ public class APongController implements PongController{
 	public void moveCPU(Player player) {
 		if (roundStarted && !justScored) {
 			int movement = game.getPointBall().getY();
+			int oldX = player.getX();
+			int oldY = player.getY();
 			
 			if (player.getY() > movement) {
 				player.move(player.getX(), player.getY() - CPU_MOVEMENT_LENGTH);
@@ -415,6 +414,12 @@ public class APongController implements PongController{
 			else if (player.getY() < movement) {
 				player.move(player.getX(), player.getY() + CPU_MOVEMENT_LENGTH);
 			}
+			if (player.getY() <= game.getTopScreen()) {
+				player.move(oldX, oldY);
+			}
+		    if (player.getY() + player.getHeight() >= game.getBotScreen()) {
+		    	player.move(oldX, oldY);
+		    }
 		}
 		
 	}
