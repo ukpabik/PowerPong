@@ -45,7 +45,8 @@ public class APongController implements PongController{
 		randomizeXBound = MIN_Y_BALL_MOVEMENT,
 		randomizeYBound = MAX_Y_BALL_MOVEMENT + 1,
 		CPU_MOVEMENT_LENGTH = MAX_CPU_MOVEMENT_LENGTH,
-		MOVEMENT_LENGTH = MAX_MOVEMENT_LENGTH
+		MOVEMENT_LENGTH = MAX_MOVEMENT_LENGTH,
+		guiScale = 1
 		
 	;
 
@@ -506,7 +507,7 @@ public class APongController implements PongController{
 	}
 	
 	
-	
+	//METHOD FOR PAUSING THE GAME
 	@Override
 	public void pauseGame() {
         if (game.getCurrentState() == GameState.PLAYING) {
@@ -516,6 +517,7 @@ public class APongController implements PongController{
         }
     }
 
+	//METHOD FOR RESUMING THE GAME
 	@Override
     public void resumeGame() {
         if (game.getCurrentState() == GameState.PAUSED) {
@@ -539,7 +541,6 @@ public class APongController implements PongController{
 		else if (game.getCurrentState() == GameState.OPTIONS) {
 			optionsMenuSelect();
 		}
-		currentSelection = 0;
 	}
 	
 	//SELECTION FOR MAIN MENU
@@ -562,6 +563,7 @@ public class APongController implements PongController{
 			break;
 			
 		}
+		currentSelection = 0;
 		painter.repaint();
 	}
 	
@@ -581,6 +583,7 @@ public class APongController implements PongController{
 			resetGame();
 			break;
 		}
+		currentSelection = 0;
 		painter.repaint();
 	}
 	
@@ -591,13 +594,15 @@ public class APongController implements PongController{
 		case 0:
 			break;
 		case 1:
+			break;
+		case 2:
 			if (gameStarted) {
 				game.setCurrentState(GameState.PAUSED);
 			}
 			else {
 				game.setCurrentState(GameState.MAIN_MENU);
 			}
-			
+			currentSelection = 0;
 			break;
 			
 		}
@@ -663,8 +668,15 @@ public class APongController implements PongController{
 		gameStarted = false;
 		game.getPointBall().setVisible(false);
 	}
+	
+	//USED TO CHANGE GUI SIZE
 
-
+	@Override
+	public void guiScale(int scaleFactor) {
+		game.getPlayerOne().scale(scaleFactor);
+		game.getPlayerTwo().scale(scaleFactor);
+		game.getPointBall().scale(scaleFactor);
+	}
 	
 
 }

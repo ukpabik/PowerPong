@@ -27,12 +27,17 @@ public abstract class AShapeView extends Views implements ShapeView{
 		SCREEN_OFFSET = 10,
 		CONTENT_OFFSET = 20,
 		ARC_SIZE = 10,
-		TEXT_OFFSET = 50
+		TEXT_OFFSET = 50,
+		GUI_RECT_HEIGHT = 50,
+		MAX_GUI_SCALE = 5
 	;
 	
 	
 	//WINDOW SIZE
 	public static int contentWidth, contentHeight;
+	
+	//GUI SIZE
+	public static int guiScale = 1;
 	
 	
 	//FONTS AND COLORS
@@ -59,10 +64,11 @@ public abstract class AShapeView extends Views implements ShapeView{
 	static final String PAUSE_TITLE = "PAUSED";
 	
 	//OPTIONS MENU SELECTABLES
-	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "BACK"));
+	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "GUI SCALE", "BACK"));
 	public static final List<String> CONTROLS_STRINGS = new ArrayList<>(Arrays.asList("A / Left Arrow", "D / Right Arrow", 
 			"W / Up Arrow", "S / Down Arrow", "Spacebar", "Move Left", "Move Right", "Move Up", "Move Down", "Select"));
 	static final String OPTIONS_TITLE = "OPTIONS";
+	static final String GUI_TITLE = "GUI SCALE";
 	
 	
 	//FOR SETTING PLACEMENT OF MENU ITEMS
@@ -238,6 +244,25 @@ public abstract class AShapeView extends Views implements ShapeView{
 		    }
 	    	break;
 	    case 1:
+	    	//DRAWING THE GUI TITLE
+	    	g.setFont(SELECTABLE_FONT);
+		    fm = g.getFontMetrics(SELECTABLE_FONT);
+	    	x = (rightWidth - fm.stringWidth(GUI_TITLE)) / TITLE_PLACEMENT_X + rightX;
+	    	y = rightY + TEXT_OFFSET;
+	    	g.drawString(GUI_TITLE, x, y);
+	    	
+	    	
+	    	//DRAWING THE GUI RECTANGLE
+	    	int guiRectWidth = (rightWidth - CONTENT_OFFSET * 2) / MAX_GUI_SCALE;
+	    	int guiRectX = rightX + CONTENT_OFFSET;
+	    	int guiRectY = rightY + OPTIONS_RECT_OFFSET;
+	    	g.setColor(Color.WHITE);
+	    	g.drawRoundRect(guiRectX, guiRectY, guiRectWidth * MAX_GUI_SCALE, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
+	    	g.fillRoundRect(guiRectX, guiRectY, guiRectWidth * guiScale, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
+	    	
+	    	//DRAWING THE MIN AND MAXES
+	    	
+	    	
 	    	break;
 	    }
 	}
@@ -257,6 +282,16 @@ public abstract class AShapeView extends Views implements ShapeView{
         contentHeight = height;
     }
 
+	//STATIC METHOD FOR CHANGING GUI SIZE
+	public static void changeGUISize(int size) {
+		guiScale += size;
+		if (guiScale < 1) {
+			guiScale = 1;
+		}
+		else if (guiScale > MAX_GUI_SCALE) {
+			guiScale = MAX_GUI_SCALE;
+		}
+	}
 
 
 }

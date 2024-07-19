@@ -1,6 +1,9 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -30,7 +33,7 @@ public class GameGUI extends JFrame{
 		this.setSize(FRAME_X, FRAME_Y);
 		this.add(painter);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setVisible(true);
 		this.getContentPane().setBackground(Color.BLACK);
 		
@@ -46,5 +49,29 @@ public class GameGUI extends JFrame{
             AShapeView.setContentPaneDimensions(contentPaneWidth, contentPaneHeight);
             this.game.setUpGame(contentPaneWidth, contentPaneHeight);
         });
+		
+		
+		/**
+		 * USING A COMPONENT LISTENER FOR THE GUI TO 
+		 * ALLOW FOR RESIZING OF THE SCREEN
+		 */
+		this.addComponentListener(new ComponentListener() {
+		@Override
+		public void componentResized(ComponentEvent e) {
+			int contentPaneWidth = getContentPane().getWidth();
+			int contentPaneHeight = getContentPane().getHeight();
+			AShapeView.setContentPaneDimensions(contentPaneWidth, contentPaneHeight);
+			game.resizeGame(contentPaneWidth, contentPaneHeight);
+		}
+
+		@Override
+		public void componentMoved(ComponentEvent e) {}
+
+		@Override
+		public void componentShown(ComponentEvent e) {}
+
+		@Override
+		public void componentHidden(ComponentEvent e) {}
+		});
 	}
 }

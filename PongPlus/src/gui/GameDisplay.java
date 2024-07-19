@@ -30,4 +30,6 @@ public interface GameDisplay {
 
 	public void setCurrentState(GameState newState);
 
+	public void resizeGame(int backgroundWidth, int backgroundHeight);
+
 }

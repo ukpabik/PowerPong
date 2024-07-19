@@ -9,14 +9,17 @@ import shapes.Player;
  
 public class AGameDisplay implements GameDisplay{
 	
-	public static final int PLAYER_TWO_OFFSET = 3;
+	public static final int 
+		PLAYER_TWO_OFFSET = 3, 
+		PLAYER_SCREEN_POSITION_DIVISOR = 8
+	;
 			
 			
 	GameState state;
 	Player playerOne, playerTwo;
 	Circle ball;
 	
-	public int topScreen, botScreen, leftScreen, rightScreen;
+	int topScreen, botScreen, leftScreen, rightScreen;
 	
 
 	
@@ -96,10 +99,13 @@ public class AGameDisplay implements GameDisplay{
 	
 	@Override
 	public void setPlayerAndBall() {
+		
+		playerOne.setX(rightScreen / PLAYER_SCREEN_POSITION_DIVISOR);
+		
 		//Offsets the x values based off of the width of both players
 		int widthOffset = playerTwo.getWidth() + playerOne.getWidth();
-		int playerTwoX = GameGUI.FRAME_X - playerOne.getX() - widthOffset;
-		int middleRectY = (GameGUI.FRAME_Y / 2) - playerOne.getHeight();
+		int playerTwoX = rightScreen - playerOne.getX() - widthOffset;
+		int middleRectY = (botScreen / 2) - playerOne.getHeight();
 		
 		//Sets both of the players to the middle of the screen
 		playerTwo.setX(playerTwoX);
@@ -126,10 +132,23 @@ public class AGameDisplay implements GameDisplay{
 		ball.setVisible(false);
 	}
 	
+	@Override
+	public void resizeGame(int backgroundWidth, int backgroundHeight) {
+		botScreen = backgroundHeight;
+		rightScreen = backgroundWidth;
+		updatePlayerPositions();
+	}
 	
 	
-	
-	
+	//CHANGING PLAYER TWO POSITION AFTER RESIZE
+	private void updatePlayerPositions() {
+		
+		playerOne.setX(rightScreen / PLAYER_SCREEN_POSITION_DIVISOR);
+		
+		int widthOffset = playerTwo.getWidth() + playerOne.getWidth();
+		int playerTwoX = rightScreen - playerOne.getX() - widthOffset;
+		playerTwo.setX(playerTwoX);
+	}
 	
 	
 }
