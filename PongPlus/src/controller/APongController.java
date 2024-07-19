@@ -4,10 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Random;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Timer;
 
+import audio.SoundEffects;
 import collision.ACollisionChecker;
 import factory.PongFactory;
 import gui.GameDisplay;
@@ -294,6 +298,7 @@ public class APongController implements PongController{
                     else {
                     	changeYSign(1);
                     }
+                    ballHit();
                 } 
                 else if (ACollisionChecker.intersects(ball, game.getPlayerOne())) {
                 	changeMovement();
@@ -306,15 +311,19 @@ public class APongController implements PongController{
                     else {
                     	changeYSign(-1);
                     }
+                    ballHit();
                 }
                 
                 //FOR TOP AND BOTTOM COLLISION 
                 else if (ball.getY() <= game.getTopScreen()) {
                 	changeYSign(1);
+                	ballHit();
                 }
                 else if (ball.getY() + ball.getHeight() >= game.getBotScreen()) {
                 	changeYSign(-1);
+                	ballHit();
                 }
+                
             }
             
             
@@ -469,6 +478,15 @@ public class APongController implements PongController{
 		}
 	}
 	
+	public void ballHit() {
+		try {
+			SoundEffects.playSound("Ball-Hit.wav");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 	
@@ -619,6 +637,12 @@ public class APongController implements PongController{
 				if (currentSelection < 0) {
 					currentSelection = max;
 				}
+			}
+			try {
+				SoundEffects.playSound("Select-Sound.wav");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			painter.repaint();
 		}
