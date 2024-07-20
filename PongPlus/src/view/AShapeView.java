@@ -4,16 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import controller.APongController;
+import factory.PongFactory;
+import fonts.FontManager;
 import shapes.Circle;
 import shapes.Player;
 import shapes.Rectangle;
@@ -39,6 +36,9 @@ public abstract class AShapeView extends Views implements ShapeView{
 		IMAGE_OFFSET = 50
 	;
 	
+	//FOR CUSTOM FONTS
+	FontManager fontManager = PongFactory.fontManagerFactoryMethod();	
+	
 	
 	//WINDOW SIZE
 	public static int contentWidth, contentHeight;
@@ -50,25 +50,21 @@ public abstract class AShapeView extends Views implements ShapeView{
 	//FONTS AND COLORS
 	public static final Color TRANSPARENT = new Color(255, 0, 0, 0);
 	public static final Color SEMI_TRANSPARENT = new Color(0.0f, 0.0f, 0.0f, 0.7f);
-	public static final Font 
-		POINT_FONT = new Font("Calibri", Font.BOLD, 64),
-		MAIN_MENU_FONT = new Font("Arial", Font.BOLD, 128),
-		SELECTABLE_FONT = new Font("Arial", Font.ITALIC, 32),
-		OPTIONS_FONT = new Font("Arial", Font.BOLD, 64),
-		CONTROLS_FONT = new Font("Arial", Font.BOLD, 24),
-		NUMBERS_FONT = new Font("Comic Sans", Font.BOLD, 36)
-		
-	
+	public Font 
+		POINT_FONT = fontManager.pointFont(),
+		MAIN_MENU_FONT = fontManager.pixelFontMainMenu(),
+		SELECTABLE_FONT = fontManager.pixelFontSelectables(),
+		OPTIONS_FONT = fontManager.pixelFontOptions(),
+		CONTROLS_FONT = fontManager.pixelFontControls(),
+		NUMBERS_FONT = fontManager.numberFont()
 	;
 	
-	
-	Image exampleShot;
 	
 	
 	
 	//MAIN MENU SELECTABLES
 	public static final List<String> MAIN_MENU_STRINGS = new ArrayList<>(Arrays.asList("VS PLAYER", "VS CPU", "OPTIONS", "QUIT GAME"));
-	static final String MAIN_TITLE = "PONG PLUS";
+	static final String MAIN_TITLE = "PONG";
 	
 	//PAUSE MENU SELECTABLES
 	public static final List<String> PAUSE_MENU_STRINGS = new ArrayList<>(Arrays.asList("RESUME", "OPTIONS", "MAIN MENU"));
@@ -122,7 +118,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		
 		
 		g.setFont(MAIN_MENU_FONT);
-	    g.setColor(Color.WHITE);
+		
+		g.setColor(Color.WHITE);
 	    
 	    
 	    //FONTMETRICS HELPS WITH GETTING THE TEXT TO BE IN THE MIDDLE OF SCREEN
@@ -155,19 +152,10 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    	    g.drawString(s, x, y);
 	    	}
 	    	if (s == strings.get(APongController.currentSelection)) {
-	    		g.drawString(s, x - 2, y);
+	    		g.drawString(s, x - 1, y - 1);
 	    	}
 	    }
 	    
-//	    if (title.equals(MAIN_TITLE)) {
-//	    	try {
-//				exampleShot = ImageIO.read(getClass().getResourceAsStream("/images/ExampleShot.png"));
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//	    	g.drawImage(exampleShot, IMAGE_OFFSET, imageY + IMAGE_OFFSET, contentPaneHeight / 4, contentPaneWidth / 4, null);
-//	    }
 	    
 	}
 
@@ -234,7 +222,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    	    g.drawString(s, x, y);
 	    	}
 	    	if (s == OPTIONS_MENU_STRINGS.get(APongController.currentSelection)) {
-	    		g.drawString(s, x - 2, y);
+	    		g.drawString(s, x - 1, y - 1);
 	    	}
 	    }
 	    

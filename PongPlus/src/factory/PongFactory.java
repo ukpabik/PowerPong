@@ -3,6 +3,7 @@ package factory;
 
 import controller.APongController;
 import controller.PongController;
+import fonts.FontCreator;
 import gui.AGameDisplay;
 import gui.GameDisplay;
 import view.ADelegatingPongView;
@@ -14,7 +15,7 @@ public abstract class PongFactory {
 	static APongPainter painter;
 	static GameDisplay game;
 	static DelegatingPongView delegate;
-	
+	static FontCreator fontManager;
 	
 	
 	
@@ -46,5 +47,12 @@ public abstract class PongFactory {
 			delegate = new ADelegatingPongView();
 		}
 		return delegate;
+	}
+	
+	public static FontCreator fontManagerFactoryMethod() {
+		if (fontManager == null) {
+			fontManager = new FontCreator();
+		}
+		return fontManager;
 	}
 }
