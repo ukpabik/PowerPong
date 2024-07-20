@@ -159,15 +159,15 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    	}
 	    }
 	    
-	    if (title.equals(MAIN_TITLE)) {
-	    	try {
-				exampleShot = ImageIO.read(getClass().getResourceAsStream("/images/ExampleShot.png"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	g.drawImage(exampleShot, IMAGE_OFFSET, imageY + IMAGE_OFFSET, contentPaneHeight / 4, contentPaneWidth / 4, null);
-	    }
+//	    if (title.equals(MAIN_TITLE)) {
+//	    	try {
+//				exampleShot = ImageIO.read(getClass().getResourceAsStream("/images/ExampleShot.png"));
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	    	g.drawImage(exampleShot, IMAGE_OFFSET, imageY + IMAGE_OFFSET, contentPaneHeight / 4, contentPaneWidth / 4, null);
+//	    }
 	    
 	}
 

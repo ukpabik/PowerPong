@@ -587,6 +587,7 @@ public class APongController implements PongController{
 	public void mainMenuSelect() {
 		switch(currentSelection) {
 		case 0:
+			cpu = false;
 			startGame();
 			break;
 		case 1:
