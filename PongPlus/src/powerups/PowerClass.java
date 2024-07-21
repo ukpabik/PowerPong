@@ -1,21 +1,47 @@
 package powerups;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Timer;
 
 import factory.PongFactory;
 import gui.GameDisplay;
 import shapes.BoundedShape;
 
-public abstract class PowerClass{
-	GameDisplay display = PongFactory.gameDisplayFactoryMethod();
-	Image image;
-	
-	//OBJECT SIZE
+public abstract class PowerClass {
+	public static final int 
+		MAX_OBJECT_SIZE = 3,
+		POWER_UP_DELAY = 7000
+		
+	;
 	public static int objectSize = 1;
-	public static final int MAX_OBJECT_SIZE = 3;
+	
+	Image image;
+	Timer powerUpTimer;
+	BoundedShape currentObject;
+	boolean powerUpComplete = false;
+	GameDisplay display = PongFactory.gameDisplayFactoryMethod();
+	
+	
+	
+	
+	public PowerClass() {
+		//LENGTH OF HAVING A POWER UP
+		powerUpTimer = new Timer(POWER_UP_DELAY, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				powerUpComplete = true;
+				resetAction(currentObject);
+			}
+			
+		});
+	}
+	
 	
 	//STATIC METHOD FOR CHANGING OBJECT SIZE
 	public static void changeObjectSize(int size) {
@@ -28,6 +54,9 @@ public abstract class PowerClass{
 			objectSize = MAX_OBJECT_SIZE;
 		}
 	}
+	
+	
+	//FOR BALL POWER UPS
 	public Image getImage() {
 		return image;
 	}
@@ -36,15 +65,20 @@ public abstract class PowerClass{
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("/images/" + fileName));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
 	}
 	
 	
+	// THE POWER UP ACTION
+	public void action(BoundedShape object) {
+		powerUpTimer.restart();
+		currentObject = object;
+	}
 	
-	public abstract void action(BoundedShape object);
+	public abstract void resetAction(BoundedShape object);
 	
 	
 	
