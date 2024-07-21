@@ -90,12 +90,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	
 	@Override
 	public void drawPlayer(Graphics2D graphics, Player p) {
-		if (p.getCurrentPowerUp() != null) {
-			graphics.setColor(Color.BLUE);
-		}
-		else {
-			graphics.setColor(Color.WHITE);
-		}
+		graphics.setColor(Color.WHITE);
 		drawRectangle(graphics, p);
 		
 	}

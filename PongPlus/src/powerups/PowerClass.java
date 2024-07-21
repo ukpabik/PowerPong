@@ -15,7 +15,7 @@ import shapes.BoundedShape;
 public abstract class PowerClass {
 	public static final int 
 		MAX_OBJECT_SIZE = 3,
-		POWER_UP_DELAY = 7000
+		POWER_UP_DELAY = 3000
 		
 	;
 	public static int objectSize = 1;
