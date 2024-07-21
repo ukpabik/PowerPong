@@ -1,5 +1,6 @@
 package gui;
 
+import enums.GameState;
 import shapes.Circle;
 import shapes.Player;
 

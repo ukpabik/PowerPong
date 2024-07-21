@@ -10,9 +10,12 @@ import javax.swing.Timer;
 
 import audio.SoundEffects;
 import collision.ACollisionChecker;
+import enums.GameState;
+import enums.MainMenuSelections;
+import enums.OptionsMenuSelections;
+import enums.PauseMenuSelections;
 import factory.PongFactory;
 import gui.GameDisplay;
-import gui.GameState;
 import gui.Points;
 import shapes.BoundedShape;
 import shapes.Player;
@@ -196,23 +199,6 @@ public class APongController implements PongController{
 		
 		switch(keyCode) {
 		
-		//SCALING
-		case KeyEvent.VK_LEFT:
-			if (game.getCurrentState() == GameState.OPTIONS && currentSelection == 1) {
-				AShapeView.changeGUISize(-1);
-				game.guiScale(AShapeView.guiScale);
-				selectSound();
-			}
-			break;
-			
-		case KeyEvent.VK_RIGHT:
-			if (game.getCurrentState() == GameState.OPTIONS && currentSelection == 1) {
-				AShapeView.changeGUISize(1);
-				game.guiScale(AShapeView.guiScale);
-				selectSound();
-			}
-			break;
-			
 		//MOVEMENT
 		case KeyEvent.VK_UP: 
 			upPress = true;
@@ -585,19 +571,19 @@ public class APongController implements PongController{
 	
 	@Override
 	public void mainMenuSelect() {
-		switch(currentSelection) {
-		case 0:
+		switch(MainMenuSelections.values()[currentSelection]) {
+		case VS_PLAYER:
 			cpu = false;
 			startGame();
 			break;
-		case 1:
+		case VS_CPU:
 			cpu = true;
 			startGame();
 			break;
-		case 2:
+		case OPTIONS:
 			game.setCurrentState(GameState.OPTIONS);
 			break;
-		case 3:
+		case QUIT_GAME:
 			System.exit(0);
 			break;
 			
@@ -610,14 +596,14 @@ public class APongController implements PongController{
 	
 	@Override
 	public void pauseMenuSelect() {
-		switch(currentSelection) {
-		case 0:
+		switch(PauseMenuSelections.values()[currentSelection]) {
+		case RESUME:
 			resumeGame();
 			break;
-		case 1:
+		case OPTIONS:
 			game.setCurrentState(GameState.OPTIONS);
 			break;
-		case 2:
+		case MAIN_MENU:
 			game.setCurrentState(GameState.MAIN_MENU);
 			resetGame();
 			break;
@@ -629,12 +615,10 @@ public class APongController implements PongController{
 	//SELECTION FOR OPTIONS MENU
 	@Override
 	public void optionsMenuSelect() {
-		switch(currentSelection) {
-		case 0:
+		switch(OptionsMenuSelections.values()[currentSelection]) {
+		case CONTROLS:
 			break;
-		case 1:
-			break;
-		case 2:
+		case BACK:
 			if (gameStarted) {
 				game.setCurrentState(GameState.PAUSED);
 			}

@@ -7,9 +7,9 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.GameState;
 import factory.PongFactory;
 import gui.GameDisplay;
-import gui.GameState;
 import listeners.PaintListener;
 
 @SuppressWarnings("serial")

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import controller.APongController;
+import enums.OptionsMenuSelections;
 import factory.PongFactory;
 import fonts.FontManager;
 import shapes.Circle;
@@ -31,7 +32,6 @@ public abstract class AShapeView extends Views implements ShapeView{
 		ARC_SIZE = 10,
 		TEXT_OFFSET = 50,
 		GUI_RECT_HEIGHT = 50,
-		MAX_GUI_SCALE = 3,
 		NUMBER_PLACEMENT = 100,
 		IMAGE_OFFSET = 50
 	;
@@ -43,8 +43,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	//WINDOW SIZE
 	public static int contentWidth, contentHeight;
 	
-	//GUI SIZE
-	public static int guiScale = 1;
+	
 	
 	
 	//FONTS AND COLORS
@@ -71,7 +70,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	static final String PAUSE_TITLE = "PAUSED";
 	
 	//OPTIONS MENU SELECTABLES
-	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "GUI SCALE", "BACK"));
+	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "BACK"));
 	public static final List<String> CONTROLS_STRINGS = new ArrayList<>(Arrays.asList("A / Left Arrow", "D / Right Arrow", 
 			"W / Up Arrow", "S / Down Arrow", "Spacebar", "Move Left", "Move Right", "Move Up", "Move Down", "Select"));
 	static final String OPTIONS_TITLE = "OPTIONS";
@@ -128,7 +127,6 @@ public abstract class AShapeView extends Views implements ShapeView{
 	   
 	    int x = (contentPaneWidth - fm.stringWidth(title)) / TITLE_PLACEMENT_X;
 	    int y = ((contentPaneHeight - fm.getHeight()) / TITLE_PLACEMENT_Y);
-	    int imageY = y;
 	    
 	    g.drawString(title, x, y);
 	    
@@ -228,9 +226,9 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    
 	    
 	    //DRAWING TEXT IN RIGHT BOX
-	    switch(APongController.currentSelection) {
+	    switch(OptionsMenuSelections.values()[APongController.currentSelection]) {
 	    
-	    case 0:
+	    case CONTROLS:
 	    	g.setFont(CONTROLS_FONT);
 		    fm = g.getFontMetrics(CONTROLS_FONT);
 	    	//LOGIC FOR DRAWING CONTROLS
@@ -262,29 +260,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		    	
 		    }
 	    	break;
-	    case 1:
-	    	//DRAWING THE GUI TITLE
-	    	g.setFont(SELECTABLE_FONT);
-		    fm = g.getFontMetrics(SELECTABLE_FONT);
-	    	x = (rightWidth - fm.stringWidth(GUI_TITLE)) / TITLE_PLACEMENT_X + rightX;
-	    	y = rightY + TEXT_OFFSET;
-	    	g.drawString(GUI_TITLE, x, y);
-	    	
-	    	
-	    	//DRAWING THE GUI RECTANGLE
-	    	int currentRectWidth = (rightWidth - CONTENT_OFFSET * 2) / MAX_GUI_SCALE;
-	    	int maxRectWidth = (rightWidth - CONTENT_OFFSET * 2);
-	    	int guiRectX = rightX + CONTENT_OFFSET;
-	    	int guiRectY = rightY + OPTIONS_RECT_OFFSET;
-	    	g.setColor(Color.WHITE);
-	    	g.drawRoundRect(guiRectX, guiRectY, maxRectWidth, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
-	    	g.fillRoundRect(guiRectX, guiRectY, currentRectWidth * guiScale, GUI_RECT_HEIGHT, ARC_SIZE, ARC_SIZE);
-	    	
-	    	//DRAWING THE CURRENT GUI SCALE UNDER THE BAR
-	    	g.setFont(NUMBERS_FONT);
-	    	int guiRectMiddleX = guiRectX + (maxRectWidth / 2);
-	    	g.drawString("" + guiScale, guiRectMiddleX, guiRectY + NUMBER_PLACEMENT);
-	    	g.drawString("" + guiScale, guiRectMiddleX - 2, guiRectY + NUMBER_PLACEMENT);
+	    case BACK:
+
 	    	
 	    	break;
 	    }
@@ -305,17 +282,7 @@ public abstract class AShapeView extends Views implements ShapeView{
         contentHeight = height;
     }
 
-	//STATIC METHOD FOR CHANGING GUI SIZE
-	public static void changeGUISize(int size) {
-		
-		guiScale += size;
-		if (guiScale < 1) {
-			guiScale = 1;
-		}
-		else if (guiScale > MAX_GUI_SCALE) {
-			guiScale = MAX_GUI_SCALE;
-		}
-	}
+	
 
 
 }

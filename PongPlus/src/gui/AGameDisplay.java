@@ -2,6 +2,7 @@ package gui;
 
 
 import controller.APongController;
+import enums.GameState;
 import shapes.ACircle;
 import shapes.APlayer;
 import shapes.Circle;
