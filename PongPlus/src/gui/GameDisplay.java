@@ -35,8 +35,14 @@ public interface GameDisplay {
 
 	public void updatePlayerPositions();
 
-	public void guiScale(double scaleFactor);
-
 	public void setBall();
+
+	public int getPlayerOriginalHeight();
+
+	public int getPlayerOriginalWidth();
+
+	public int getBallOriginalHeight();
+
+	public int getBallOriginalWidth();
 
 }

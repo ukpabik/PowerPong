@@ -6,6 +6,7 @@ import controller.PongController;
 import fonts.FontCreator;
 import gui.AGameDisplay;
 import gui.GameDisplay;
+import powerups.PowerUpManager;
 import view.ADelegatingPongView;
 import view.APongPainter;
 import view.DelegatingPongView;
@@ -16,7 +17,7 @@ public abstract class PongFactory {
 	static GameDisplay game;
 	static DelegatingPongView delegate;
 	static FontCreator fontManager;
-	
+	static PowerUpManager powerManager;
 	
 	
 	public static GameDisplay gameDisplayFactoryMethod() {
@@ -54,5 +55,12 @@ public abstract class PongFactory {
 			fontManager = new FontCreator();
 		}
 		return fontManager;
+	}
+	
+	public static PowerUpManager powerUpManagerFactoryMethod() {
+		if (powerManager == null) {
+			powerManager = new PowerUpManager();
+		}
+		return powerManager;
 	}
 }

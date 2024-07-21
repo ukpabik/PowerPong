@@ -1,9 +1,12 @@
 package gui;
 
+import factory.PongFactory;
 import shapes.Player;
 
-public abstract class Points implements PointSystem {
+public abstract class Points{
+	static GameDisplay game = PongFactory.gameDisplayFactoryMethod();
 	static Player lastScoringPlayer;
+	static int numberOfRounds = 0;
 	
 	public static void addPoints(Player p) {
 		p.setPoints(p.getPoints() + 1);
@@ -26,6 +29,13 @@ public abstract class Points implements PointSystem {
 		lastScoringPlayer = p;
 	}
 	
+	public static int getNumberOfRounds() {
+		return numberOfRounds;
+	}
+	
+	public static void updateNumberOfRounds() {
+		numberOfRounds = game.getPlayerOne().getPoints() + game.getPlayerTwo().getPoints();
+	}
 	
 	
 }

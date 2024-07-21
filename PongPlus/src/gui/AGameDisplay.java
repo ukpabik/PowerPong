@@ -3,6 +3,7 @@ package gui;
 
 import controller.APongController;
 import enums.GameState;
+import powerups.PowerUpManager;
 import shapes.ACircle;
 import shapes.APlayer;
 import shapes.Circle;
@@ -23,7 +24,7 @@ public class AGameDisplay implements GameDisplay{
 	int topScreen, botScreen, leftScreen, rightScreen;
 	
 	
-	//USED FOR SCALING GUI
+	//USED FOR SCALING OBJECTS
 	int playerOriginalWidth, playerOriginalHeight, ballOriginalWidth, ballOriginalHeight;
 	
 
@@ -82,6 +83,23 @@ public class AGameDisplay implements GameDisplay{
 	}
 	
 	@Override
+	public int getPlayerOriginalHeight() {
+		return playerOriginalHeight;
+	}
+	@Override
+	public int getPlayerOriginalWidth() {
+		return playerOriginalWidth;
+	}
+	@Override
+	public int getBallOriginalHeight() {
+		return ballOriginalHeight;
+	}
+	@Override
+	public int getBallOriginalWidth() {
+		return ballOriginalWidth;
+	}
+	
+	@Override
 	public void setUpGame(int backgroundWidth, int backgroundHeight) {
 		//STORING VALUES FOR THE SIDES OF THE SCREEN FOR COLLISION
 		topScreen = 0;
@@ -136,6 +154,13 @@ public class AGameDisplay implements GameDisplay{
 		setBall();
 		APongController.changeMovement();
 		ball.setVisible(false);
+		Points.updateNumberOfRounds();
+		
+		if (Points.getNumberOfRounds() % 3 == 0) {
+			player.setCurrentPowerUp(PowerUpManager.getRandomPowerUp());
+			player.getCurrentPowerUp().action(player);
+		}
+		
 	}
 	
 	@Override
@@ -158,18 +183,6 @@ public class AGameDisplay implements GameDisplay{
 	}
 	
 	
-	//METHOD FOR CHANGING THE GUI SCALE OF THE GAME
-	@Override
-	public void guiScale(double scaleFactor) {
-		playerOne.setWidth((int)(playerOriginalWidth * scaleFactor));
-		playerOne.setHeight((int)(playerOriginalHeight * scaleFactor));
-		playerTwo.setWidth((int)(playerOriginalWidth * scaleFactor));
-		playerTwo.setHeight((int)(playerOriginalHeight * scaleFactor));
-		
-		ball.setWidth((int)(ballOriginalWidth * scaleFactor));
-		ball.setHeight((int)(ballOriginalHeight * scaleFactor));
-	}
-	
 	
 	//SETTING BALL POSITION
 	@Override
@@ -178,6 +191,7 @@ public class AGameDisplay implements GameDisplay{
 		
 		ball.setY(topScreen);	
 	}
+
 	
 	
 }

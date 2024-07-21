@@ -3,10 +3,13 @@ package shapes;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import powerups.PowerClass;
+
 
 public abstract class ABoundedShape extends ALocatable implements BoundedShape{
 	
 	protected int width, height;
+	protected PowerClass currentPowerUp;
 	
 	@Override
 	public int getHeight() {
@@ -16,6 +19,18 @@ public abstract class ABoundedShape extends ALocatable implements BoundedShape{
 	@Override
 	public int getWidth() {
 		return this.width;
+	}
+	
+	@Override
+	public PowerClass getCurrentPowerUp() {
+		return currentPowerUp;
+	}
+	
+	@Override
+	public void setCurrentPowerUp(PowerClass newPowerUp) {
+		PowerClass oldPowerUp = this.currentPowerUp;
+		this.currentPowerUp = newPowerUp;
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "currentPowerUp", oldPowerUp, newPowerUp));
 	}
 
 	@Override

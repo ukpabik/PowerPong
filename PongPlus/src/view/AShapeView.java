@@ -84,9 +84,19 @@ public abstract class AShapeView extends Views implements ShapeView{
 	
 	@Override
 	public void drawRectangle(Graphics2D graphics, Rectangle rect) {
-		graphics.setColor(Color.WHITE); 
-	     
 	    graphics.fillRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+		
+	}
+	
+	@Override
+	public void drawPlayer(Graphics2D graphics, Player p) {
+		if (p.getCurrentPowerUp() != null) {
+			graphics.setColor(Color.BLUE);
+		}
+		else {
+			graphics.setColor(Color.WHITE);
+		}
+		drawRectangle(graphics, p);
 		
 	}
 	
@@ -96,8 +106,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		graphics.setColor(Color.WHITE);
 		graphics.fillOval(circle.getX(), circle.getY(), circle.getWidth(), circle.getHeight());
 		
-	}
 	
+	} 
 	@Override
 	public void drawPoints(Graphics2D graphics, Player p) {
 		graphics.setFont(POINT_FONT);
