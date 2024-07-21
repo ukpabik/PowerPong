@@ -15,7 +15,7 @@ import shapes.BoundedShape;
 public abstract class PowerClass {
 	public static final int 
 		MAX_OBJECT_SIZE = 3,
-		POWER_UP_DELAY = 3000
+		POWER_UP_DELAY = 15000
 		
 	;
 	public static int objectSize = 1;
@@ -78,7 +78,9 @@ public abstract class PowerClass {
 		currentObject = object;
 	}
 	
-	public abstract void resetAction(BoundedShape object);
+	public void resetAction(BoundedShape object) {
+		object.setCurrentPowerUp(null);
+	}
 	
 	
 	

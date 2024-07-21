@@ -13,7 +13,8 @@ public class AGameDisplay implements GameDisplay{
 	
 	public static final int 
 		PLAYER_TWO_OFFSET = 3, 
-		PLAYER_SCREEN_POSITION_DIVISOR = 8
+		PLAYER_SCREEN_POSITION_DIVISOR = 8,
+		ROUNDS_BEFORE_POWERUP = 4
 	;
 			
 			
@@ -155,10 +156,14 @@ public class AGameDisplay implements GameDisplay{
 		APongController.changeMovement();
 		ball.setVisible(false);
 		Points.updateNumberOfRounds();
-		
-		if (Points.getNumberOfRounds() % 3 == 0) {
-			player.setCurrentPowerUp(PowerUpManager.getRandomPowerUp());
+		if (ball.getCurrentPowerUp() != null) {
+			player.setCurrentPowerUp(ball.getCurrentPowerUp());
 			player.getCurrentPowerUp().action(player);
+			ball.setCurrentPowerUp(null);
+		}
+		
+		if (Points.getNumberOfRounds() % ROUNDS_BEFORE_POWERUP == 0) {
+			ball.setCurrentPowerUp(PowerUpManager.getRandomPowerUp());
 		}
 		
 	}

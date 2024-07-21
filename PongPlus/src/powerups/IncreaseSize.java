@@ -19,6 +19,8 @@ public class IncreaseSize extends PowerClass{
 		changeObjectSize(-2);
 		objectScale(objectSize, object);
 		currentObject = null;
+		super.resetAction(object);
+		System.out.println("Reset powerup!");
 	}
 	
 }

@@ -26,7 +26,7 @@ public class APongController implements PongController{
 	static final int 
 		
 		COLLISION_DELAY = 15,
-		MAX_X_BALL_MOVEMENT = 7,
+		MAX_X_BALL_MOVEMENT = 6,
 		MIN_X_BALL_MOVEMENT = 2,
 		MAX_Y_BALL_MOVEMENT = 5,
 		MIN_Y_BALL_MOVEMENT = 2,

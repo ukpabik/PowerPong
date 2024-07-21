@@ -98,7 +98,12 @@ public abstract class AShapeView extends Views implements ShapeView{
 	@Override
 	public void drawBall(Graphics2D graphics, Circle circle) {
 		
-		graphics.setColor(Color.WHITE);
+		if (circle.getCurrentPowerUp() != null) {
+			graphics.setColor(Color.BLUE);
+		}
+		else {
+			graphics.setColor(Color.WHITE);
+		}
 		graphics.fillOval(circle.getX(), circle.getY(), circle.getWidth(), circle.getHeight());
 		
 	
