@@ -18,9 +18,13 @@ public class IncreaseSize extends PowerClass{
 		
 		changeObjectSize(-2);
 		objectScale(objectSize, object);
-		currentObject = null;
+		if (object != display.getPointBall()) {
+			currentObject = null;
+		}
+		else {
+			currentBall = null;
+		}
 		super.resetAction(object);
-		System.out.println("Reset powerup!");
 	}
 	
 }

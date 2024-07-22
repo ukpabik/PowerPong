@@ -159,11 +159,12 @@ public class AGameDisplay implements GameDisplay{
 		if (ball.getCurrentPowerUp() != null) {
 			player.setCurrentPowerUp(ball.getCurrentPowerUp());
 			player.getCurrentPowerUp().action(player);
-			ball.setCurrentPowerUp(null);
+			ball.getCurrentPowerUp().resetAction(ball);;
 		}
 		
 		if (Points.getNumberOfRounds() % ROUNDS_BEFORE_POWERUP == 0) {
 			ball.setCurrentPowerUp(PowerUpManager.getRandomPowerUp());
+			ball.getCurrentPowerUp().action(ball);
 		}
 		
 	}

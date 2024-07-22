@@ -22,7 +22,7 @@ public abstract class PowerClass {
 	
 	Image image;
 	Timer powerUpTimer;
-	BoundedShape currentObject;
+	BoundedShape currentObject, currentBall;
 	boolean powerUpComplete = false;
 	GameDisplay display = PongFactory.gameDisplayFactoryMethod();
 	
@@ -74,8 +74,13 @@ public abstract class PowerClass {
 	
 	// THE POWER UP ACTION
 	public void action(BoundedShape object) {
-		powerUpTimer.restart();
-		currentObject = object;
+		if (object != display.getPointBall()) {
+			powerUpTimer.restart();
+			currentObject = object;
+		}
+		else {
+			currentBall = object;
+		}
 	}
 	
 	public void resetAction(BoundedShape object) {
