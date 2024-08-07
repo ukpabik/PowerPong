@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FontCreator implements FontManager{
 	
@@ -43,6 +45,11 @@ public class FontCreator implements FontManager{
 		return points;
 	}
 	
+//	@Override
+//	public Font getTextFont() {
+//		return new Font("Arial", Font.ITALIC, )
+//	}
+	
 	@Override
 	public Font pixelFontMainMenu() {
 		
@@ -77,19 +84,18 @@ public class FontCreator implements FontManager{
 	
 	@Override
 	public Font infoFont() {
-		return getPixelFont().deriveFont(Font.ITALIC, 24);
+		return getPointsFont().deriveFont(Font.PLAIN, 24);
 	}
 	
 	@Override
 	public String loadFromFile() {
-		
-		
-		try {
-			infoMessage = new String(Files.readString(null));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if (infoMessage == null) {
+	        try {
+	            infoMessage = Files.readString(Paths.get("src/fonts/info_message.txt"));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 		
 		return infoMessage;
 	}

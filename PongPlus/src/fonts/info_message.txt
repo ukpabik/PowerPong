@@ -1,0 +1,11 @@
+Ping-Pong with a twist. 
+The game follows the classic Ping-Pong rules where 
+each player controls a paddle and tries to hit the 
+ball past the opponent's paddle to score points. 
+Every 3 points scored, a power-up appears on the ball. 
+The power-up lasts for about 10-15 seconds. 
+The player who scores the next point while the ball has 
+the power-up gains the power-up for 10-15 seconds. 
+After the power-up is activated, the ball returns to 
+normal until the next power-up appears. 
+Enjoy the game and may the best player win!

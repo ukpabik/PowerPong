@@ -271,9 +271,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	    	g.setFont(INFO_FONT);
 		    fm = g.getFontMetrics(INFO_FONT);
 		    
-		    x = rightX + TEXT_OFFSET;
-	    	y = rightY + TEXT_OFFSET;
-	    	g.drawString(fontManager.loadFromFile(), x, y);
+		    drawWrappedText(g, List.of(fontManager.loadFromFile()), rightX + CONTENT_OFFSET, rightY + TEXT_OFFSET, rightWidth, fm);
 			
 			break;
 	    case BACK:
@@ -297,7 +295,30 @@ public abstract class AShapeView extends Views implements ShapeView{
         contentHeight = height;
     }
 
-	
+	private void drawWrappedText(Graphics2D g, List<String> textLines, int startX, int startY, int maxWidth, FontMetrics fm) {
+	    int x = startX;
+	    int y = startY;
+	    int lineHeight = fm.getHeight();
+	    
+	    for (String text : textLines) {
+	        String[] words = text.split(" ");
+	        StringBuilder line = new StringBuilder();
+	        
+	        for (String word : words) {
+	            String tempLine = line + word + " ";
+	            if (fm.stringWidth(tempLine) > maxWidth - CONTENT_OFFSET) {
+	                g.drawString(line.toString(), x, y);
+	                line = new StringBuilder(word + " ");
+	                y += lineHeight;
+	            } else {
+	                line = new StringBuilder(tempLine);
+	            }
+	        }
+	        
+	        g.drawString(line.toString(), x, y);
+	        y += lineHeight;
+	    }
+	}
 
 
 }
