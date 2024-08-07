@@ -1,12 +1,15 @@
 package fonts;
 
 import java.awt.Font;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 public class FontCreator implements FontManager{
 	
 	
 	Font pixel, points;
+	String infoMessage;
 	
 	@Override
 	public Font getPixelFont() {
@@ -70,6 +73,25 @@ public class FontCreator implements FontManager{
 	@Override
 	public Font numberFont() {
 		return getPointsFont().deriveFont(Font.BOLD, 36);
+	}
+	
+	@Override
+	public Font infoFont() {
+		return getPixelFont().deriveFont(Font.ITALIC, 24);
+	}
+	
+	@Override
+	public String loadFromFile() {
+		
+		
+		try {
+			infoMessage = new String(Files.readString(null));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return infoMessage;
 	}
 	
 }

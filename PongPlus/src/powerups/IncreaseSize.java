@@ -8,9 +8,9 @@ public class IncreaseSize extends PowerClass{
 	public void action(BoundedShape object) {
 		super.action(object);
 		changeObjectSize(2);
-		
 		objectScale(objectSize, object);
-		
+		//SET THE IMAGE AFTER
+//		setImage("");
 		
 	}
 	

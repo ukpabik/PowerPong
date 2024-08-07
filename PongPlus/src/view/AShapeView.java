@@ -55,7 +55,8 @@ public abstract class AShapeView extends Views implements ShapeView{
 		SELECTABLE_FONT = fontManager.pixelFontSelectables(),
 		OPTIONS_FONT = fontManager.pixelFontOptions(),
 		CONTROLS_FONT = fontManager.pixelFontControls(),
-		NUMBERS_FONT = fontManager.numberFont()
+		NUMBERS_FONT = fontManager.numberFont(),
+		INFO_FONT = fontManager.infoFont()
 	;
 	
 	
@@ -63,14 +64,14 @@ public abstract class AShapeView extends Views implements ShapeView{
 	
 	//MAIN MENU SELECTABLES
 	public static final List<String> MAIN_MENU_STRINGS = new ArrayList<>(Arrays.asList("VS PLAYER", "VS CPU", "OPTIONS", "QUIT GAME"));
-	static final String MAIN_TITLE = "PONG";
+	static final String MAIN_TITLE = "POWER PONG";
 	
 	//PAUSE MENU SELECTABLES
 	public static final List<String> PAUSE_MENU_STRINGS = new ArrayList<>(Arrays.asList("RESUME", "OPTIONS", "MAIN MENU"));
 	static final String PAUSE_TITLE = "PAUSED";
 	
 	//OPTIONS MENU SELECTABLES
-	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "BACK"));
+	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "INFO", "BACK"));
 	public static final List<String> CONTROLS_STRINGS = new ArrayList<>(Arrays.asList("A / Left Arrow", "D / Right Arrow", 
 			"W / Up Arrow", "S / Down Arrow", "Spacebar", "Move Left", "Move Right", "Move Up", "Move Down", "Select"));
 	static final String OPTIONS_TITLE = "OPTIONS";
@@ -98,12 +99,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	@Override
 	public void drawBall(Graphics2D graphics, Circle circle) {
 		
-		if (circle.getCurrentPowerUp() != null) {
-			graphics.setColor(Color.BLUE);
-		}
-		else {
-			graphics.setColor(Color.WHITE);
-		}
+		graphics.setColor(Color.WHITE);
 		graphics.fillOval(circle.getX(), circle.getY(), circle.getWidth(), circle.getHeight());
 		
 	
@@ -270,10 +266,19 @@ public abstract class AShapeView extends Views implements ShapeView{
 		    	
 		    }
 	    	break;
-	    case BACK:
-
 	    	
+	    case INFO:
+	    	g.setFont(INFO_FONT);
+		    fm = g.getFontMetrics(INFO_FONT);
+		    
+		    x = rightX + TEXT_OFFSET;
+	    	y = rightY + TEXT_OFFSET;
+	    	g.drawString(fontManager.loadFromFile(), x, y);
+			
+			break;
+	    case BACK:
 	    	break;
+	
 	    }
 	}
 	

@@ -629,6 +629,9 @@ public class APongController implements PongController{
 			}
 			currentSelection = 0;
 			break;
+		case INFO:
+			break;
+		
 			
 		}
 		painter.repaint();

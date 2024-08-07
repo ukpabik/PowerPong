@@ -19,5 +19,9 @@ public interface FontManager {
 	public Font pointFont();
 
 	public Font numberFont();
+
+	public Font infoFont();
+
+	public String loadFromFile();
 	
 }
