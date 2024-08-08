@@ -1,6 +1,6 @@
 # Power Pong
 
-Welcome to **Power Pong**! This is a Java-based Pong game with enhanced features, including power-ups, dynamic UI, and special controls. Designed to run in a Java environment, the game provides a classic Pong experience with modern twists.
+Welcome to **Power Pong**! This is a Java-based Ping-Pong game with enhanced features. Designed to run in a Java environment, the game provides a classic Pong experience with modern twists.
 
 ## Table of Contents
 
@@ -18,17 +18,19 @@ Welcome to **Power Pong**! This is a Java-based Pong game with enhanced features
 
 **Power Pong** incorporates various advanced programming techniques and concepts such as:
 
-- **Graphics Handling**: Uses `Graphics2D` for rendering game elements.
-- **Game State Management**: Manages different game states like Main Menu, Options, and Pause.
-- **Dynamic User Interface**: Adjusts UI elements dynamically based on game state and user interaction.
-- **Power-Ups**: Includes special power-ups that affect gameplay.
+- **Graphics Handling**: Utilizes `Graphics2D` for rendering game elements.
+- **Game State Management**: Efficiently manages game states like Main Menu, Options, and Pause.
+- **Dynamic User Interface**: Adjusts UI elements dynamically based on game state and user interaction using Swing components.
+- **Power-Ups**: Features special power-ups that influence gameplay.
+- **MVC Design Pattern**: Implements the Model-View-Controller (MVC) pattern with change listeners to separate game logic from the user interface.
 
 ## Features
 
-- **Multiple Views**: Includes Main Menu, Options Menu, Pause Menu, and game play views.
-- **Dynamic Menus**: Menus that adjust based on user interactions and game state.
-- **Customizable Graphics**: Support for custom fonts and dynamic text rendering.
-- **Power-Up Mechanics**: Special effects and mechanics integrated into the game.
+- **Multiple Views**: Includes Main Menu, Options Menu, Pause Menu, and gameplay views.
+- **Dynamic Menus**: Menus adapt based on user interactions and game state.
+- **Customizable Graphics**: Supports custom fonts and dynamic text rendering.
+- **Power-Up Mechanics**: Integrates special effects and mechanics that affect gameplay.
+- **MVC Design Pattern**: Utilizes change listeners to synchronize model updates with view changes.
 
 ## Installation
 
@@ -37,7 +39,7 @@ To set up the project, follow these steps:
 1. **Clone the Repository**:
 
     ```sh
-    git clone https://github.com/yourusername/power-pong.git
+    git clone https://github.com/ukpabik/power-pong.git
     cd power-pong
     ```
 
