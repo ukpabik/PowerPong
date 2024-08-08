@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -10,6 +11,8 @@ public abstract class ABoundedShape extends ALocatable implements BoundedShape{
 	
 	protected int width, height;
 	protected PowerClass currentPowerUp;
+	protected Color color;
+	protected boolean changeControls = false;
 	
 	@Override
 	public int getHeight() {
@@ -25,6 +28,33 @@ public abstract class ABoundedShape extends ALocatable implements BoundedShape{
 	public PowerClass getCurrentPowerUp() {
 		return currentPowerUp;
 	}
+	
+	@Override
+	public Color getCurrentColor() {
+		return color;
+	}
+	
+	@Override
+	public boolean getChangeControls() {
+		return changeControls;
+	}
+	
+	
+	@Override
+	public void setChangeControls(boolean newChangeControls) {
+		boolean oldControls = this.changeControls;
+		this.changeControls = newChangeControls;
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "changeControls", oldControls, newChangeControls));
+	}
+	
+	@Override
+	public void setColor(Color newColor) {
+		Color oldColor = this.color;
+		this.color = newColor;
+		propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "color", oldColor, newColor));
+		
+	}
+	
 	
 	@Override
 	public void setCurrentPowerUp(PowerClass newPowerUp) {

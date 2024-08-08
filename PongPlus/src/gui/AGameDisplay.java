@@ -4,6 +4,7 @@ package gui;
 import controller.APongController;
 import enums.GameState;
 import powerups.PowerUpManager;
+import powerups.ReverseControls;
 import shapes.ACircle;
 import shapes.APlayer;
 import shapes.Circle;
@@ -150,15 +151,29 @@ public class AGameDisplay implements GameDisplay{
 	
 	@Override
 	public void scored(Player player) {
-		Points.addPoints(player);
-		Points.setLastScoringPlayer(player);
+		Player currentPlayer = player;
+		Points.addPoints(currentPlayer);
+		Points.setLastScoringPlayer(currentPlayer);
 		setBall();
 		APongController.changeMovement();
 		ball.setVisible(false);
 		Points.updateNumberOfRounds();
+		
 		if (ball.getCurrentPowerUp() != null) {
-			player.setCurrentPowerUp(ball.getCurrentPowerUp());
-			player.getCurrentPowerUp().action(player);
+			
+			// GIVING THE OTHER PLAYER THE DEBUFF INSTEAD OF THE PLAYER WHO SCORED
+			
+			if (ball.getCurrentPowerUp() instanceof ReverseControls) {
+				if (player == this.getPlayerOne()) {
+					currentPlayer = this.getPlayerTwo();
+				}
+				else {
+					currentPlayer = this.getPlayerOne();
+				}
+				currentPlayer.setCurrentPowerUp(ball.getCurrentPowerUp());
+				currentPlayer.getCurrentPowerUp().action(currentPlayer);
+			}
+			
 			ball.getCurrentPowerUp().resetAction(ball);;
 		}
 		

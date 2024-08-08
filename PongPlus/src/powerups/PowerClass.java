@@ -1,5 +1,6 @@
 package powerups;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,15 +16,16 @@ import shapes.BoundedShape;
 public abstract class PowerClass {
 	public static final int 
 		MAX_OBJECT_SIZE = 3,
-		POWER_UP_DELAY = 15000
+		POWER_UP_DELAY = 15000,
+		COLOR_DELAY = 800
 		
 	;
 	public static int objectSize = 1;
 	
 	Image image;
-	Timer powerUpTimer;
+	Timer powerUpTimer, colorChangingTimer;
 	BoundedShape currentObject, currentBall;
-	boolean powerUpComplete = false;
+	boolean powerUpComplete = false, changeColor = false;
 	GameDisplay display = PongFactory.gameDisplayFactoryMethod();
 	
 	
@@ -38,6 +40,19 @@ public abstract class PowerClass {
 				powerUpComplete = true;
 				resetAction(currentObject);
 			}
+			
+		});
+		
+		colorChangingTimer = new Timer(COLOR_DELAY, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (currentObject != null) {
+					changeColor(currentObject);
+				}
+			} 
+			
+			
 			
 		});
 	}
@@ -104,6 +119,19 @@ public abstract class PowerClass {
 		}
 		
 	}
+	
+	//FOR REVERSE CONTROLS POWERUP
+	
+	public void changeColor(BoundedShape object) {
+		if (!changeColor) {
+			object.setColor(Color.PINK);
+		}
+		else {
+			object.setColor(new Color(160, 32, 240));
+		}
+		changeColor = !changeColor;
+	}
+	
 	
 	/**
 	 * The object needs to be on top of the ball, to show the power up the ball currently has.

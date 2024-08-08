@@ -1,6 +1,6 @@
 package shapes;
 
-
+import java.awt.Color;
 
 public abstract class ARectangle extends ABoundedShape implements Rectangle{
 	
@@ -21,6 +21,7 @@ public abstract class ARectangle extends ABoundedShape implements Rectangle{
 		this.height = theHeight;
 		this.x = theX;
 		this.y = theY;
+		this.color = Color.white;
 	}
 	
 

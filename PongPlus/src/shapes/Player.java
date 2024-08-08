@@ -6,4 +6,6 @@ public interface Player extends Rectangle{
 
 	public void setPoints(int points);
 
+	public boolean getChangeControls();
+
 }

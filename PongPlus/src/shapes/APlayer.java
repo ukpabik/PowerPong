@@ -9,6 +9,7 @@ public class APlayer extends ARectangle implements Player{
 	
 	
 	
+	
 	public APlayer() {
 		this.points = 0;
 	}
@@ -17,6 +18,11 @@ public class APlayer extends ARectangle implements Player{
 	@Override
 	public int getPoints() {
 		return points;
+	}
+	
+	@Override
+	public boolean getChangeControls() {
+		return changeControls;
 	}
 	
 	@Override

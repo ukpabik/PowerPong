@@ -17,6 +17,7 @@ import enums.PauseMenuSelections;
 import factory.PongFactory;
 import gui.GameDisplay;
 import gui.Points;
+import shapes.APlayer;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
@@ -48,7 +49,8 @@ public class APongController implements PongController{
 		MOVEMENT_LENGTH = MAX_MOVEMENT_LENGTH
 		
 	;
-
+	
+	
 
 	//MENU SELECTION
 	public static int currentSelection = 0;
@@ -203,19 +205,39 @@ public class APongController implements PongController{
 		
 		//MOVEMENT
 		case KeyEvent.VK_UP: 
-			upPress = true;
+			if (!game.getPlayerOne().getChangeControls()) {
+				upPress = true;
+			}
+			else {
+				downPress = true;
+			}
 			changeSelection(1);
 			break;
 		
 		case KeyEvent.VK_DOWN: 
-			downPress = true;
+			if (!game.getPlayerOne().getChangeControls()) {
+				downPress = true;
+			}
+			else {
+				upPress = true;
+			}
 			changeSelection(-1);
 			break;
 		case KeyEvent.VK_W:
-			wPress = true;
+			if (!game.getPlayerTwo().getChangeControls()) {
+				wPress = true;
+			}
+			else {
+				sPress = true;
+			}
 			break;
 		case KeyEvent.VK_S:
-			sPress = true;
+			if (!game.getPlayerTwo().getChangeControls()) {
+				sPress = true;
+			}
+			else {
+				wPress = true;
+			}
 			break;
 			
 		//ACTIONS
@@ -243,17 +265,37 @@ public class APongController implements PongController{
 		
 		switch(keyCode) {
 		case KeyEvent.VK_UP: 
-			upPress = false;
+			if (!game.getPlayerOne().getChangeControls()) {
+				upPress = false;
+			}
+			else {
+				downPress = false;
+			}
 			break;
 		
 		case KeyEvent.VK_DOWN: 
-			downPress = false;
+			if (!game.getPlayerOne().getChangeControls()) {
+				downPress = false;
+			}
+			else {
+				upPress = false;
+			}
 			break;
 		case KeyEvent.VK_W:
-			wPress = false;
+			if (!game.getPlayerTwo().getChangeControls()) {
+				wPress = false;
+			}
+			else {
+				sPress = false;
+			}
 			break;
 		case KeyEvent.VK_S:
-			sPress = false;
+			if (!game.getPlayerTwo().getChangeControls()) {
+				sPress = false;
+			}
+			else {
+				wPress = false;
+			}
 			break;
 			
 		}
@@ -691,7 +733,6 @@ public class APongController implements PongController{
 		gameStarted = false;
 		game.getPointBall().setVisible(false);
 	}
-	
 	
 
 }

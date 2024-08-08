@@ -91,7 +91,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	
 	@Override
 	public void drawPlayer(Graphics2D graphics, Player p) {
-		graphics.setColor(Color.WHITE);
+		graphics.setColor(p.getCurrentColor());
 		drawRectangle(graphics, p);
 		
 	}
@@ -99,7 +99,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 	@Override
 	public void drawBall(Graphics2D graphics, Circle circle) {
 		
-		graphics.setColor(Color.WHITE);
+		graphics.setColor(circle.getCurrentColor());
 		graphics.fillOval(circle.getX(), circle.getY(), circle.getWidth(), circle.getHeight());
 		
 	

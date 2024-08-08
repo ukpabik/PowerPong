@@ -1,5 +1,7 @@
 package shapes;
 
+import java.awt.Color;
+
 import powerups.PowerClass;
 
 public interface BoundedShape extends Locatable, ScaleAndMove{
@@ -9,4 +11,8 @@ public interface BoundedShape extends Locatable, ScaleAndMove{
 	public void setWidth(int newWidth);
 	public void setCurrentPowerUp(PowerClass newPowerUp);
 	public PowerClass getCurrentPowerUp();
-}
+	public void setColor(Color newColor);
+	public Color getCurrentColor();
+	public void setChangeControls(boolean newChangeControls);
+	public boolean getChangeControls();
+} 

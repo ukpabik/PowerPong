@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 
 public class ACircle extends ABoundedShape implements Circle{
 	
@@ -20,6 +21,7 @@ public class ACircle extends ABoundedShape implements Circle{
 		this.height = theRadius;
 		this.x = theX;
 		this.y = theY;
+		this.color = Color.white;
 	}
 	
 	
