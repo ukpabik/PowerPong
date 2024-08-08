@@ -12,6 +12,8 @@ import controller.APongController;
 import enums.OptionsMenuSelections;
 import factory.PongFactory;
 import fonts.FontManager;
+import powerups.PowerUpEnum;
+import powerups.ReverseControls;
 import shapes.Circle;
 import shapes.Player;
 import shapes.Rectangle;
@@ -33,7 +35,9 @@ public abstract class AShapeView extends Views implements ShapeView{
 		TEXT_OFFSET = 50,
 		GUI_RECT_HEIGHT = 50,
 		NUMBER_PLACEMENT = 100,
-		IMAGE_OFFSET = 50
+		IMAGE_OFFSET = 50,
+		LINE_HEIGHT = 2,
+		POWERUP_MENU_OFFSET = 100
 	;
 	
 	//FOR CUSTOM FONTS
@@ -71,11 +75,15 @@ public abstract class AShapeView extends Views implements ShapeView{
 	static final String PAUSE_TITLE = "PAUSED";
 	
 	//OPTIONS MENU SELECTABLES
-	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("CONTROLS", "INFO", "BACK"));
+	public static final List<String> OPTIONS_MENU_STRINGS = new ArrayList<>(Arrays.asList("HOW TO PLAY", "CONTROLS", "POWERUPS", "BACK"));
 	public static final List<String> CONTROLS_STRINGS = new ArrayList<>(Arrays.asList("A / Left Arrow", "D / Right Arrow", 
 			"W / Up Arrow", "S / Down Arrow", "Spacebar", "Move Left", "Move Right", "Move Up", "Move Down", "Select"));
 	static final String OPTIONS_TITLE = "OPTIONS";
 	static final String GUI_TITLE = "GUI SCALE";
+
+	
+	public static final List<PowerUpEnum> POWERUP_LIST = new ArrayList<PowerUpEnum>(Arrays.asList(PowerUpEnum.values()));
+	static final String POWERUP_TITLE = "POWERUPS";
 	
 	
 	//FOR SETTING PLACEMENT OF MENU ITEMS
@@ -222,7 +230,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 		    	firstIteration = false;
 	    	}
 	    	else {
-	    		y = y + TEXT_SPACE;
+	    		y += TEXT_SPACE;
 	    	    g.drawString(s, x, y);
 	    	}
 	    	if (s == OPTIONS_MENU_STRINGS.get(APongController.currentSelection)) {
@@ -257,7 +265,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 			    		y = rightY + TEXT_OFFSET;
 			    	}
 		    		else {
-		    			y = y + TEXT_SPACE;
+		    			y += TEXT_SPACE;
 		    		}
 		    	    g.drawString(s, x, y);
 		    	}
@@ -274,6 +282,44 @@ public abstract class AShapeView extends Views implements ShapeView{
 		    drawWrappedText(g, List.of(fontManager.loadFromFile()), rightX + CONTENT_OFFSET, rightY + TEXT_OFFSET, rightWidth, fm);
 			
 			break;
+	    case POWERUPS:
+	    	g.setFont(OPTIONS_FONT);
+		    fm = g.getFontMetrics(OPTIONS_FONT);
+		    
+		    
+		    //TITLE
+		    x = rightX + (rightWidth / 2) - (fm.stringWidth(POWERUP_TITLE) / 2);
+	    	y = rightY + POWERUP_MENU_OFFSET;
+	    	g.drawString(POWERUP_TITLE, x, y);
+	    	
+	    	
+	    	g.setFont(INFO_FONT);
+	    	
+	    	//LIST OF POWERUPS
+	    	x = rightX + CONTENT_OFFSET;
+	    	y += POWERUP_MENU_OFFSET;
+	    	
+	    	Font origFont = g.getFont();
+	    	Font bigFont = g.getFont().deriveFont((float) (origFont.getSize() * 1.5));
+	    	
+	    	for (PowerUpEnum s : POWERUP_LIST) {
+	    		String name = s.toString() + ": ";
+	    		switch(s) {
+	    		case INCREASE_SIZE:
+	    			drawIncreaseSizeText(g, name, s.getDescription(), x, y, bigFont, origFont);
+	    			break;
+	    		case REVERSE_CONTROLS:
+	    			g.setColor(ReverseControls.reverseColor);
+	    			int wordWidth = g.getFontMetrics().stringWidth(name);
+	    			g.drawString(name, x, y);
+	    			g.setColor(Color.white);
+	    			g.drawString(s.getDescription(), x + wordWidth, y);
+	    			break;
+	    		}
+	    		
+	    		y += TEXT_SPACE;
+	    	}
+	    	break;
 	    case BACK:
 	    	break;
 	
@@ -295,10 +341,11 @@ public abstract class AShapeView extends Views implements ShapeView{
         contentHeight = height;
     }
 
+	//HELPER METHOD FOR PRINTING LISTS
 	private void drawWrappedText(Graphics2D g, List<String> textLines, int startX, int startY, int maxWidth, FontMetrics fm) {
 	    int x = startX;
 	    int y = startY;
-	    int lineHeight = fm.getHeight();
+	    int lineHeight = fm.getHeight() * LINE_HEIGHT;
 	    
 	    for (String text : textLines) {
 	        String[] words = text.split(" ");
@@ -318,6 +365,24 @@ public abstract class AShapeView extends Views implements ShapeView{
 	        g.drawString(line.toString(), x, y);
 	        y += lineHeight;
 	    }
+	}
+	
+	//HELPER METHOD FOR PRINTING POWER UP TEXT FOR INCREASE SIZE 
+	private void drawIncreaseSizeText(Graphics2D g, String firstWord, String description, int x, int y, Font largeFont, Font smallFont) {
+	    // Set the font for the first word (larger size)
+	    g.setFont(largeFont);
+
+	    // Draw the first word
+	    g.drawString(firstWord, x, y);
+
+	    // Measure the width of the first word
+	    int firstWordWidth = g.getFontMetrics().stringWidth(firstWord);
+
+	    // Set the font for the description (smaller size)
+	    g.setFont(smallFont);
+
+	    // Draw the description next to the first word
+	    g.drawString(description, x + firstWordWidth, y);
 	}
 
 

@@ -1,7 +1,8 @@
 package enums;
 
 public enum OptionsMenuSelections {
-	CONTROLS,
 	INFO,
+	CONTROLS,
+	POWERUPS,
 	BACK
 }

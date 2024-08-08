@@ -7,10 +7,13 @@ import shapes.BoundedShape;
 
 
 public class ReverseControls extends PowerClass{
+	
+	public static Color reverseColor = new Color(160, 32, 240);
+	
 	@Override
 	public void action(BoundedShape object) {
 		super.action(object);
-		object.setColor(new Color(160, 32, 240));
+		object.setColor(reverseColor);
 		if (object != display.getPointBall()) {
 			colorChangingTimer.start();
 			object.setChangeControls(true);

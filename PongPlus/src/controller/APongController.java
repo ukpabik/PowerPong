@@ -17,7 +17,6 @@ import enums.PauseMenuSelections;
 import factory.PongFactory;
 import gui.GameDisplay;
 import gui.Points;
-import shapes.APlayer;
 import shapes.BoundedShape;
 import shapes.Player;
 import view.APongPainter;
@@ -672,6 +671,8 @@ public class APongController implements PongController{
 			currentSelection = 0;
 			break;
 		case INFO:
+			break;
+		case POWERUPS:
 			break;
 		
 			

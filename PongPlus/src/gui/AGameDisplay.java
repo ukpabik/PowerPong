@@ -190,6 +190,8 @@ public class AGameDisplay implements GameDisplay{
 		
 	}
 	
+	//FOR RESIZING THE SCREEN
+	
 	@Override
 	public void resizeGame(int backgroundWidth, int backgroundHeight) {
 		botScreen = backgroundHeight;
