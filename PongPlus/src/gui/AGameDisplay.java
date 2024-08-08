@@ -3,6 +3,7 @@ package gui;
 
 import controller.APongController;
 import enums.GameState;
+import powerups.IncreaseSize;
 import powerups.PowerUpManager;
 import powerups.ReverseControls;
 import shapes.ACircle;
@@ -172,6 +173,11 @@ public class AGameDisplay implements GameDisplay{
 				}
 				currentPlayer.setCurrentPowerUp(ball.getCurrentPowerUp());
 				currentPlayer.getCurrentPowerUp().action(currentPlayer);
+			}
+			else if (ball.getCurrentPowerUp() instanceof IncreaseSize){
+				currentPlayer.setCurrentPowerUp(ball.getCurrentPowerUp());
+				currentPlayer.getCurrentPowerUp().action(currentPlayer);
+				currentPlayer.setY((botScreen / 2) - currentPlayer.getHeight());
 			}
 			
 			ball.getCurrentPowerUp().resetAction(ball);;

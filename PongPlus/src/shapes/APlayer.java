@@ -20,10 +20,6 @@ public class APlayer extends ARectangle implements Player{
 		return points;
 	}
 	
-	@Override
-	public boolean getChangeControls() {
-		return changeControls;
-	}
 	
 	@Override
 	public void setPoints(int newPoints) {

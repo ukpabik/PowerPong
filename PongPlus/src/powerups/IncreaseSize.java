@@ -9,6 +9,7 @@ public class IncreaseSize extends PowerClass{
 		super.action(object);
 		changeObjectSize(2);
 		objectScale(objectSize, object);
+		System.out.println("CHANGED SIZE");
 		
 	}
 	
