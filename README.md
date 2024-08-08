@@ -1,6 +1,6 @@
 # Power Pong
 
-Welcome to **Power Pong**! This is a Java-based Ping-Pong game with enhanced features. Designed to run in a Java environment, the game provides a classic Pong experience with modern twists.
+Welcome to **Power Pong**! This is a Java-based Ping-Pong game with enhanced features. Designed to run in a Java environment, the game provides a classic Pong experience with modern twists. This project is entirely my work, and I welcome any feedback or suggestions for improvement.
 
 ## Table of Contents
 
