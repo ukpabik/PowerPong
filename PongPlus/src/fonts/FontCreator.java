@@ -67,8 +67,8 @@ public class FontCreator implements FontManager{
 	}
 	
 	@Override
-	public Font pixelFontControls() {
-		return getPixelFont().deriveFont(Font.BOLD, 24);
+	public Font controlsFont() {
+		return getPointsFont().deriveFont(Font.BOLD, 24);
 	}
 	
 	@Override

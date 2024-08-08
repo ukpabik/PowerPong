@@ -12,7 +12,7 @@ public interface FontManager {
 
 	public Font pixelFontOptions();
 
-	public Font pixelFontControls();
+	public Font controlsFont();
 
 	public Font getPointsFont();
 

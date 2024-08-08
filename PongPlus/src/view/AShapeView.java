@@ -58,7 +58,7 @@ public abstract class AShapeView extends Views implements ShapeView{
 		MAIN_MENU_FONT = fontManager.pixelFontMainMenu(),
 		SELECTABLE_FONT = fontManager.pixelFontSelectables(),
 		OPTIONS_FONT = fontManager.pixelFontOptions(),
-		CONTROLS_FONT = fontManager.pixelFontControls(),
+		CONTROLS_FONT = fontManager.controlsFont(),
 		NUMBERS_FONT = fontManager.numberFont(),
 		INFO_FONT = fontManager.infoFont()
 	;
