@@ -67,27 +67,23 @@ java Main
 ```
 Ensure your classpath is correctly set to include all necessary classes and dependencies.
 
-Controls
-Player Movement: Use the arrow keys to control the paddles.
-Special Actions: Use the spacebar for additional actions.
-Dependencies
-Java Development Kit (JDK): Version 8 or higher is required.
-No external libraries are needed; all functionality is built using Java standard libraries.
-Contributing
-Contributions are welcome! If you'd like to contribute:
+## Controls
 
-Fork the Repository.
-Create a New Branch for your feature or fix.
-Commit Your Changes.
-Push Your Branch to your fork.
-Open a Pull Request with a description of your changes.
-For major changes, please open an issue first to discuss what you would like to change.
+- **Player Movement**: Use the arrow keys to control the paddles.
+- **Special Actions**: Use the spacebar for additional actions.
 
-License
+## Dependencies
+
+- **Java Development Kit (JDK)**: Version 8 or higher is required.
+- **No external libraries** are needed; all functionality is built using Java standard libraries.
+
+## License
+
 This project is under exclusive copyright. No specific license is used. Please refer to the project's licensing information for details.
 
-Contact
-For questions or feedback, contact the project maintainer:
+## Contact
 
-Email: your.email@example.com
-GitHub: yourusername
+For questions or feedback, contact me:
+
+- **Email**: kuolingou@gmail.com
+- **GitHub**: [ukpabik](https://github.com/ukpabik)
