@@ -16,9 +16,6 @@ public class ReverseControls extends PowerClass{
 			object.setChangeControls(true);
 		}
 		
-		//SET THE IMAGE AFTER
-//		setImage("");
-		
 	}
 	
 	public void resetAction(BoundedShape object) {

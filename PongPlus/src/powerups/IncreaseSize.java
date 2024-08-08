@@ -9,8 +9,6 @@ public class IncreaseSize extends PowerClass{
 		super.action(object);
 		changeObjectSize(2);
 		objectScale(objectSize, object);
-		//SET THE IMAGE AFTER
-//		setImage("");
 		
 	}
 	

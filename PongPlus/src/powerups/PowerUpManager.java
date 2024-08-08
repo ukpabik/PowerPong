@@ -16,16 +16,16 @@ public class PowerUpManager implements PowerManager{
 	}
 	
 	public static PowerClass getRandomPowerUp() {
-//		int randomNumber = rand.nextInt(0, (PowerUpEnum.values().length));
-//		
-//		switch(PowerUpEnum.values()[randomNumber]) {
-//		case INCREASE_SIZE:
-//			return increaseSize;
-//		
-//		case REVERSE_CONTROLS:
-//			return reverseControls;
-//		}
-		return reverseControls;
+		int randomNumber = rand.nextInt(0, (PowerUpEnum.values().length));
+		
+		switch(PowerUpEnum.values()[randomNumber]) {
+		case INCREASE_SIZE:
+			return increaseSize;
+		
+		case REVERSE_CONTROLS:
+			return reverseControls;
+		}
+		return null;
 		
 	}
 }
