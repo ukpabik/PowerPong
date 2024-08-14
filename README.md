@@ -10,7 +10,6 @@ Welcome to **Power Pong**! This is a Java-based Ping-Pong game with enhanced fea
 - [Running the Game](#running-the-game)
 - [Controls](#controls)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
