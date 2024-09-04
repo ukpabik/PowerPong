@@ -86,5 +86,5 @@ This project is under exclusive copyright. No specific license is used. Please r
 
 For questions or feedback, contact me:
 
-- **Email**: kuolingou1@gmail.com
+- **Email**: kelechiukp@gmail.com
 - **GitHub**: [ukpabik](https://github.com/ukpabik)
